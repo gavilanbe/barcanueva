@@ -249,7 +249,10 @@ function transitionTo(kind, fn, o = {}) {
 
 // ───────────── Tiempo ─────────────
 export function advance(mins) {
+  const before = S.min;
   S.min += mins;
+  // campanas de la Seu a mediodía y al ángelus (se oyen en la ciudad y alrededores)
+  if (mins < 30 && G.map && ['ciudad', 'montjuic', 'pradera', 'costa'].includes(G.map.id) || (G.map && !G.map.outdoor && BUILDINGS[G.map.id.slice(4)]?.map === 'ciudad' && mins < 30)) for (const h of [720, 1080]) if (before < h && S.min >= h) { sfx('bell'); ui.toast(h === 720 ? 'Las campanas de la Seu dan las doce' : 'Toque de ángelus', '#e8d8b0', 'reloj'); }
   while (S.min >= 1440) { S.min -= 1440; newDay(); }
   const ph = phase().id;
   if (ph !== G.phaseId) { G.phaseId = ph; if (G.map) { rescheduleNPCs(); refreshAnimals(); updateMusic(); } G.hooks.phase?.(ph); }
@@ -569,6 +572,7 @@ const TINT = { manana: ['#ffd8b0', 0.16], dia: null, tarde: ['#ffc070', 0.2], cr
 const dark = canvas(W, H); // capa de oscuridad nocturna
 // Vigila la mochila y la vida: cualquier objeto nuevo salta sobre el jugador y los cambios de vida se ven
 let invSnap = null, hpSnap = null; const popQ = [];
+export function resyncWatch() { invSnap = null; popQ.length = 0; }
 function watchPlayer() {
   const p = G.player; if (!p || !S.player) return;
   if (!invSnap) { invSnap = { ...S.inv }; hpSnap = S.player.hp; return; }

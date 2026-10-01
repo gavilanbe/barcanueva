@@ -9,7 +9,7 @@ import { drawText, textWidth, wrap, drawOutlined } from './font.js';
 import { input } from './input.js';
 import { charSprite, RACE_NAME } from './chars.js';
 import { bust, figure } from './portraits.js';
-import { animalSprite } from './sprites.js';
+import { animalSprite, animalBattle } from './sprites.js';
 import { G, addXP, playerLook, mapLayers } from './game.js';
 import { MAPS, BUILDINGS } from './world.js';
 import { learn } from './talk.js';
@@ -359,12 +359,17 @@ async function ecology() {
       const y0 = page(ctx, this.t, 'Ecosistema', 'ecosistema');
       if (e) { const ind = [['Pasto', e.veg.pradera || 0, '#62ae4e'], ['Posidonia', e.posidonia, '#2a8a6a'], ['Polinización', e.pollination ?? 1, '#f0b030']]; ind.forEach(([n, v, c], i) => { const x = 12 + i * 76; drawText(ctx, n, x, y0 + 12, UIT.ink); bar(ctx, x, y0 + 21, 64, 3, v, v, [c, c, '#ffffff']); }); }
       const nat = stat('nat');
+      // ficha de la especie seleccionada, con su figura grande
+      const ks = list[this.sel]; const ss = SP[ks];
+      ctx.fillStyle = '#e8d4a8'; ctx.fillRect(160, y0 + 30, 72, 88); ctx.fillStyle = '#d8c094'; ctx.fillRect(160, y0 + 100, 72, 18);
+      if (!ss.fish && typeof animalBattle === 'function') { const big = animalBattle(ks, Math.floor(fr / 24) % 2, false, 'm', 'idle'); const sc = big.width > 48 ? 1 : 1; ctx.drawImage(big, Math.round(196 - big.width / 2), y0 + 112 - big.height); }
+      else { const ic = itemIco(ss.item); if (ic) ctx.drawImage(ic, 188, y0 + 90); }
       list.slice(this.top, this.top + 6).forEach((k, i) => {
         const j = this.top + i; const y = y0 + 30 + i * 15; const s = SP[k]; const t = total(k);
-        if (j === this.sel) { ctx.fillStyle = UIT.sel; ctx.fillRect(6, y - 2, 228, 14); }
+        if (j === this.sel) { ctx.fillStyle = UIT.sel; ctx.fillRect(6, y - 2, 150, 14); }
         if (!s.fish) ctx.drawImage(animalSprite(k, 'right', Math.floor(fr / 20) % 2, false, 'f', 'idle'), 8, y - 4); else { const ic = itemIco(s.item); if (ic) ctx.drawImage(ic, 8, y - 4); }
-        text(ctx, s.name, 28, y); const est = nat >= 6 ? `${t}` : nat >= 3 ? (t === 0 ? 'ninguno' : t < 5 ? 'escasos' : t < 20 ? 'bastantes' : 'muchos') : '?';
-        text(ctx, est, 226 - textWidth(est), y, t === 0 ? '#9a2a2a' : UIT.ink);
+        text(ctx, s.name.length > 16 ? s.name.slice(0, 15) + '.' : s.name, 28, y); const est = nat >= 6 ? `${t}` : nat >= 3 ? (t === 0 ? 'ninguno' : t < 5 ? 'escasos' : t < 20 ? 'bastantes' : 'muchos') : '?';
+        text(ctx, est, 152 - textWidth(est), y, t === 0 ? '#9a2a2a' : UIT.ink);
       });
       const k = list[this.sel]; const t = total(k); const where = ECO_MAPS.filter((m) => count(m, k) > 0).map(mapName).join(', ');
       panel(ctx, 6, 124, 228, 32, 'dark'); wrap(t === 0 ? 'Desaparecido de la comarca.' : `Visto en: ${where}.`, 214).slice(0, 3).forEach((l, i) => drawText(ctx, l, 12, 129 + i * 9, '#e8d8f0', INK));

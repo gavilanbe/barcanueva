@@ -10,7 +10,7 @@ import { drawText, textWidth, drawOutlined, drawBig, bigWidth, bigText } from '.
 import { figure, backBust } from './portraits.js';
 import { animalSprite } from './sprites.js';
 import * as SPR from './sprites.js';
-import { G, addXP, playerLook, npcLook, updateMusic, weatherToday } from './game.js';
+import { G, addXP, playerLook, npcLook, updateMusic, weatherToday, resyncWatch } from './game.js';
 import { sfx, music, jingle } from './audio.js';
 import { input } from './input.js';
 import { fx, tween, wait, ease, prog, shake, freeze, flash, spawn, burst, popText, transition, trans, ringPx, sparkle } from './fx.js';
@@ -157,9 +157,9 @@ export async function fight(enemy) {
   const out = await finish(enemy, result);
   b.menu = false;
   if (result === 'lose') {
-    await transition('sleep', async () => { await ui.say('Todo se vuelve negro...'); B.active = null; G.mode = 'world'; G.hooks.knockoutPrep?.(enemy); updateMusic(); }, { dur: 30, durIn: 34 });
+    await transition('sleep', async () => { await ui.say('Todo se vuelve negro...'); B.active = null; G.mode = 'world'; G.hooks.knockoutPrep?.(enemy); resyncWatch(); updateMusic(); }, { dur: 30, durIn: 34 });
     await G.hooks.knockoutAfter?.(enemy);
-  } else await transition('fade', () => { B.active = null; G.mode = 'world'; updateMusic(); }, { dur: 18 });
+  } else await transition('fade', () => { B.active = null; G.mode = 'world'; resyncWatch(); updateMusic(); }, { dur: 18 });
   return out;
 }
 function introLine(e) {

@@ -5,7 +5,7 @@ import { drawText, wrap, textWidth, glyphs, drawGlyphs, drawOutlined, drawBig, b
 import { input } from './input.js';
 import { bust } from './portraits.js';
 import { sfx, voice } from './audio.js';
-import { ease, prog, fx, shake, burst, sparkle, ringPx, spawn, drawParts } from './fx.js';
+import { ease, prog, fx, shake, burst, sparkle, ringPx, spawn, drawParts, trans } from './fx.js';
 import { INK, alpha } from './pal.js';
 import { bayer, ellipse } from './px.js';
 
@@ -350,8 +350,9 @@ export const ui = {
     else if (this.dlg.open > 0) { this.dlg.hold = (this.dlg.hold || 0) + 1; if (this.dlg.hold > 2) this.dlg.open = Math.max(0, this.dlg.open - 0.16); }
     if (anySay) this.dlg.hold = 0;
     for (const c of this.closing) c.ct++; this.closing = this.closing.filter((c) => c.ct < 9);
-    for (const t of this.toasts) t.t++; this.toasts = this.toasts.filter((t) => t.t < t.life);
-    for (const b of this.banners) b.t++; this.banners = this.banners.filter((b) => b.t < b.life);
+    const covered = trans.on && trans.phase !== 'in'; // a oscuras, carteles y avisos esperan
+    if (!covered) { for (const t of this.toasts) t.t++; this.toasts = this.toasts.filter((t) => t.t < t.life); }
+    if (!covered) { for (const b of this.banners) b.t++; this.banners = this.banners.filter((b) => b.t < b.life); }
     for (const a of this.announces) a.t++; this.announces = this.announces.filter((a) => a.t < a.life);
   },
   draw(ctx, fr) {
@@ -362,7 +363,8 @@ export const ui = {
     }
     if (!drewBox && this.dlg.open > 0 && this.dlg.closingSay) this.drawBox(ctx, fr, this.dlg.closingSay);
     for (const c of this.closing) c.draw(ctx, fr);
-    this.drawToasts(ctx, fr); this.drawBanners(ctx, fr); this.drawAnnounces(ctx, fr);
+    if (!(trans.on && trans.phase !== 'in')) { this.drawToasts(ctx, fr); this.drawBanners(ctx, fr); }
+    this.drawAnnounces(ctx, fr);
   },
   drawBox(ctx, fr, s) {
     const o = this.dlg.open; const e = this.stack.includes(s) ? ease.outBack(o) : ease.inQuad(o);
