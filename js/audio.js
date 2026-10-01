@@ -161,17 +161,46 @@ const JINGLES = {
   derrota: { tempo: 70, notes: [[3, 2], [2, 2], [0, 2], [-2, 2], [-5, 6]], bass: [-21, -22, -24, -26, -29] },
 };
 let cur = null, timer = null, nextT = 0, stepN = 0;
+// Pistas grabadas (audio/<nombre>.mp3 con puntos de bucle en audio/musica.json). Si no existen, suena el secuenciador.
+let manifest = null; fetch('audio/musica.json').then((r) => (r.ok ? r.json() : null)).then((j) => { manifest = j || {}; }).catch(() => { manifest = {}; });
+const buffers = new Map(); let fileSrc = null, fileGain = null;
+function loadTrack(name) {
+  if (buffers.has(name)) return buffers.get(name);
+  const pr = fetch(`audio/${name}.mp3`).then((r) => (r.ok ? r.arrayBuffer() : null)).then((ab) => (ab && ensure() ? new Promise((res) => ac.decodeAudioData(ab, res, () => res(null))) : null)).catch(() => null);
+  const entry = { pr, buf: undefined }; pr.then((b) => { entry.buf = b || null; }); buffers.set(name, entry); return entry;
+}
+function stopFile(fade = 0.6) {
+  if (!fileSrc || !ac) return; const g = fileGain, s = fileSrc; const t = ac.currentTime;
+  try { g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value, t); g.gain.linearRampToValueAtTime(0.0001, t + fade); s.stop(t + fade + 0.05); } catch (e) { }
+  fileSrc = null; fileGain = null;
+}
+function playFile(name, buf) {
+  stopFile(0.5); clearTimeout(timer); timer = null;
+  const s = ac.createBufferSource(); s.buffer = buf; const m = manifest?.[name] || {};
+  if (m.loop !== false && name !== 'victoria') { s.loop = true; if (m.loopEnd) { s.loopStart = m.loopStart || 0; s.loopEnd = m.loopEnd; } }
+  const g = ac.createGain(); g.gain.setValueAtTime(0.0001, ac.currentTime); g.gain.linearRampToValueAtTime(1, ac.currentTime + 0.5);
+  s.connect(g); g.connect(musicGain); s.start(ac.currentTime + 0.02);
+  fileSrc = s; fileGain = g;
+}
 export function music(name) {
   if (cur === name) return; cur = name; clearTimeout(timer); timer = null;
-  if (!name || !SONGS[name]) return;
+  if (!name) { stopFile(); return; }
   if (!ensure()) { cur = null; return; }
-  nextT = ac.currentTime + 0.12; stepN = 0; schedule();
+  const e = loadTrack(name);
+  if (e.buf) { playFile(name, e.buf); return; }
+  stopFile();
+  // mientras carga (o si no hay archivo), el secuenciador
+  if (SONGS[name] || SONGS[FALLBACK[name]]) { nextT = ac.currentTime + 0.12; stepN = 0; schedule(); }
+  if (e.buf === undefined) e.pr.then((b) => { if (b && cur === name) playFile(name, b); });
 }
 export function currentMusic() { return cur; }
+const FALLBACK = { titulo: 'ciudad', victoria: null };
+export function preloadMusic(names) { if (!ensure()) return; for (const n of names) loadTrack(n); }
 function schedule() {
-  const s = SONGS[cur]; if (!s) return;
+  const s = SONGS[cur] || SONGS[FALLBACK[cur]]; if (!s) return;
   const dt = 60 / s.tempo / 4; // semicorchea
   if (ac.state === 'running' && !audio.muted) {
+    if (nextT < ac.currentTime - 0.25) nextT = ac.currentTime + 0.05; // si el hilo estuvo bloqueado, no recuperar notas atrasadas
     while (nextT < ac.currentTime + 0.15) { playStep(s, stepN, nextT, dt); nextT += dt; stepN++; }
   } else nextT = ac.currentTime + 0.1;
   timer = setTimeout(schedule, 30);
@@ -203,7 +232,15 @@ function playStep(s, n, t, dt) {
 }
 // Fanfarria corta (no repite): pausa la música y la recupera después.
 export function jingle(name) {
-  if (!ensure() || audio.muted) return; const j = JINGLES[name]; if (!j) return;
+  if (!ensure() || audio.muted) return;
+  const fe = loadTrack(name);
+  if (fe.buf) { // fanfarria grabada: baja la música un momento
+    const prev = cur; const s = ac.createBufferSource(); s.buffer = fe.buf; const g = ac.createGain(); g.gain.value = 1; s.connect(g); g.connect(musicGain); s.start();
+    if (fileGain) { const t = ac.currentTime; fileGain.gain.setValueAtTime(fileGain.gain.value, t); fileGain.gain.linearRampToValueAtTime(0.15, t + 0.2); fileGain.gain.setValueAtTime(0.15, t + fe.buf.duration); fileGain.gain.linearRampToValueAtTime(1, t + fe.buf.duration + 0.8); }
+    else { cur = null; clearTimeout(timer); setTimeout(() => { if (cur === null && prev) music(prev); }, fe.buf.duration * 1000 + 300); }
+    return fe.buf.duration * 1000;
+  }
+  const j = JINGLES[name]; if (!j) return;
   const prev = cur; cur = null; clearTimeout(timer);
   const beat = 60 / j.tempo / 2; let t = ac.currentTime + 0.05;
   j.notes.forEach(([n, len], i) => { tone(hz(n + 12), beat * len * 0.95, 'p25', 0.1, 0, musicGain, 0, { at: t, vib: len > 2, sustain: 0.6, echo: 1 }); tone(hz(n + 5), beat * len * 0.9, 'p12', 0.05, 0, musicGain, 0, { at: t }); if (j.bass[i] !== undefined) tone(hz(j.bass[i]), beat * len * 0.9, 'triangle', 0.15, 0, musicGain, 0, { at: t }); t += beat * len; });

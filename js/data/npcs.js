@@ -398,7 +398,7 @@ export const NPCS = [
     traits: ['sabia', 'tolerante', 'pagana', 'misteriosa'], likes: ['muerdago', 'belladona', 'beleno', 'miel', 'mandragora'], dislikes: ['agua_bendita', 'habito', 'cera'],
     hello: ['Te he oído venir desde el arroyo. Pisas como un jabalí con zapatos.', 'Siéntate. El bosque te acepta; yo, todavía estoy pensándolo.', 'Hijo del bosque, aunque hayas nacido en la ciudad. Ven, te enseñaré lo que queda.'],
     bio: 'Vive en la sierra desde antes de que el obispo naciera. Cura a payeses, parteras y leprosos. Le reza a la tierra, a la luna y a las fuentes, y no pide permiso a nadie.',
-    rumor: ['El drac de Olorda duerme en una cueva de la sierra. Si falta caza, baja a por ganado.', 'Las dones d’aigua viven en el manantial del Lobregat. Si una se casa contigo, nunca le digas qué es.', 'Si matáis a todos los lobos, los jabalíes se comerán vuestro pan.'],
+    rumor: ['Al drac de Olorda no lo mató Sant Jordi: lo durmieron con una rosa bendita. Y el frío le entumece las alas.', 'El drac de Olorda duerme en una cueva de la sierra. Si falta caza, baja a por ganado.', 'Las dones d’aigua viven en el manantial del Lobregat. Si una se casa contigo, nunca le digas qué es.', 'Si matáis a todos los lobos, los jabalíes se comerán vuestro pan.'],
     secret: 'Hace setenta años el Tribunal me quemó la casa y a mi madre dentro. El obispo de entonces era el maestro de Ermengol.',
     lesson: { stat: 'alq', text: 'Beleño y adelfa, quemados juntos, dan un humo que duerme a las bestias. A los hombres también, si respiran mucho.' } },
   { id: 'quim', name: 'Quim el Guardabosques', race: 'humano', sex: 'm', age: 'adulto', home: 'cabana_guarda', job: 'Guardabosques del Conde', faction: 'corte', romance: true,

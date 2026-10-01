@@ -19,7 +19,11 @@ for (const [map, h] of [['ciudad', 9], ['ciudad', 16], ['ciudad', 20], ['pradera
   console.log(map, h, ids.length, 'npcs');
 }
 // 4) Combates contra monstruos
-for (const m of ['bandido', 'quarantamaula', 'follet']) { await ev(`__barca.S.player.hp=__barca.S.player.hpMax;void __barca.fight(__barca.monster('${m}'))`); await mash(80); }
+for (const m of ['bandido', 'quarantamaula', 'follet']) {
+  await ev(`__barca.S.player.hp=__barca.S.player.hpMax;window.__res=null;__barca.fight(__barca.monster('${m}')).then((r)=>window.__res=r);1`);
+  const t0 = Date.now(); while (Date.now() - t0 < 120000 && !(await ev('window.__res'))) { await p.key(Math.random() < 0.75 ? 'A' : ['down', 'right', 'B'][Math.floor(Math.random() * 3)], 30); await p.sleep(45); }
+  await mash(40); console.log('combate', m, await ev('window.__res'));
+}
 console.log('hp', await ev('__barca.S.player.hp'), 'lvl', await ev('__barca.S.player.level'), 'xp', await ev('__barca.S.player.xp'));
 // 5) Menú
 await p.key('start'); await mash(40);

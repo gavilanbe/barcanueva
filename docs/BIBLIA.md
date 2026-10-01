@@ -157,7 +157,68 @@ Dentro te esperan el Conde (audiencia, tributo del vino, título), la Condesa (s
 
 **Calendario (12 fiestas):** Sant Medir, Sant Jordi, Corpus (l'ou com balla), Revetlla de Sant Joan, Sant Martí, la Mercè, Castanyada y Noche de Ánimas, Santa Olaia, los Tres Tombs, Carnestoltes, el Tió y l'Home dels Nassos.
 
-## 10. Pendiente
+## 10. Combate
+
+Por turnos, con tiradas de d20 y tres capas de habilidad:
+
+- **Pulso.** En cada tirada, un anillo se cierra sobre el dado. Si pulsas A cuando lo abraza, sumas +1 fuera de combate o +2 en combate («¡pulso!»). Tres pulsos o paradas perfectas seguidos dan **racha** (+1 al ataque).
+- **Paradas.** El rival se prepara, puede amagar y embiste. Pulsar justo antes del impacto **bloquea** (mitad de daño) o hace una **parada perfecta** (sin daño y con contraataque). Si pulsas demasiado pronto, es «precipitado» y no sirve. La ventana crece con DEFENSA, con el seny y con la **guardia**, y se estrecha con la rauxa. La llamarada del drac no admite parada perfecta.
+- **Seny i rauxa.** Una balanza de −5 (seny) a +5 (rauxa):
+  - Empujan a la rauxa: atacar, los conjuros de daño, recibir golpes sin parar y que te provoquen (amenaza, rugido, chillido, insulto).
+  - Empujan al seny: la guardia, calmar, observar, curar y las paradas perfectas.
+  - En rauxa haces más daño y es más fácil el crítico, pero te defiendes peor.
+  - En seny paras mejor y aciertas más en todo lo que no es pegar, pero tus golpes pierden fuerza.
+  - En cada extremo se desbloquea un golpe especial con MENÚ:
+    - **¡Rauxa!**: tres golpes al ritmo; un marcador barre la barra y el centro es perfecto.
+    - **Seny**: curación, ventaja en la próxima tirada, guardia y lectura completa del rival.
+- **Intenciones.** Sobre el rival aparece su siguiente movimiento: golpe, golpe fuerte, carga (escarbar, acechar, preparar la puñalada, tomar aire), defensa, huida, robo, sombra (oculta las intenciones), cura… Para leerlas hace falta saber:
+  - Bestias: NATURALEZA o CAZA 3.
+  - Criaturas del folclore: ARCANO 4.
+  - Personas: CARISMA 3 o HISTORIA 4.
+  - Si no llegas, ves «?». Observar, las rondallas y el Seny lo revelan todo.
+- **Acciones de folclore** según el rival:
+  - Bestias: calmar, ofrecer comida de su dieta, observar (revela su punto débil) y espantar.
+  - Bandolero: negociar, amenazar y nombrar a Perot Rocaguinarda.
+  - Follet: encargarle una tarea imposible u ofrecerle una cinta.
+  - Quarantamaula: teme el fuego.
+  - Simiot: el agua bendita le quema.
+  - Drac de Olorda: plegaria a Sant Jordi (mejor con una rosa); el frío le entumece.
+- **Puesta en escena.**
+  - Entrada: transición de persianas con un «!» y los combatientes que entran deslizándose.
+  - Cámara: gira hacia quien actúa, con parallax por capas.
+  - Golpes: embestidas, congelación de impacto, destello blanco, retroceso, números de daño y barras con «fantasma».
+  - Efectos propios por conjuro y criatura, y clima del día también en el combate.
+  - Final: el rival vencido se disuelve, suena una fanfarria y el botín aparece objeto a objeto. Al perder, la pantalla pierde el color.
+
+## 11. Sensación de juego e interfaz
+
+- **Mundo.**
+  - Suelo pintado píxel a píxel, con bordes orgánicos y color según la estación.
+  - Sombras proyectadas. Los árboles, faroles y tejados tapan a quien pasa por detrás, y la hierba alta tapa los pies.
+  - Agua, hierbas, trigo y juncos animados por el viento.
+  - Huellas en arena y nieve, polvo al correr, pasos con sonido según el terreno.
+  - Humo de chimeneas, hojas, polen, luciérnagas, pétalos en Sant Jordi y fuegos artificiales en Sant Joan y la Mercè.
+- **Clima diario** según la estación: sol, nubes (con sus sombras cruzando el mapa), lluvia, tormenta con rayos, niebla y nieve. La lluvia acelera la picada en la pesca.
+- **Luz.** Tinte por franja. De noche, oscuridad con focos tramados, ventanas encendidas, faroles y chimeneas, y el farolillo del jugador.
+- **Personas.**
+  - Respiran, parpadean y reaccionan al verte con emoticonos según su actitud: respeto, miedo, burla, cariño…
+  - Los marcadores de misión flotan sobre su cabeza.
+  - Los animales huyen con un «!» y los pájaros echan a volar de verdad.
+- **Interfaz.**
+  - Ventanas que se abren y se cierran con animación.
+  - Diálogos con voz por personaje, pausas en la puntuación, retrato con expresión, boca que habla y parpadeo, y códigos de color y efectos.
+  - Menús con mano que señala y barra que se desliza.
+  - Avisos con icono, cartel de lugar en pergamino, anuncios de nivel y de fiestas, y una pista «A …» delante de lo interactuable.
+- **Cuaderno de viaje** (menú de pausa):
+  - Ficha con retrato y estado con iconos.
+  - Mochila en rejilla con iconos.
+  - Relaciones con retrato, saber, reputación y diario.
+  - Mapa del lugar y de la comarca, con lo no explorado en «???».
+  - Ecosistema con los sprites de las especies.
+- **Pesca en dos fases.** La picada a tiempo (con picadas falsas) y la lucha: mantener al pez dentro de la zona hasta llenar la barra. La dificultad depende de la especie y de CAZA Y PESCA.
+- **Dormir.** Fundido lento y tarjeta del nuevo día (fecha, estación, clima y fiesta).
+
+## 12. Pendiente
 
 - Más escenas con guion: Corpus con gigantes, correfoc de la Mercè, el drac de Olorda como jefe, y la Víbria.
 - Crisis no anuales: langosta, peste, piratas, bullanga.
@@ -165,5 +226,5 @@ Dentro te esperan el Conde (audiencia, tributo del vino, título), la Condesa (s
 - Barco a Mallorca y otros destinos.
 - El tesoro templario bajo el Juïc.
 - Casas propias ampliables y más mascotas del hogar (follet, minairons, Tió).
-- Retratos dibujados a mano para los NPCs principales.
+- Retratos dibujados a mano para los NPC principales (ahora son procedurales, con expresiones).
 - Música compuesta por zona.

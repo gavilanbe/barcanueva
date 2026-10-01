@@ -12,6 +12,7 @@ import { check, learn, changeRel, rollMarket, g, initialRel } from './talk.js';
 import { sleep, treatment } from './activities.js';
 import { fight, npcEnemy, monster } from './battle.js';
 import { hash2 } from './util.js';
+import { flash, shake } from './fx.js';
 
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
 const N = (id) => NPC_BY_ID[id];
@@ -69,9 +70,14 @@ G.hooks.newDay = (news) => {
   checkRank(news);
 };
 G.hooks.morning = async () => {
-  const f = festivalToday(); if (f && S.flags.festShown !== S.day) { S.flags.festShown = S.day; await ui.say(`★ ${f.name} ★\n${f.text}`); }
+  const f = festivalToday(); if (f && S.flags.festShown !== S.day) { S.flags.festShown = S.day; await announceFestival(f); }
 };
-G.hooks.enterMap = (m) => { G.mapLabel = { name: m.name, t: 90 }; const f = festivalToday(); if (f && S.flags.festShown !== S.day && m.outdoor) { S.flags.festShown = S.day; setTimeout(() => ui.say(`★ ${f.name} ★\n${f.text}`), 50); } };
+G.hooks.enterMap = (m) => { G.mapLabel = { name: m.name, t: 90 }; const f = festivalToday(); if (f && S.flags.festShown !== S.day && m.outdoor) { S.flags.festShown = S.day; setTimeout(() => announceFestival(f), 1400); } };
+// Anuncio de fiesta: campanas, cartel y el texto de la tradición
+async function announceFestival(f) {
+  sfx('bell'); ui.announce(`★ ${f.name} ★`, { color: '#ff9ac8', life: 150 });
+  await ui.say(f.text);
+}
 G.hooks.phase = (ph) => { if (ph === 'noche' && S.flags.festToday === 'Revetlla de Sant Joan') ui.toast('Arden las hogueras de Sant Joan', '#f8a040'); };
 
 // ───────────── Ascenso social ─────────────
@@ -309,6 +315,40 @@ G.hooks.animal = async (e) => {
   }
   return _animal(e);
 };
+
+// ───────────── El Drac de Olorda ─────────────
+const _object = G.hooks.object;
+G.hooks.object = async (o) => { if (o.type === 'drac') return dragon(); return _object(o); };
+async function dragon() {
+  if (S.flags.dracDone) return ui.say(S.flags.dracDone === 'paz' ? 'Huesos, monedas viejas y un rastro de escamas hacia el fondo de la cueva. El drac se fue al Pirineo.' : 'Los huesos del drac ya blanquean entre las monedas. La sierra está en silencio.');
+  if (!S.flags.dracSeen) { S.flags.dracSeen = 1; logEvent('Encuentras al Drac de Olorda'); addXP(20, 'El drac existe'); }
+  sfx('growl');
+  await ui.say('Un dragón verde dormita sobre un lecho de huesos y monedas viejas. Cada vez que respira, le sale humo por la nariz y las monedas tintinean.');
+  const rose = hasItem('rosa'), blessed = !!S.flags.rosa_bendita && rose;
+  const i = await ui.ask('El Drac de Olorda. ¿Qué haces?', ['Despertarlo', rose ? (blessed ? 'Rezar a Sant Jordi con la rosa bendita' : 'Rezar a Sant Jordi con la rosa') : 'Rezar a Sant Jordi', 'Irte de puntillas']);
+  if (i === 2) { sfx('dodge'); return ui.say('Sales de la cueva sin hacer ruido. Por esta vez.'); }
+  if (i === 1) {
+    const r = await check('Plegaria a Sant Jordi (ESPÍRITU)', ['esp'], blessed ? 9 : rose ? 13 : 18);
+    if (r.ok) {
+      if (rose) addItem('rosa', -1); sfx('holy'); flash('#fff0d0', 0.7, 20); shake(0.2);
+      await ui.say(rose ? 'La rosa se enciende de luz roja. El drac abre un ojo dorado, enorme, y la mira largo rato.' : 'Rezas en voz baja. El drac abre un ojo dorado, enorme, y te mira largo rato.');
+      await ui.say('«Siglos durmiendo en este agujero y ahora me vienen con rezos. Está bien, está bien. Me iré al Pirineo, que allí nadie reza.»', { speaker: 'Drac de Olorda', expr: 'triste' });
+      S.flags.dracDone = 'paz'; addItem('plata', 2); sfx('item'); addXP(150, 'El drac se marcha');
+      S.rep.mar += 5; S.rep.pagano += 5; S.rep.ciudad += 10; logEvent('El Drac de Olorda abandona la sierra');
+      await ui.say('Bate las alas, levanta un vendaval de ceniza y sale por una grieta del techo. Entre las monedas que deja atrás hay dos pedazos de plata.');
+      ui.announce('★ Pacto con el drac ★', { color: '#8ae07a' });
+      return;
+    }
+    await ui.say('Las palabras te salen torcidas. El drac abre un ojo... y luego el otro.');
+  }
+  sfx('roar'); shake(0.7); flash('#ff4020', 0.35, 14);
+  const res = await fight({ ...monster('drac'), intro: '¡El Drac de Olorda despierta, y no está de humor!', ambush: i === 1 });
+  if (res === 'win') {
+    S.flags.dracDone = 'muerto'; S.rep.ciudad += 15; S.rep.pagano -= 5; logEvent('Vences al Drac de Olorda');
+    ui.announce('★ ¡MATADRAC! ★', { color: '#fcd456' });
+    await ui.say('El drac se desploma con un estruendo que se oye hasta en la Seu. Mañana todo Barcanueva hablará de ti... y alguno, en voz baja, de lo que se ha perdido.');
+  } else if (res === 'calm') { S.flags.dracDone = 'paz'; S.rep.pagano += 8; logEvent('El Drac de Olorda se marcha en paz'); }
+}
 
 // Marcas sobre los NPCs
 G.hooks.npcBadge = (ctx, e, x, y) => {

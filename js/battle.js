@@ -224,7 +224,7 @@ function commandMenu(e) {
       const ds = CMDS[this.i][2]; const dw = Math.min(234, textWidth(ds) + 12);
       ctx.fillStyle = INK; ctx.fillRect(4, y0 - 12, dw, 12); ctx.fillStyle = 'rgba(33,24,44,.95)'; ctx.fillRect(5, y0 - 11, dw - 2, 10); drawText(ctx, ds, 10, y0 - 9, '#e8d8f0', INK);
       if (Math.abs(b.needle) === 5) {
-        const r = b.needle > 0; const s = r ? '¡RAUXA! · pulsa MENÚ' : 'SENY · pulsa MENÚ'; const w = textWidth(s) + 14; const x = 236 - w; const yy = y0 - 26 + Math.round(Math.sin(fr / 6));
+        const r = b.needle > 0; const s = r ? '¡RAUXA! · pulsa MENÚ' : 'SENY · pulsa MENÚ'; const w = textWidth(s) + 14; const x = 4; const yy = y0 - 27 + Math.round(Math.sin(fr / 6));
         ctx.fillStyle = INK; ctx.fillRect(x - 1, yy - 1, w + 2, 13); ctx.fillStyle = r ? '#a42632' : '#1e6a7a'; ctx.fillRect(x, yy, w, 11); ctx.fillStyle = r ? '#e8604e' : '#5ac8d0'; ctx.fillRect(x, yy, w, 1);
         drawText(ctx, s, x + 7, yy + 2, '#fff8e8', INK);
       }

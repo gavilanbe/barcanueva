@@ -8,7 +8,7 @@ import { dumpMap, G, enterMap, updateWorld, drawWorld, drawHUD, advance, newDay,
 import { initEco } from './eco.js';
 import { drawBattle, B, fight, animalEnemy, monster } from './battle.js';
 import { creator, allocate } from './creator.js';
-import { sfx, music } from './audio.js';
+import { sfx, music, preloadMusic } from './audio.js';
 import { rollMarket } from './talk.js';
 import { fish } from './activities.js';
 import './events.js';
@@ -116,7 +116,7 @@ function drawTitle(fr) {
 }
 
 async function titleMenu() {
-  music('ciudad'); title.t = 0; title.phase = 'intro';
+  music('titulo'); preloadMusic(['ciudad', 'batalla', 'victoria']); title.t = 0; title.phase = 'intro';
   while (true) {
     await ui.custom({ update() { if ((input.pressed('A') || input.pressed('S')) && title.t > 30) { if (title.t < 90) title.t = 90; else { this.done = true; sfx('ok'); } } }, draw() { } });
     title.phase = 'menu';
@@ -186,6 +186,9 @@ function tick() {
   input.endFrame();
 }
 function render() {
+  const t0 = performance.now(); render2(); const dt = performance.now() - t0; G.perf = G.perf ? G.perf * 0.95 + dt * 0.05 : dt; if (dt > (G.perfMax || 0)) G.perfMax = dt;
+}
+function render2() {
   if (G.mode === 'title') drawTitle(G.frame);
   else if (G.mode === 'battle' && B.active) drawBattle(ctx, G.frame);
   else if ((G.mode === 'world' || G.mode === 'battle') && G.map) { drawWorld(ctx); drawHUD(ctx); }

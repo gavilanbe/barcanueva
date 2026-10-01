@@ -44,7 +44,7 @@ function mapLayers(m) {
   const tmp = canvas(1, 1);
   L = renderMap(m, sea, (bx, ox, row) => {
     for (const o of oRows.get(row) || []) {
-      if (ANIMATED_FURNITURE.has(o.type)) continue; // los animados se pintan cada fotograma
+      if (ANIMATED_FURNITURE.has(o.type) || o.type === 'drac') continue; // los animados se pintan cada fotograma
       // mueble: base completa; lo que asoma sobre su huella, a la capa superior
       const [c, x] = canvas(o.w * TS + 8, o.h * TS + 24); drawFurniture(x, o, 4, 20, 0);
       bx.drawImage(c, o.x * TS - 4, o.y * TS - 20); ox.drawImage(c, 0, 0, c.width, 20, o.x * TS - 4, o.y * TS - 20, c.width, 20);
@@ -59,7 +59,7 @@ function mapLayers(m) {
   for (const [x, y] of L.lamps) pts.push([x * TS + 8, y * TS - 10, 34, 'lamp']);
   const LR = { win: 13, slit: 8, shop: 18, lamp: 30, fire: 38, glow: 22, rose: 20 };
   for (const b of m.buildings) { if (b.lit?.length) for (const r of b.lit) pts.push([r.x + r.w / 2, r.y + r.h / 2 + 2, LR[r.k] || 13, r.k === 'lamp' ? 'lamp' : r.k === 'fire' ? 'fire' : r.k === 'glow' ? 'glow' : r.k === 'rose' ? 'rose' : 'win']); else if (['casa', 'taberna', 'tienda', 'masia', 'cabana', 'hospital', 'cuartel'].includes(b.kind)) pts.push([b.door.x * TS + 8, b.door.y * TS + 6, 18, 'win']); }
-  for (const o of m.objects) if (['chimenea', 'vela', 'altar', 'fragua', 'caldero'].includes(o.type)) pts.push([o.x * TS + o.w * 8, o.y * TS + 8, o.type === 'chimenea' || o.type === 'fragua' ? 52 : 26, 'fire']);
+  for (const o of m.objects) if (['chimenea', 'vela', 'altar', 'fragua', 'caldero', 'drac'].includes(o.type)) pts.push([o.x * TS + o.w * 8, o.y * TS + (o.type === 'drac' ? 40 : 8), o.type === 'chimenea' || o.type === 'fragua' ? 52 : o.type === 'drac' ? 60 : 26, 'fire']);
   L.lights = pts; L.season = sea;
   L.smoke = m.buildings.flatMap((b) => b.smoke || []);
   L.animObjs = m.objects.filter((o) => ANIMATED_FURNITURE.has(o.type));
@@ -461,7 +461,35 @@ export function autoWalk(dirsList) { G.letterbox = G.letterbox || 0; tween(G, { 
 
 // ───────────── Emoticonos y reacciones ─────────────
 export function emote(e, name, life = 70) { e.emote = { name, t: 0, life }; if (e === G.player || (Math.abs(e.x - G.player.x) + Math.abs(e.y - G.player.y) < 8)) sfx('emote'); }
+// Comentarios en voz alta al pasar cerca (bocadillos breves según oficio, facción y momento)
+const BARK = {
+  t_pan: ['¡Pan caliente!', '¡Coca recién hecha!'], t_pesca: ['¡Pescado del día!', '¡Sardinas vivas!'], t_hierbas: ['¡Romero y ruda!', '¡Hierba de San Juan!'], t_forja: ['¡Cuchillos con filo!'],
+  t_sastre: ['¡Telas de Flandes!'], t_libros: ['Libros, libros...'], t_alquimia: ['¡Ungüentos y pociones!'], t_velas: ['¡Cera de abeja!'], t_ceramica: ['¡Botijos y cazuelas!'],
+  taberna: ['¡Vino del Penedès!', '¡Pasen, que hay fuego!'], granja: ['¡Huevos de pota blava!'], banco: ['La Taula abre al alba.'], hospital: ['Silencio, que hay enfermos.'],
+  guardia: ['Circule.', 'Ojo con los rateros.', 'Todo en orden.'], seu: ['Paz y bien.', 'Dios te guarde.'], mar: ['¡Buen viento!', 'Huele a tormenta.'], pagano: ['La luna crece...', '¿Oyes el bosque?'],
+  corte: ['¡Paso, paso!', 'Qué ciudad tan ruidosa.'], ladrones: ['Psst...', '¿Tienes hora?'], gremios: ['El gremio lo sabe todo.', 'Hoy hay faena.'], ciudad: ['Bon dia!', '¡Adéu!', 'Qué calor...', '¿Has oído lo del Conde?'],
+};
+function barks() {
+  const p = G.player; if (G.frame % 30 !== 0 || G.ents.some((e) => e.bark)) return;
+  const near = G.ents.filter((e) => e.kind === 'npc' && !e.talking && !e.emote && Math.abs(e.x - p.x) + Math.abs(e.y - p.y) <= 4);
+  if (!near.length || Math.random() > 0.12) return;
+  const e = near[Math.floor(Math.random() * near.length)]; const n = e.npc; const ph = phase().id;
+  let pool = BARK[n.shop] || BARK[n.faction] || BARK.ciudad;
+  if (ph === 'noche') pool = ['Buenas noches.', '¿Tan tarde y por la calle?', '*bostezo*'];
+  if (S.flags.festToday) pool = [...pool, `¡Feliz ${S.flags.festToday}!`];
+  e.bark = { text: pool[Math.floor(Math.random() * pool.length)], t: 0, life: 130 };
+}
+function drawBark(ctx, e, x, y) {
+  const b = e.bark; b.t++; if (b.t > b.life) { e.bark = null; return; }
+  const k = b.t < 8 ? ease.outBack(b.t / 8) : b.t > b.life - 8 ? (b.life - b.t) / 8 : 1; if (k <= 0.05) return;
+  const w = textWidth(b.text) + 8; const bx = Math.round(x + 8 - w / 2), by = y - 24 - Math.round(Math.sin(b.t / 12));
+  const ww = Math.max(4, Math.round(w * k)), ox = Math.round((w - ww) / 2);
+  ctx.fillStyle = INK; ctx.fillRect(bx + ox - 1, by - 1, ww + 2, 12); ctx.fillStyle = '#fff8ec'; ctx.fillRect(bx + ox, by, ww, 10);
+  ctx.fillStyle = INK; ctx.fillRect(x + 6, by + 11, 3, 1); ctx.fillRect(x + 7, by + 12, 1, 1); ctx.fillStyle = '#fff8ec'; ctx.fillRect(x + 6, by + 10, 3, 1);
+  if (k > 0.9) drawText(ctx, b.text, bx + 4, by + 2, '#3a2430');
+}
 function reactions() {
+  barks();
   const p = G.player; if (!G.reacted) G.reacted = new Set();
   for (const e of G.ents) {
     if (e.kind !== 'npc' || e.talking || e.emote) continue;
@@ -545,6 +573,7 @@ export function drawWorld(ctx) {
   drawAnimated(ctx, m, L, cx, cy, fr, sea);
   for (const o of L.animObjs) drawFurniture(ctx, o, o.x * TS - cx, o.y * TS - cy, fr);
   drawCrops(ctx, m, cx, cy);
+  for (const o of m.objects) if (o.type === 'drac') drawDrac(ctx, o, cx, cy);
   if (G.doorOpen) { G.doorOpen.t = Math.min(1, G.doorOpen.t + 0.12); try { BLD.drawDoorOpen?.(ctx, G.doorOpen.b, cx, cy, G.doorOpen.t); } catch (e) { } }
   drawParts(ctx, 'ground', cx, cy);
   // Entidades por profundidad (los voladores siempre encima)
@@ -584,11 +613,12 @@ export function drawWorld(ctx) {
   drawAnimatedFront(ctx, m, L, cx, cy, fr, sea, feet);
   drawParts(ctx, 'world', cx, cy);
   ctx.drawImage(L.over, -cx, -cy);
+  if (!m.outdoor && L.windows?.length) drawWindows(ctx, m, L, cx, cy);
   drawLighting(ctx, m, L, cx, cy);
   drawWeatherOverlay(ctx, m, cx, cy);
   drawParts(ctx, 'sky', cx, cy);
   // emoticonos (por encima de la luz para que se lean)
-  for (const e of list) if (e.emote) drawEmote(ctx, e, Math.round(e.px - cx), Math.round(e.py - cy));
+  for (const e of list) { if (e.emote) drawEmote(ctx, e, Math.round(e.px - cx), Math.round(e.py - cy)); else if (e.bark) drawBark(ctx, e, Math.round(e.px - cx), Math.round(e.py - cy)); }
   drawTexts(ctx, cx, cy);
   drawHint(ctx, cx, cy);
   if (G.letterbox > 0.01) { const hh = Math.round(16 * G.letterbox); ctx.fillStyle = '#0c0812'; ctx.fillRect(0, 0, W, hh); ctx.fillRect(0, H - hh, W, hh); }
@@ -617,6 +647,37 @@ function drawHint(ctx, cx, cy) {
   ctx.fillStyle = '#a42632'; ctx.fillRect(x + 2, y + 1, 8, 8); drawText(ctx, 'A', x + 4, y + 2, '#fff0d8');
   drawText(ctx, lab, x + 13, y + 2, '#fff4d8', INK);
 }
+let BART = null; import('./battleart.js').then((mm) => { BART = mm; }).catch(() => {});
+function drawDrac(ctx, o, cx, cy) {
+  const X = o.x * TS - cx, Y = o.y * TS - cy; const f = G.frame;
+  // monedas y huesos del lecho
+  for (let i = 0; i < 26; i++) { const gx = X + 4 + Math.floor(hash2(i, 1, 5) * (o.w * 16 - 8)), gy = Y + o.h * 16 - 10 + Math.floor(hash2(i, 2, 5) * 9); ctx.fillStyle = i % 3 ? '#cc8a26' : '#fcd456'; ctx.fillRect(gx, gy, 2, 1); }
+  if (S.flags.dracDone) return;
+  const spr = BART?.monsterSprite?.('drac', Math.floor(f / 50) % 2, 'idle');
+  if (spr) ctx.drawImage(spr, Math.round(X + o.w * 8 - spr.width / 2), Math.round(Y + o.h * 16 - spr.height + 4));
+  // humo por la nariz y alguna «z»
+  if (f % 26 === 0) spawn({ x: o.x * TS + 8, y: o.y * TS + 22, vx: -0.25, vy: -0.3, life: 70, kind: 'puff', size: 1, color: alpha('#c8c4cc', 0.6), layer: 'sky' });
+  if (f % 90 === 0) popWorld(o.x * TS + o.w * 8, o.y * TS + 4, 'z');
+  if (hash2(Math.floor(f / 12), 3, 9) < 0.3) { const gx = X + 4 + Math.floor(hash2(f >> 3, 1, 7) * (o.w * 16 - 8)), gy = Y + o.h * 16 - 9 + Math.floor(hash2(f >> 3, 2, 7) * 8); ctx.fillStyle = '#ffffff'; ctx.fillRect(gx, gy, 1, 1); ctx.fillRect(gx - 1, gy, 3, 1); ctx.fillRect(gx, gy - 1, 1, 3); }
+}
+// Ventanas de interior: el cristal toma el color del cielo y, de día, entra un haz de luz con motas
+function drawWindows(ctx, m, L, cx, cy) {
+  const ph = phase().id; const sky = { manana: ['#f8d8a8', '#fff0d0'], dia: ['#88c8f0', '#d8f0ff'], tarde: ['#f0a868', '#f8d8a0'], crepusculo: ['#8a5a8a', '#e88a8a'], noche: ['#141a40', '#2a3060'] }[ph];
+  const day = ph === 'manana' || ph === 'dia' || ph === 'tarde';
+  for (const [wx, wy] of L.windows) {
+    const X = wx - cx, Y = wy - cy; if (X < -40 || X > W + 10 || Y < -20 || Y > H) continue;
+    for (const [ox, oy, w, h] of [[0, 1, 3, 4], [5, 1, 3, 4], [0, 6, 3, 3], [5, 6, 3, 3]]) { ctx.fillStyle = sky[0]; ctx.fillRect(X + ox, Y + oy, w, h); ctx.fillStyle = sky[1]; ctx.fillRect(X + ox, Y + oy, 1, 1); }
+    if (ph === 'noche' && (G.frame >> 5) % 7 === 0) { ctx.fillStyle = '#ffffff'; ctx.fillRect(X + 1, Y + 2, 1, 1); }
+    if (!day) continue;
+    // haz de luz hacia abajo a la derecha, tramado y aditivo
+    const len = 46, a = ph === 'dia' ? 0.07 : 0.06; const col = ph === 'tarde' ? '255,170,90' : ph === 'manana' ? '255,220,170' : '255,240,200';
+    ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = `rgba(${col},${a})`;
+    for (let i = 0; i < len; i += 2) { const off = Math.round(i * 0.55); ctx.fillRect(X + off - 1, Y + 10 + i, 10 + Math.round(i * 0.15), 2); }
+    ctx.globalCompositeOperation = 'source-over';
+    if (G.frame % 40 === 0) spawn({ x: wx + 4 + Math.random() * 18, y: wy + 14 + Math.random() * 30, vx: 0.04, vy: -0.02, life: 200, kind: 'px', color: 'rgba(255,248,220,.7)', layer: 'sky' });
+  }
+}
+function popWorld(x, y, s) { fx.texts.push({ x, y, text: s, color: '#c8d8ff', vy: -0.5, t: 0, life: 60, layer: 'world', outline: INK }); }
 function drawCrops(ctx, m, cx, cy) {
   for (const [k, f] of Object.entries(S.farm || {})) {
     const [mid, pos] = k.split(':'); if (mid !== m.id) continue; const [x, y] = pos.split(',').map(Number);

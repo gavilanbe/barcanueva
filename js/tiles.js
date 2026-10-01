@@ -224,6 +224,7 @@ export function renderGround(m, season = 0) {
     px[i] = c;
   }
   // Muros, almenas, riscos e interiores: volumen por filas
+  P.noWin = new Set(); if (!m.outdoor) for (const o of m.objects) if (o.y <= 2) for (let i = o.x; i < o.x + o.w; i++) P.noWin.add(i);
   for (let ty = 0; ty < m.h; ty++) for (let tx = 0; tx < m.w; tx++) {
     const g = tg[ty * m.w + tx]; if (g !== G.wall && g !== G.merlon && g !== G.cliff && g !== G.iwall) continue;
     const above = at(tx, ty - 1), below = at(tx, ty + 1);
@@ -233,16 +234,18 @@ export function renderGround(m, season = 0) {
     if (above !== g && above !== G.merlon && g !== G.merlon) for (let x = 0; x < 16; x++) { px[Y0 * W + X0 + x] = (g === G.cliff ? P.wstone : P.wstone)[6]; px[(Y0 + 1) * W + X0 + x] = P.wstone[5]; if (g === G.cliff && hash(X0 + x, Y0, 9) < 0.5) px[Y0 * W + X0 + x] = P.grass[5]; }
     if (below !== g && below !== G.wall && below !== G.cliff) for (let x = 0; x < 16; x++) { px[(Y0 + 15) * W + X0 + x] = P.wstone[0]; px[(Y0 + 14) * W + X0 + x] = darkU(px[(Y0 + 14) * W + X0 + x], 0.7); }
   }
-  m._gnd = gnd; m._W = W;
+  m._gnd = gnd; m._W = W; P.noWin = null;
   return { img, px, gnd, W, H, tg };
 }
 function paintIWall(px, W, X0, Y0, lower, below, P) {
   const pl = P.plaster, wd = P.wood;
   for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
     const X = X0 + x, Y = Y0 + y; let c;
-    if (!lower) { // fila superior: viga y yeso
+    if (!lower) { // fila superior: viga y yeso, con ventanas y cuadros alternos
       c = y < 3 ? (y === 0 ? wd[1] : y === 1 ? wd[3] : wd[2]) : ((hash(X, Y, 131) < 0.04) ? pl[3] : pl[4]);
-      if (y >= 3 && ((X >> 4) % 3 === 1) && x > 3 && x < 12 && y > 5 && y < 15) c = y === 6 || x === 4 || x === 11 ? wd[2] : y === 14 ? wd[1] : mix2(P, X, Y); // cuadro / ventana alta
+      const k = (X0 >> 4) % 4;
+      if (k === 2 && !P.noWin?.has(X0 >> 4) && x >= 3 && x <= 12 && y >= 4 && y <= 14) { c = x === 3 || x === 12 || y === 4 || y === 14 ? wd[2] : x === 7 || x === 8 || y === 9 ? wd[3] : P.void; if (y === 14) c = wd[4]; } // ventana (el cristal se pinta según la hora)
+      if (k === 0 && x >= 4 && x <= 11 && y >= 5 && y <= 12) { c = x === 4 || x === 11 || y === 5 || y === 12 ? P.gold[3] : y < 8 ? P.plaster[6] : y < 10 ? P.grass[5] : P.grass[3]; if (y === 7 && x > 6 && x < 9) c = P.gold[5]; } // cuadro: un paisaje con marco dorado
     } else { // fila inferior: yeso, friso de madera y rodapié
       c = y < 6 ? pl[4] : y === 6 ? wd[5] : y < 14 ? ((x & 7) === 0 ? wd[2] : wd[3 + ((y & 3) === 0 ? 1 : 0)]) : y === 14 ? wd[1] : wd[0];
     }
@@ -461,7 +464,10 @@ export function renderMap(m, season = 0, drawExtra = null) {
     }
     if (list.length) foam.set(ti, list);
   }
-  return { base, over, anim, water, foam, lamps, fountains, gnd: g.gnd, W: g.W, H: g.H };
+  // ventanas de los interiores (para el cristal según la hora y los haces de luz)
+  const windows = [];
+  if (!m.outdoor) for (let ty = 0; ty < m.h; ty++) for (let tx = 1; tx < m.w - 1; tx++) if (m.get(tx, ty) === 'j' && m.get(tx, ty - 1) !== 'j' && tx % 4 === 2 && !m.objects.some((o) => tx >= o.x && tx < o.x + o.w && o.y <= ty + 2)) windows.push([tx * TS + 4, ty * TS + 5]);
+  return { base, over, anim, water, foam, lamps, fountains, windows, gnd: g.gnd, W: g.W, H: g.H };
 }
 
 // Teselas animadas de agua (reflejos que viajan) y destellos

@@ -410,7 +410,7 @@ export const ui = {
   drawAnnounces(ctx, fr) {
     for (const a of this.announces) {
       const s = ease.outBackBig(Math.min(1, a.t / 14)); const out = a.t > a.life - 12 ? (a.t - (a.life - 12)) / 12 : 0;
-      const sc = 2; const bw = bigWidth(a.text, sc); const x = Math.round(120 - bw / 2), y = Math.round(44 - (1 - s) * 30 - out * 20);
+      const sc = bigWidth(a.text, 2) <= 232 ? 2 : 1; const bw = bigWidth(a.text, sc); const x = Math.round(120 - bw / 2), y = Math.round(44 - (1 - s) * 30 - out * 20);
       if (out < 1) { drawBig(ctx, a.text, x, y, a.color, INK, sc); if (a.sub) drawOutlined(ctx, a.sub, Math.round(120 - textWidth(a.sub) / 2), y + 28, '#fff4d8', INK); }
       if (a.t % 5 === 0 && a.t < a.life - 20) spawn({ x: x + Math.random() * bw, y: y + 4 + Math.random() * 18, vy: -0.4, life: 22, kind: 'star', color: '#fff4c0', layer: 'screen' });
     }

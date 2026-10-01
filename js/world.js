@@ -239,6 +239,12 @@ function buildBosque() {
   m.rect(36, 24, 5, 4, '.'); m.set(37, 25, 'x'); m.set(39, 25, 'x');
   m.building({ id: 'altar_bosque', kind: 'altar', name: 'Dolmen de la Cova d’en Daina', x: 38, y: 25, w: 1, h: 1, noEnter: true });
   m.place('bruja_f', 10, 10).place('claro', 38, 28).place('guarda_f', 39, 9).place('sendero', 23, 18).place('dolmen', 38, 27);
+  // La Cova del Drac: un claro con un risco y la boca de una cueva que humea
+  m.blob(6, 29, 4, ',', 0.25, 71); m.path(12, 21, 12, 28, ':', 1, 0.2); m.path(12, 28, 6, 28, ':', 1, 0.2); m.rect(2, 24, 9, 3, 'M'); m.set(6, 26, 'c'); m.set(6, 27, ':');
+  m.set(3, 29, 'R'); m.set(9, 30, 'R'); m.set(4, 31, 'x');
+  m.warps.push({ x: 6, y: 26, to: 'int_cova_drac', secret: null });
+  m.place('cova_drac_f', 7, 28);
+  m.signs.push({ x: 8, y: 27, text: 'Huesos roídos junto a la entrada y un olor a azufre. En la roca, alguien grabó una cruz y una rosa.', stat: 'arc' });
   m.signs.push({ x: 36, y: 27, text: 'Losas enormes forman una cámara. Quien la construyó no conocía la cruz.', stat: 'arc' });
   return finalize(m);
 }
@@ -311,6 +317,7 @@ export function interior(id) {
   if (id === 'int_cantera') return cantera();
   if (id === 'int_cueva_oso') return cueva('int_cueva_oso', 'Cueva del oso', 'montana', 6, 19);
   if (id === 'int_cueva_contrabando') return cueva('int_cueva_contrabando', 'Cueva de los contrabandistas', 'costa', 36, 5);
+  if (id === 'int_cova_drac') return covaDrac();
   const b = BUILDINGS[id.slice(4)]; if (!b) return null;
   const special = { consell: [12, 9], llotja: [12, 9], drassanes: [14, 9] }[b.id];
   const [w, h] = special || INT_SIZE[b.kind] || [9, 7];
@@ -396,11 +403,23 @@ function cueva(id, name, back, bx, by) {
   return finalize(m);
 }
 
+// La guarida del Drac de Olorda: el drac duerme al fondo, sobre huesos y monedas
+function covaDrac() {
+  const m = new B('int_cova_drac', 'Cova del Drac', 16, 12, 'r', { outdoor: false, biome: 'cueva', seed: 7 });
+  m.rect(0, 0, 16, 2, 'M'); m.rect(0, 0, 1, 12, 'M'); m.rect(15, 0, 1, 12, 'M'); m.rect(0, 11, 16, 1, 'M');
+  m.set(8, 11, 'e'); m.warps.push({ x: 8, y: 11, to: 'bosque', tx: 6, ty: 27, exit: true });
+  m.rect(1, 2, 2, 3, 'M'); m.rect(13, 2, 2, 2, 'M'); m.set(2, 8, 'R'); m.set(13, 8, 'R'); m.set(3, 9, 'l'); m.set(12, 6, 'l');
+  const O = (type, x, y, ow = 1, oh = 1) => { m.objects.push({ type, x, y, w: ow, h: oh }); for (let j = y; j < y + oh; j++) for (let i = x; i < x + ow; i++) m.block[j * m.w + i] = 1; };
+  O('drac', 5, 2, 6, 4); O('huesos', 3, 6); O('huesos', 12, 8);
+  m.place('int_cova_drac:fondo', 8, 7);
+  return finalize(m);
+}
+
 export function buildWorld() {
   buildCity(); buildMontjuic(); buildPradera(); buildBosque(); buildMontana(); buildRio(); buildCosta();
   // Interiores de todos los edificios para registrar sus PLACES
   for (const id of Object.keys(BUILDINGS)) if (!BUILDINGS[id].noEnter) interior('int_' + id);
-  interior('int_cantera'); interior('int_cueva_oso'); interior('int_cueva_contrabando');
+  interior('int_cantera'); interior('int_cueva_oso'); interior('int_cueva_contrabando'); interior('int_cova_drac');
   // El castillo tiene una puerta trasera desde las bodegas
   const c = MAPS.int_castillo; c.set(1, 11, 'I'); c.block[11 * c.w + 1] = 0;
 }
