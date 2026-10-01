@@ -111,17 +111,17 @@ export function dayCard() {
 }
 async function stash() {
   const i = await ui.choose(['Guardar', 'Sacar', 'Nada'], { cancel: 2, title: 'Arcón' });
-  if (i === 0) { const inv = Object.keys(S.inv).filter((k) => ITEMS[k]?.type !== 'clave'); if (!inv.length) return; const j = await ui.choose([...inv.map((k) => `${ITEMS[k].name} x${S.inv[k]}`), 'Volver'], { cancel: inv.length, max: 6 }); if (j < inv.length) { const k = inv[j]; const n = S.inv[k]; addItem(k, -n); S.stash[k] = (S.stash[k] || 0) + n; } }
-  if (i === 1) { const st = Object.keys(S.stash); if (!st.length) return ui.say('El arcón está vacío.'); const j = await ui.choose([...st.map((k) => `${ITEMS[k].name} x${S.stash[k]}`), 'Volver'], { cancel: st.length, max: 6 }); if (j < st.length) { const k = st[j]; addItem(k, S.stash[k]); delete S.stash[k]; } }
+  if (i === 0) { const inv = Object.keys(S.inv).filter((k) => ITEMS[k]?.type !== 'clave'); if (!inv.length) return; const j = await ui.choose([...inv.map((k) => ({ label: ITEMS[k].name, right: `×${S.inv[k]}`, icon: itemIco(k) })), 'Volver'], { cancel: inv.length, max: 6 }); if (j < inv.length) { const k = inv[j]; const n = S.inv[k]; addItem(k, -n); S.stash[k] = (S.stash[k] || 0) + n; } }
+  if (i === 1) { const st = Object.keys(S.stash); if (!st.length) return ui.say('El arcón está vacío.'); const j = await ui.choose([...st.map((k) => ({ label: ITEMS[k].name, right: `×${S.stash[k]}`, icon: itemIco(k) })), 'Volver'], { cancel: st.length, max: 6 }); if (j < st.length) { const k = st[j]; addItem(k, S.stash[k]); delete S.stash[k]; } }
 }
 
 // ───────────── Alquimia ─────────────
 async function alchemy() {
   const herbs = Object.keys(S.inv).filter((k) => ['hierba', 'seta', 'material', 'regalo', 'cultivo'].includes(ITEMS[k]?.type) && !['anillo', 'libro_versos'].includes(k));
   if (herbs.length < 2) return ui.say('Un caldero. Necesitas al menos dos ingredientes distintos.');
-  const a = await ui.choose([...herbs.map((k) => `${ITEMS[k].name} x${S.inv[k]}`), 'Nada'], { cancel: herbs.length, title: 'Primer ingrediente', max: 6 }); if (a === herbs.length) return;
+  const a = await ui.choose([...herbs.map((k) => ({ label: ITEMS[k].name, right: `×${S.inv[k]}`, icon: itemIco(k), hint: ITEMS[k].desc })), 'Nada'], { cancel: herbs.length, title: 'Primer ingrediente', max: 6 }); if (a === herbs.length) return;
   const rest = herbs.filter((k) => k !== herbs[a]);
-  const b = await ui.choose([...rest.map((k) => `${ITEMS[k].name} x${S.inv[k]}`), 'Nada'], { cancel: rest.length, title: 'Segundo ingrediente', max: 6 }); if (b === rest.length) return;
+  const b = await ui.choose([...rest.map((k) => ({ label: ITEMS[k].name, right: `×${S.inv[k]}`, icon: itemIco(k), hint: ITEMS[k].desc })), 'Nada'], { cancel: rest.length, title: 'Segundo ingrediente', max: 6 }); if (b === rest.length) return;
   const ins = [herbs[a], rest[b]].sort();
   const rec = RECIPES.find((r) => r.in.join() === ins.join());
   addItem(ins[0], -1); addItem(ins[1], -1); advance(30);
@@ -136,7 +136,7 @@ async function alchemy() {
 // ───────────── Artesanía ─────────────
 async function craft(where) {
   const list = CRAFTS.filter((c) => where === 'forja' || !['cuchillo', 'lanza', 'casco', 'azada', 'amuleto_plata'].includes(c.out));
-  const lbl = (c) => ({ label: `${ITEMS[c.out].name} (${Object.entries(c.in).map(([k, n]) => `${n} ${ITEMS[k].name}`).join(', ')})`, disabled: !Object.entries(c.in).every(([k, n]) => hasItem(k, n)), hint: ITEMS[c.out].desc });
+  const lbl = (c) => ({ label: ITEMS[c.out].name, icon: itemIco(c.out), disabled: !Object.entries(c.in).every(([k, n]) => hasItem(k, n)), hint: `${Object.entries(c.in).map(([k, n]) => `${n} ${ITEMS[k].name}`).join(' + ')}. ${ITEMS[c.out].desc}` });
   const i = await ui.choose([...list.map(lbl), 'Nada'], { cancel: list.length, title: where === 'forja' ? 'Forja' : 'Banco de trabajo', max: 6 });
   if (i === list.length) return;
   const c = list[i]; for (const [k, n] of Object.entries(c.in)) addItem(k, -n); advance(60);

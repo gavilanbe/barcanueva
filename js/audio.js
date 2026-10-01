@@ -22,6 +22,8 @@ function ensure() {
 const wake = () => { ensure(); if (ac && ac.state !== 'running') ac.resume(); };
 addEventListener('keydown', wake); addEventListener('touchstart', wake); addEventListener('mousedown', wake);
 export function setMuted(m) { audio.muted = m; if (master) master.gain.value = m ? 0 : 0.2; }
+export function setMusicVol(v) { audio.musicVol = v; if (musicGain) musicGain.gain.value = v; }
+try { const pr = JSON.parse(localStorage.getItem('barcanueva_prefs') || '{}'); if (pr.music !== undefined) audio.musicVol = pr.music; if (pr.muted) audio.muted = true; } catch (e) { }
 
 // Oscilador con envolvente. type: 'p12' | 'p25' | 'p50' | 'triangle' | 'sine' | 'sawtooth'
 function tone(freq, dur, type = 'p50', vol = 0.3, when = 0, dest = null, slide = 0, o = {}) {

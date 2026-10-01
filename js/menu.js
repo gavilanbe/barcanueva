@@ -4,7 +4,7 @@ import { S, BASIC, KNOW, STAT_NAME, tier, XP_FOR, maxHp, maxMp, stat, save, npcS
 import { ITEMS, SPELLS, RECIPES } from './data/items.js';
 import { NPCS } from './data/npcs.js';
 import { SP, ECO_MAPS, count, total, mapName } from './eco.js';
-import { ui, W, H, panel, text, icon, itemIco, bar, hand, T as UIT } from './ui.js';
+import { ui, W, H, panel, text, icon, itemIco, bar, hand, T as UIT, prefs, savePrefs } from './ui.js';
 import { drawText, textWidth, wrap, drawOutlined } from './font.js';
 import { input } from './input.js';
 import { charSprite, RACE_NAME } from './chars.js';
@@ -14,7 +14,7 @@ import { G, addXP, playerLook, mapLayers } from './game.js';
 import { MAPS, BUILDINGS } from './world.js';
 import { learn } from './talk.js';
 import { RANKS } from './events.js';
-import { sfx, audio, setMuted } from './audio.js';
+import { sfx, audio, setMuted, setMusicVol } from './audio.js';
 import { setEquipBonus } from './state.js';
 import { ease, prog, burst, spawn } from './fx.js';
 import { INK, alpha } from './pal.js';
@@ -391,10 +391,19 @@ async function saveGame() {
     } });
 }
 async function options() {
+  let i = 0;
   while (true) {
-    const i = await ui.choose([{ label: audio.muted ? 'Activar sonido' : 'Silenciar', icon: icon('opciones') }, { label: `Velocidad del tiempo: ${G.timeScale}×`, icon: icon('reloj') }, 'Volver'], { cancel: 2, title: 'Opciones', x: 120, y: 40 });
+    const TS = { 1: 'normal', 2: 'rápido', 3: 'al instante' }; const MV = { 0: 'sin música', 0.25: 'baja', 0.5: 'media', 0.8: 'alta' };
+    i = await ui.choose([
+      { label: audio.muted ? 'Sonido: apagado' : 'Sonido: encendido', icon: icon('opciones') },
+      { label: `Música: ${MV[audio.musicVol] ?? 'media'}`, icon: icon('estrella') },
+      { label: `Texto: ${TS[prefs.text] || 'normal'}`, icon: icon('diario') },
+      { label: `Paso del tiempo: ${G.timeScale}×`, icon: icon('reloj') }, 'Volver'], { cancel: 4, title: 'Opciones', x: 110, y: 30, start: i });
     if (i === 0) setMuted(!audio.muted);
-    if (i === 1) G.timeScale = G.timeScale === 1.5 ? 1 : G.timeScale === 1 ? 3 : 1.5;
-    if (i === 2) return;
+    if (i === 1) setMusicVol(audio.musicVol >= 0.8 ? 0 : audio.musicVol >= 0.5 ? 0.8 : audio.musicVol >= 0.25 ? 0.5 : 0.25);
+    if (i === 2) prefs.text = prefs.text >= 3 ? 1 : prefs.text + 1;
+    if (i === 3) G.timeScale = G.timeScale === 1.5 ? 1 : G.timeScale === 1 ? 3 : 1.5;
+    prefs.music = audio.musicVol; prefs.muted = audio.muted; savePrefs();
+    if (i === 4) return;
   }
 }

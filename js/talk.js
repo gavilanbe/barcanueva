@@ -3,7 +3,8 @@ import { S, npcState, tier, TIERS, stat, mod, addItem, hasItem, logEvent, STAT_N
 import { ITEMS } from './data/items.js';
 import { SHOPS, MARKET, MARKET_RARE } from './data/shops.js';
 import { NPC_BY_ID } from './data/npcs.js';
-import { ui } from './ui.js';
+import { ui, itemIco } from './ui.js';
+let lastBuy = 0;
 import { G, addXP, npcLook } from './game.js';
 import { sfx } from './audio.js';
 import { SP, count } from './eco.js';
@@ -205,7 +206,7 @@ async function gift(npc, say) {
   const st = npcState(npc.id);
   const inv = Object.keys(S.inv).filter((k) => ITEMS[k] && ITEMS[k].type !== 'clave' || ['peine_oro', 'pluma_oca'].includes(k));
   if (!inv.length) { await ui.say('No llevas nada que regalar.'); return; }
-  const i = await ui.choose([...inv.map((k) => ({ label: `${ITEMS[k].name} x${S.inv[k]}`, hint: ITEMS[k].desc })), 'Nada'], { cancel: inv.length, title: 'Regalar' });
+  const i = await ui.choose([...inv.map((k) => ({ label: ITEMS[k].name, right: `×${S.inv[k]}`, hint: ITEMS[k].desc, icon: itemIco(k) })), 'Nada'], { cancel: inv.length, title: 'Regalar', max: 6 });
   if (i === inv.length) return;
   const it = inv[i];
   if (st.giftDay === S.day) { await say('Ya me has hecho un regalo hoy. No me malacostumbres.'); return; }
@@ -325,21 +326,21 @@ async function shop(npc, id, say) {
     if (i === 0) {
       while (true) {
         const mk = def.markup || 1;
-        const j = await ui.choose([...items.map((k) => ({ label: `${ITEMS[k].name}  ${priceBuy(ITEMS[k].price * mk, npc)} d.`, hint: ITEMS[k].desc + (S.inv[k] ? ` (tienes ${S.inv[k]})` : '') })), 'Volver'], { cancel: items.length, title: `Dineros: ${S.money}`, max: 6 });
+        const j = await ui.choose([...items.map((k) => { const pr = priceBuy(ITEMS[k].price * mk, npc); return { label: ITEMS[k].name, right: `${pr} d.`, hint: ITEMS[k].desc + (S.inv[k] ? ` (tienes ${S.inv[k]})` : ''), icon: itemIco(k), disabled: S.money < pr }; }), 'Volver'], { cancel: items.length, title: `Comprar · ${S.money} d.`, max: 6, start: lastBuy });
         if (j === items.length) break;
-        const k = items[j]; const pr = priceBuy(ITEMS[k].price * mk, npc);
+        const k = items[j]; const pr = priceBuy(ITEMS[k].price * mk, npc); lastBuy = j;
         if (S.money < pr) { sfx('no'); await ui.say('No te llega el dinero.'); continue; }
-        S.money -= pr; addItem(k); sfx('coin'); ui.toast(`+1 ${ITEMS[k].name}`); addXP(1);
+        S.money -= pr; addItem(k); sfx('buy'); ui.toast(`+1 ${ITEMS[k].name} · -${pr} d.`, '#f8e0b0', 'moneda'); addXP(1);
         if (ITEMS[k].type === 'libro' && !S.flags['read_' + k]) ui.toast('Léelo desde la mochila.');
       }
     } else {
       while (true) {
         const inv = Object.keys(S.inv).filter((k) => ITEMS[k] && ITEMS[k].type !== 'clave' && (def.buys.includes('*') || def.buys.includes(k) || def.buys.includes(ITEMS[k].type)));
         if (!inv.length) { await ui.say('No tienes nada que aquí te compren.'); break; }
-        const j = await ui.choose([...inv.map((k) => ({ label: `${ITEMS[k].name} x${S.inv[k]}  ${priceSell(ITEMS[k].price, npc)} d.`, hint: ITEMS[k].desc })), 'Volver'], { cancel: inv.length, title: `Vender · ${S.money} d.`, max: 6 });
+        const j = await ui.choose([...inv.map((k) => ({ label: `${ITEMS[k].name} ×${S.inv[k]}`, right: `${priceSell(ITEMS[k].price, npc)} d.`, hint: ITEMS[k].desc, icon: itemIco(k) })), 'Volver'], { cancel: inv.length, title: `Vender · ${S.money} d.`, max: 6 });
         if (j === inv.length) break;
         const k = inv[j]; const pr = priceSell(ITEMS[k].price, npc);
-        addItem(k, -1); S.money += pr; sfx('coin'); addXP(1);
+        addItem(k, -1); S.money += pr; sfx('coin'); ui.toast(`+${pr} d.`, '#fcd456', 'moneda'); addXP(1);
       }
     }
   }

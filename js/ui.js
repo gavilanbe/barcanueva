@@ -10,6 +10,10 @@ import { INK, alpha } from './pal.js';
 import { bayer, ellipse } from './px.js';
 
 export const W = 240, H = 160;
+// Preferencias (fuera de la partida guardada): velocidad del texto
+export const prefs = { text: 1 };
+try { Object.assign(prefs, JSON.parse(localStorage.getItem('barcanueva_prefs') || '{}')); } catch (e) { }
+export function savePrefs() { try { localStorage.setItem('barcanueva_prefs', JSON.stringify(prefs)); } catch (e) { } }
 // Tema: pergamino con marco de tinta y filete dorado
 export const T = {
   ink: '#3a2430', inkS: '#e2cfa4', title: '#9c3a24', dim: '#a8947c',
@@ -95,7 +99,7 @@ class Say {
   type(fast) {
     if (this.pause > 0) { this.pause--; this.talk = 0; return; }
     const total = this.pageLen(); if (this.chars >= total) { this.talk = 0; return; }
-    this.acc += fast ? 4 : 0.8;
+    this.acc += fast ? 4 : prefs.text >= 3 ? 999 : 0.8 * prefs.text;
     while (this.acc >= 1 && this.chars < total) {
       this.acc--; const g = this.glyphAt(this.chars); this.chars++;
       if (!g) break;
@@ -141,7 +145,7 @@ class Say {
 class Choose {
   constructor(opts, o) {
     this.kind = 'choose'; this.t = 0; this.opts = opts; this.i = o.start || 0; this.title = o.title; this.cancel = o.cancel ?? -1; this.top = 0; this.cols = o.cols || 1; this.prompt = o.prompt;
-    const lw = (s) => textWidth(typeof s === 'string' ? s : s.label) + 26 + (typeof s === 'object' && s.icon ? 14 : 0);
+    const lw = (s) => textWidth(typeof s === 'string' ? s : s.label) + 26 + (typeof s === 'object' && s.icon ? 14 : 0) + (typeof s === 'object' && s.right ? textWidth(String(s.right)) + 10 : 0);
     this.w = Math.min(228, Math.max(70, ...opts.map(lw), this.title ? textWidth(this.title) + 20 : 0));
     this.max = Math.min(opts.length, o.max || 7);
     this.x = o.x ?? W - this.w - 4; this.y = o.y ?? Math.max(4, 108 - this.max * 12 - 10 - (this.title ? 12 : 0));
@@ -351,7 +355,8 @@ export const ui = {
     if (anySay) this.dlg.hold = 0;
     for (const c of this.closing) c.ct++; this.closing = this.closing.filter((c) => c.ct < 9);
     const covered = trans.on && trans.phase !== 'in'; // a oscuras, carteles y avisos esperan
-    if (!covered) { for (const t of this.toasts) t.t++; this.toasts = this.toasts.filter((t) => t.t < t.life); }
+    const menuOpen = this.stack.length && this.stack[this.stack.length - 1].kind === 'choose'; // con un menú abierto, los avisos esperan
+    if (!covered && !menuOpen) { for (const t of this.toasts) t.t++; this.toasts = this.toasts.filter((t) => t.t < t.life); }
     if (!covered) { for (const b of this.banners) b.t++; this.banners = this.banners.filter((b) => b.t < b.life); }
     for (const a of this.announces) a.t++; this.announces = this.announces.filter((a) => a.t < a.life);
   },
@@ -363,7 +368,7 @@ export const ui = {
     }
     if (!drewBox && this.dlg.open > 0 && this.dlg.closingSay) this.drawBox(ctx, fr, this.dlg.closingSay);
     for (const c of this.closing) c.draw(ctx, fr);
-    if (!(trans.on && trans.phase !== 'in')) { this.drawToasts(ctx, fr); this.drawBanners(ctx, fr); }
+    if (!(trans.on && trans.phase !== 'in')) { if (!(this.stack.length && this.stack[this.stack.length - 1].kind === 'choose')) this.drawToasts(ctx, fr); this.drawBanners(ctx, fr); }
     this.drawAnnounces(ctx, fr);
   },
   drawBox(ctx, fr, s) {
@@ -381,11 +386,13 @@ export const ui = {
   },
   drawToasts(ctx, fr) {
     let slot = 0;
+    // si hay un menú abierto a la derecha, los avisos salen por la izquierda para no taparlo
+    const left = false;
     for (const t of this.toasts) {
       const ty = 32 + slot * 15; if (t.y === null) t.y = ty; t.y += (ty - t.y) * 0.3; slot++;
       const ic = t.ic ? icon(t.ic) : null; const w = textWidth(t.msg) + 12 + (ic ? 14 : 0);
       const inT = ease.outBack(Math.min(1, t.t / 12)), outT = t.t > t.life - 14 ? ease.inBack(Math.min(1, (t.t - (t.life - 14)) / 14)) : 0;
-      const x = Math.round(W - w - 3 + (1 - inT) * (w + 8) + outT * (w + 8)); const y = Math.round(t.y);
+      const x = left ? Math.round(3 - (1 - inT) * (w + 8) - outT * (w + 8)) : Math.round(W - w - 3 + (1 - inT) * (w + 8) + outT * (w + 8)); const y = Math.round(t.y);
       ctx.fillStyle = INK; ctx.fillRect(x, y, w, 13); ctx.fillStyle = 'rgba(33,24,44,.94)'; ctx.fillRect(x + 1, y + 1, w - 2, 11);
       ctx.fillStyle = t.color; ctx.fillRect(x + 1, y + 1, 2, 11);
       if (t.pulse > 0) { t.pulse--; ctx.fillStyle = alpha('#ffffff', 0.25); ctx.fillRect(x + 1, y + 1, w - 2, 11); }
