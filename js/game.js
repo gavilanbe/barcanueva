@@ -457,7 +457,8 @@ function updatePet(e) {
   } else if (p.still > 120 && Math.random() < 0.004) emote(e, 'heart');
 }
 
-export function autoWalk(dirsList) { G.letterbox = G.letterbox || 0; tween(G, { letterbox: 1 }, 20, ease.outCubic); return new Promise((res) => { G.auto = { q: [...dirsList], res: () => { tween(G, { letterbox: 0 }, 24, ease.inOutQuad); res(); } }; }); }
+export function letterbox(on) { G.letterbox = G.letterbox || 0; return tween(G, { letterbox: on ? 1 : 0 }, on ? 20 : 24, on ? ease.outCubic : ease.inOutQuad); }
+export function autoWalk(dirsList, keepBars = false) { letterbox(true); return new Promise((res) => { G.auto = { q: [...dirsList], res: () => { if (!keepBars) letterbox(false); res(); } }; }); }
 
 // ───────────── Emoticonos y reacciones ─────────────
 export function emote(e, name, life = 70) { e.emote = { name, t: 0, life }; if (e === G.player || (Math.abs(e.x - G.player.x) + Math.abs(e.y - G.player.y) < 8)) sfx('emote'); }
@@ -566,8 +567,24 @@ function camFollow() {
 // ───────────── Dibujo ─────────────
 const TINT = { manana: ['#ffd8b0', 0.16], dia: null, tarde: ['#ffc070', 0.2], crepusculo: ['#c86a80', 0.42], noche: ['#2a3478', 0.6] };
 const dark = canvas(W, H); // capa de oscuridad nocturna
+// Vigila la mochila y la vida: cualquier objeto nuevo salta sobre el jugador y los cambios de vida se ven
+let invSnap = null, hpSnap = null; const popQ = [];
+function watchPlayer() {
+  const p = G.player; if (!p || !S.player) return;
+  if (!invSnap) { invSnap = { ...S.inv }; hpSnap = S.player.hp; return; }
+  for (const k in S.inv) { const d = S.inv[k] - (invSnap[k] || 0); if (d > 0 && ITEMS[k]) popQ.push(k); }
+  invSnap = { ...S.inv };
+  const dh = S.player.hp - hpSnap; hpSnap = S.player.hp;
+  if (dh && G.mode === 'world' && Math.abs(dh) < 999) { fx.texts.push({ x: p.px + 8, y: p.py - 14, text: (dh > 0 ? '+' : '') + dh, color: dh > 0 ? '#8ae07a' : '#ff6a5a', vy: -1.2, t: 0, life: 50, layer: 'world', outline: INK }); if (dh < 0) { shake(0.25); burst(p.px + 8, p.py + 4, 6, { colors: ['#ff6a5a', '#ffffff'], speed: 1.2, life: 16, layer: 'world' }); } }
+  if (popQ.length && G.frame % 10 === 0) {
+    const k = popQ.shift(); const ic = ITEM_ICON?.itemIcon?.(k);
+    if (ic) { spawn({ x: p.px + 8, y: p.py - 8, vx: (Math.random() - 0.5) * 0.3, vy: -1.1, ay: 0.035, life: 46, kind: 'sprite', img: ic, layer: 'sky', fade: true }); sfx('item'); }
+  }
+}
+let ITEM_ICON = null; import('./icons.js').then((mm) => { ITEM_ICON = mm; }).catch(() => {});
 export function drawWorld(ctx) {
-  const m = G.map; if (!m) return; const [cx, cy] = G.cam; const fr = G.frame; const L = mapLayers(m); const sea = L.season;
+  const m = G.map; if (!m) return;
+  watchPlayer(); const [cx, cy] = G.cam; const fr = G.frame; const L = mapLayers(m); const sea = L.season;
   ctx.fillStyle = '#0e0a12'; ctx.fillRect(0, 0, W, H);
   ctx.drawImage(L.base, -cx, -cy);
   drawAnimated(ctx, m, L, cx, cy, fr, sea);
@@ -580,7 +597,7 @@ export function drawWorld(ctx) {
   const list = G.ents.filter((e) => !e.gone).sort((a, b) => (a.flying ? 9999 : a.py) - (b.flying ? 9999 : b.py));
   const feet = [];
   for (const e of list) {
-    const x = Math.round(e.px - cx), y = Math.round(e.py - cy);
+    const x = Math.round(e.px - cx); let y = Math.round(e.py - cy);
     if (x < -24 || y < -32 || x > W + 8 || y > H + 24) continue;
     if (e.kind === 'player' || e.kind === 'npc') {
       ellipseDither(ctx, x + 8, y + 14, 6, 2, 'rgba(20,10,30,0.4)', 0.95);
@@ -588,6 +605,7 @@ export function drawWorld(ctx) {
       const idle = e.mv === 0 && (e.kind === 'npc' || e.still > 20);
       const frm = e.mv > 0 ? e.frame : idle && Math.floor((fr + e.seed) / 34) % 2 ? 4 : 0;
       const blink = (fr + e.seed * 7) % 200 < 6;
+      if (e.talking && !e.hopT) e.hopT = 1; if (!e.talking) e.hopT = 0; const hop = e.hopT > 0 && e.hopT < 10 ? Math.round(Math.sin((e.hopT++ / 10) * Math.PI) * 3) : 0; const yy0 = y; y -= hop;
       if (e.ghost) ctx.globalAlpha = 0.55 + Math.sin(fr / 10) * 0.15;
       const wade = G.map.get(e.x, e.y) === '~' && e.mv === 0;
       if (wade) ctx.drawImage(charSprite(ap, e.dir, frm, blink), 0, 0, 16, 20, x, y - 8 + 2, 16, 20);
@@ -595,6 +613,7 @@ export function drawWorld(ctx) {
       ctx.globalAlpha = 1;
       if (wade) { ctx.fillStyle = alpha('#c8f0ff', 0.7); ctx.fillRect(x + 3, y + 13, 10, 1); }
       if (e.kind === 'npc' && G.hooks.npcBadge) G.hooks.npcBadge(ctx, e, x, y);
+      y = yy0;
       if (e.mv === 0 || e.mv < 4) feet.push([e.x, e.y]); else feet.push([e.from?.[0] ?? e.x, e.from?.[1] ?? e.y], [e.x, e.y]);
     } else if (e.kind === 'animal' || e.kind === 'pet') {
       const s = SP[e.sp]; const a = e.a; const cria = a && a.age < s.mature;

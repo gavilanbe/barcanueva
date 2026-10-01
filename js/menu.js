@@ -117,7 +117,7 @@ export function statusWidget(mode = 'menu') {
       if (input.pressed('B') || (this.mode === 'create' && input.pressed('S'))) { this.done = true; }
     },
     draw(ctx, fr) {
-      const p = S.player; const y0 = page(ctx, this.t, this.mode === 'create' ? 'Reparte tus puntos' : 'Estado', 'estado');
+      const p = S.player; const y0 = page(ctx, this.t, this.mode === 'create' ? 'Puntos' : 'Estado', 'estado');
       // ficha izquierda
       const fx_ = 6, fy = y0 + 14; ctx.fillStyle = '#e8d8b4'; ctx.fillRect(fx_ + 2, fy, 76, 66); ctx.fillStyle = '#d8c39a'; ctx.fillRect(fx_ + 2, fy + 50, 76, 16);
       const fig = figure(playerLook(), 'front', Math.floor(fr / 30) % 2 ? 'idle1' : 'idle0'); ctx.drawImage(fig, fx_ + 18, fy);

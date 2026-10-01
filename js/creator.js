@@ -96,7 +96,6 @@ export function creator() {
         KB.forEach((row, ry) => { for (let i = 0; i < row.length; i++) { const x = 114 + i * 8, y = 50 + ry * 10; if (ry === st.ky && i === st.kx) { ctx.fillStyle = '#a42632'; ctx.fillRect(x - 1, y - 2, 8, 10); drawText(ctx, row[i], x + 1, y, '#fff'); } else text(ctx, row[i], x + 1, y); } });
         const ay = 50 + KB.length * 10 + 2;
         ['Borrar', 'Aceptar'].forEach((s, i) => { const x = 120 + i * 54; if (st.ky === KB.length && st.kx === i) { ctx.fillStyle = '#a42632'; ctx.fillRect(x - 3, ay - 2, textWidth(s) + 6, 10); drawText(ctx, s, x, ay, '#fff'); } else text(ctx, s, x, ay); });
-        drawText(ctx, 'Teclado: escribe y Enter', 116, 104, '#8a7a6a');
       } else {
         const o = opts(k); const top = Math.max(0, Math.min(st.sel - 3, o.length - 6));
         const ty = 34 + (st.sel - top) * 12; if (this.hy === undefined) this.hy = ty; this.hy += (ty - this.hy) * 0.45;

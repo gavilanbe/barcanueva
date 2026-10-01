@@ -153,7 +153,7 @@ function paintBustHair(P, st, hx, hy, hw, hh, H, hat, fem, kid) {
   }
   if (st === 2) { P(H[3], hx + 1, top + 6, hw - 4, 2); P(H[4], hx + 2, top + 6, 3, 1); P(H[3], hx + hw, top + 3, 4, 4); P(H[2], hx + hw + 1, top + 7, 3, 8); P('#b8322c', hx + hw, top + 6, 3, 1); } // coleta
   if (st === 3) { for (let i = -1; i < hw + 1; i += 3) { P(H[3], hx + i, top - 1, 3, 3); P(H[4], hx + i, top - 1, 1, 1); } P(H[3], hx - 2, top + 3, 3, 10); P(H[2], hx + hw - 1, top + 3, 3, 10); P(H[3], hx + 1, top + 6, hw - 2, 2); } // rizos
-  if (st === 5) { P(H[3], hx + 4, top - 5, hw - 8, 6); P(H[4], hx + 5, top - 4, 3, 1); P(H[2], hx + hw - 6, top - 3, 2, 4); P(H[3], hx + 1, top + 6, hw - 2, 1); } // moño
+  if (st === 5) { const cx = hx + (hw >> 1); [4, 6, 8, 8, 6].forEach((w, r) => P(H[3], cx - (w >> 1), top - 6 + r, w, 1)); P(H[4], cx - 2, top - 5, 3, 1); P(H[5], cx - 2, top - 5, 1, 1); P(H[2], cx + 1, top - 3, 3, 2); P(H[1], cx - 4, top - 1, 8, 1); P(H[3], hx + 1, top + 6, hw - 2, 1); } // moño redondo
   if (st === 7) { P(H[3], hx + 5, top - 7, 6, 8); P(H[4], hx + 6, top - 6, 2, 5); P(H[2], hx + 9, top - 5, 2, 6); P(H[2], hx - 1, top + 3, 3, 4); P(H[2], hx + hw - 2, top + 3, 3, 4); } // cresta
   if (kid) P(H[4], hx + 6, top - 1, 2, 2);
 }

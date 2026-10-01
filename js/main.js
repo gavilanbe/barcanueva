@@ -4,7 +4,7 @@ import { ui, W, H, panel, text, T as UIT, hand } from './ui.js';
 import { drawText, textWidth, drawOutlined, bigText, drawBig, bigWidth } from './font.js';
 import { S, newGame, load, hasSave, save, maxHp, maxMp, logEvent } from './state.js';
 import { buildWorld, MAPS } from './world.js';
-import { dumpMap, G, enterMap, updateWorld, drawWorld, drawHUD, advance, newDay, addXP, autoWalk, emote } from './game.js';
+import { dumpMap, G, enterMap, updateWorld, drawWorld, drawHUD, advance, newDay, addXP, autoWalk, emote, letterbox } from './game.js';
 import { initEco } from './eco.js';
 import { drawBattle, B, fight, animalEnemy, monster } from './battle.js';
 import { creator, allocate } from './creator.js';
@@ -146,7 +146,7 @@ function newDayInit() { S.flags.travel = {}; for (const n of NPCS) if (n.travele
 
 async function intro() {
   const p = S.player;
-  await autoWalk(['down', 'down', 'down', 'down']);
+  await autoWalk(['down', 'down', 'down', 'down'], true);
   emote(G.player, '!');
   await ui.say(`Día 1. Primavera. Tras semanas de camino, ${p.name} cruza el Portal del Ángel y entra en Barcanueva.`);
   await ui.say('La ciudad huele a sal, a pan y a incienso. Al fondo, la Seu; más abajo, el mar. En el monte del Juïc, el castillo del Conde Barnabás vigila el puerto.');
@@ -158,6 +158,7 @@ async function intro() {
   }[p.race];
   await ui.say(race);
   await ui.say('Llevas ^y60 dineros^0, algo de pan y todo un año por delante. Puedes vivir como quieras: trabajar, cazar, cultivar, hacer amigos... o enemigos.');
+  letterbox(false);
   await ui.say('^bA^0: hablar e interactuar · ^bB^0 (mantener): correr · ^bMENÚ^0: estado, mochila, diario... En las tiradas, pulsa ^yA^0 cuando el anillo abrace el dado para ganar ^y«pulso»^0.');
   logEvent('Llegas a Barcanueva');
 }
