@@ -1,11 +1,14 @@
 // Actividades del mundo: carteles, muebles, recolectar, pescar, cultivar, cazar, dormir, curarse, rezar, crear.
-import { S, stat, mod, addItem, hasItem, logEvent, season, phase, npcState, clock, save } from './state.js';
+import { S, stat, mod, addItem, hasItem, logEvent, season, phase, npcState, clock, save, weekday, dayOfSeason, SEASONS } from './state.js';
 import { ITEMS, RECIPES, CRAFTS, SPELLS } from './data/items.js';
 import { SP, fishPool, takeFish, count } from './eco.js';
 import { BUILDINGS, PLACES, MAPS } from './world.js';
 import { TILE } from './tiles.js';
-import { ui } from './ui.js';
-import { G, addXP, advance, enterMap, newDay, invalidateMap } from './game.js';
+import { ui, panel, itemIco, icon } from './ui.js';
+import { transition, burst, spawn, ease } from './fx.js';
+import { drawBig, bigWidth, textWidth, drawOutlined } from './font.js';
+import { dirs } from './util.js';
+import { G, addXP, advance, enterMap, newDay, invalidateMap, weatherToday } from './game.js';
 import { sfx } from './audio.js';
 import { check, learn, changeRel, g } from './talk.js';
 import { fight, animalEnemy, npcEnemy, monster } from './battle.js';
@@ -76,14 +79,35 @@ G.hooks.object = async (o) => {
 export async function sleep(where = 'tu cama') {
   const i = await ui.ask(`¿Dormir hasta mañana? (${clock()})`, ['Dormir', 'No']);
   if (i !== 0) return;
-  S.flags.sleeping = true; G.fade = 0.01;
-  const cur = S.min; const mins = cur < 360 ? 420 - cur : 1440 - cur + 420; advance(mins); S.flags.sleeping = false;
-  const p = S.player; p.hp = p.hpMax; p.mp = p.mpMax; S.ailments = S.ailments.filter((a) => a !== 'cansancio');
-  // La Pesanta visita a quien duerme mal
-  if (Math.random() < 0.06 && !S.pet) { await ui.say('Sueñas que algo enorme y negro se te sienta en el pecho. Te despiertas sin aliento. (La Pesanta...)'); p.hp = Math.round(p.hpMax * 0.7); if (!S.known.pesanta) { S.known.pesanta = 1; learn('arc', 1, 'la Pesanta'); } }
+  S.flags.sleeping = true; sfx('close');
+  const p = S.player; let dream = false;
+  await transition('sleep', async () => {
+    const cur = S.min; const mins = cur < 360 ? 420 - cur : 1440 - cur + 420; advance(mins); S.flags.sleeping = false;
+    p.hp = p.hpMax; p.mp = p.mpMax; S.ailments = S.ailments.filter((a) => a !== 'cansancio');
+    if (Math.random() < 0.06 && !S.pet) dream = true;
+    if (dream) { await ui.say('Sueñas que algo enorme y negro se te sienta en el pecho. No puedes respirar... (La Pesanta...)', { expr: 'miedo' }); p.hp = Math.round(p.hpMax * 0.7); if (!S.known.pesanta) { S.known.pesanta = 1; learn('arc', 1, 'la Pesanta'); } }
+    await dayCard();
+  }, { dur: 46, durIn: 30 });
   if (S.flags.spouse) { const sp = NPC_BY_ID[S.flags.spouse]; await ui.say(`${sp.name} ya ha preparado el desayuno. «Buenos días, dormilón${S.player.sex === 'f' ? 'a' : ''}».`); changeRel(sp, 1, true); }
-  save(); ui.toast('Partida guardada');
+  save(); ui.toast('Partida guardada', '#c8e0ff', 'guardar');
   await G.hooks.morning?.();
+}
+// Tarjeta del nuevo día sobre negro: día, fecha, estación, clima y fiesta
+export function dayCard() {
+  const f = G.hooks.festivalToday?.(); const wk = weatherToday(); sfx('banner');
+  return ui.custom({ t: 0, update() { if (this.t > 150 || (this.t > 30 && (input.pressed('A') || input.pressed('B')))) this.done = true; },
+    draw(ctx, fr) {
+      ctx.fillStyle = '#0c0812'; ctx.fillRect(0, 0, 240, 160);
+      const k = Math.min(1, this.t / 18), out = this.t > 132 ? (this.t - 132) / 18 : 0; const a = Math.max(0, k - out);
+      ctx.globalAlpha = a;
+      const big = `Día ${S.day}`; drawBig(ctx, big, 120 - bigWidth(big, 3) / 2, 34 - Math.round((1 - ease.outBack(k)) * 12), '#fff0c8', '#3a2228', 3);
+      const l2 = `${weekday()} · ${dayOfSeason()} de ${SEASONS[season()]}`; drawText(ctx, l2, Math.round(120 - textWidth(l2) / 2), 84, '#f0b030');
+      const si = icon(['primavera', 'verano', 'otono', 'invierno'][season()]), wi = icon({ sol: 'sol', nubes: 'nube', lluvia: 'lluvia', tormenta: 'lluvia', niebla: 'niebla', nieve: 'nieve' }[wk]);
+      if (si) ctx.drawImage(si, 102, 98); if (wi) ctx.drawImage(wi, 126, 98);
+      const wt = { sol: 'Soleado', nubes: 'Nublado', lluvia: 'Lluvia', tormenta: 'Tormenta', niebla: 'Niebla', nieve: 'Nieve' }[wk] || ''; drawText(ctx, wt, Math.round(120 - textWidth(wt) / 2), 114, '#c8b8d8');
+      if (f) { const s2 = `★ ${f.name} ★`; drawText(ctx, s2, Math.round(120 - textWidth(s2) / 2), 132, '#ff9ac8'); }
+      ctx.globalAlpha = 1;
+    } });
 }
 async function stash() {
   const i = await ui.choose(['Guardar', 'Sacar', 'Nada'], { cancel: 2, title: 'Arcón' });
@@ -178,7 +202,7 @@ async function pagan(b) {
 async function boat(b) {
   if (G.map.id === 'costa') { return ui.say('Una barca varada en la arena. Huele a sal y a brea.'); }
   const i = await ui.ask('Una barca de pescadores. Por unas monedas te llevan por la costa.', ['A la costa del Besós (8 d.)', 'Pescar mar adentro (15 d.)', 'Nada']);
-  if (i === 0) { if (S.money < 8) return ui.say('No te llega.'); S.money -= 8; advance(60); G.fade = 1; G.fadeTo = () => enterMap('costa', 28, 29, 'up'); return; }
+  if (i === 0) { if (S.money < 8) return ui.say('No te llega.'); S.money -= 8; sfx('splash'); await transition('wipe', () => { advance(60); enterMap('costa', 28, 29, 'up'); }, { dir: 'right', dur: 26 }); return; }
   if (i === 1) { if (S.money < 15) return ui.say('No te llega.'); S.money -= 15; advance(120); return fish('costa', true); }
 }
 
@@ -227,35 +251,84 @@ function total_bees_low() { return (S.eco?.pollination ?? 1) < 0.4; }
 export async function fish(mapId, sea = false) {
   const pool = fishPool(mapId); const ids = Object.keys(pool);
   if (!ids.length) return ui.say('Ni un pez. El agua está vacía.');
-  await ui.say('Lanzas el sedal y esperas...');
-  advance(15 + Math.floor(Math.random() * 30));
-  const res = await ui.custom({
-    t: 0, bite: 40 + Math.floor(Math.random() * 120), win: 22 + mod(stat('caz')) * 3, done: false,
-    update() { this.t++; if (this.t < this.bite) { if (input_pressed()) { this.done = true; this.result = 'early'; } return; } if (this.t < this.bite + this.win) { if (input_pressed()) { this.done = true; this.result = 'ok'; } return; } this.done = true; this.result = 'late'; },
+  // ¿Qué especie picará? Ponderada por abundancia
+  const tot = ids.reduce((s2, k) => s2 + pool[k], 0); let v = Math.random() * tot; let sp = ids[0];
+  for (const k of ids) { v -= pool[k]; if (v <= 0) { sp = k; break; } }
+  const rain = ['lluvia', 'tormenta'].includes(weatherToday());
+  advance(10 + Math.floor(Math.random() * 20));
+  // Fase 1: la picada. Pulsa A cuando el corcho se hunda.
+  sfx('swing');
+  const hook = await ui.custom({
+    t: 0, bite: 50 + Math.floor(Math.random() * (rain ? 70 : 130)), win: 20 + mod(stat('caz')) * 3, fakes: Math.random() < 0.5 ? [20 + Math.floor(Math.random() * 25)] : [],
+    update() {
+      this.t++;
+      if (this.t === this.bite) { sfx('splash'); const P = G.player; const d2 = dirs[P.dir]; burst(P.px + 8 + d2[0] * 22, P.py + 8 + d2[1] * 22, 8, { colors: ['#e8faff', '#a8d8f0'], speed: 1.2, life: 18, ay: 0.08, layer: 'world' }); }
+      if (this.fakes.includes(this.t)) sfx('tick');
+      const pr = input.pressed('A');
+      if (this.t < this.bite) { if (pr && this.t > 10) { this.done = true; this.result = 'early'; } return; }
+      if (this.t < this.bite + this.win) { if (pr) { this.done = true; this.result = 'ok'; } return; }
+      this.done = true; this.result = 'late';
+    },
     draw(ctx, fr) {
-      // Sedal desde la mano hasta el corcho, en la casilla de agua de enfrente
-      const P = G.player; const [cx, cy] = G.cam; const d = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[P.dir];
-      const hx = P.px - cx + 8 + d[0] * 6, hy = P.py - cy + 2;
-      const bx = P.px - cx + 8 + d[0] * 22, by0 = P.py - cy + 8 + d[1] * 22;
-      const biting = this.t >= this.bite; const by = by0 + (biting ? (fr % 4 < 2 ? 2 : -1) : Math.round(Math.sin(fr / 12)));
-      ctx.fillStyle = '#8a6a3a'; for (let i = 0; i <= 8; i++) ctx.fillRect(Math.round(P.px - cx + 8 + d[0] * i), Math.round(P.py - cy + 4 - i + (d[1] > 0 ? i * 1.5 : 0)), 1, 1);
-      ctx.fillStyle = 'rgba(240,240,240,.8)'; const n = 16; for (let i = 0; i <= n; i++) { const t = i / n; ctx.fillRect(Math.round(hx + (bx - hx) * t), Math.round(hy + (by - hy) * t + Math.sin(t * Math.PI) * 4), 1, 1); }
+      const P = G.player; const [cx, cy] = G.cam; const d2 = dirs[P.dir];
+      const hx = P.px - cx + 8 + d2[0] * 6, hy = P.py - cy + 2;
+      const bx = P.px - cx + 8 + d2[0] * 22, by0 = P.py - cy + 8 + d2[1] * 22;
+      const biting = this.t >= this.bite; const nib = this.fakes.some((f) => this.t >= f && this.t < f + 8);
+      const by = by0 + (biting ? (fr % 4 < 2 ? 3 : 1) : nib ? 1 : Math.round(Math.sin(fr / 12)));
+      ctx.fillStyle = '#8a6a3a'; for (let i = 0; i <= 8; i++) ctx.fillRect(Math.round(P.px - cx + 8 + d2[0] * i), Math.round(P.py - cy + 4 - i + (d2[1] > 0 ? i * 1.5 : 0)), 1, 1);
+      ctx.fillStyle = 'rgba(240,240,240,.8)'; const n = 16; for (let i = 0; i <= n; i++) { const t = i / n; ctx.fillRect(Math.round(hx + (bx - hx) * t), Math.round(hy + (by - hy) * t + Math.sin(t * Math.PI) * (biting ? 1 : 4)), 1, 1); }
       ctx.fillStyle = '#f8f0e8'; ctx.fillRect(bx - 1, by, 3, 3); ctx.fillStyle = '#e84a4a'; ctx.fillRect(bx - 1, by - 1, 3, 2);
-      if (biting) { ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.fillRect(bx - 4, by + 3, 9, 1); drawTextAt(ctx, '¡PICA! (A)', bx - 18, by - 14); }
-      else if (fr % 90 < 60) drawTextAt(ctx, '...', bx - 4, by - 12);
+      if (!biting && fr % 50 < 25) ringAt(ctx, bx, by0 + 2, 3 + (fr % 50) / 8);
+      if (biting) { drawOutlined(ctx, '¡PICA! (A)', bx - 22, by - 16, '#fcd456', '#1a1022'); }
+      else if (fr % 90 < 60) drawOutlined(ctx, '...', bx - 4, by - 12, '#ffffff', '#1a1022');
     },
   });
-  if (res !== 'ok') return ui.say(res === 'early' ? 'Tiras demasiado pronto y asustas al pez.' : 'Se te ha escapado.');
-  // Qué especie: ponderado por abundancia
-  const tot = ids.reduce((s, k) => s + pool[k], 0); let v = Math.random() * tot; let sp = ids[0];
-  for (const k of ids) { v -= pool[k]; if (v <= 0) { sp = k; break; } }
-  const r = await check('Pescar (CAZA Y PESCA)', ['caz'], SP[sp].rate === 'baja' ? 15 : SP[sp].rate === 'media' ? 11 : 8, sea ? 2 : 0);
-  if (!r.ok) return ui.say('¡Se suelta del anzuelo en el último momento!');
-  takeFish(mapId, sp); const it = SP[sp].item; addItem(it); sfx('splash'); addXP(5, 'Pesca');
+  if (hook !== 'ok') return ui.say(hook === 'early' ? 'Tiras demasiado pronto y asustas al pez.' : 'Se te ha escapado el pez.');
+  // Fase 2: la lucha. Mantén A para subir la zona verde y deja al pez dentro hasta llenar la barra.
+  const s0 = SP[sp]; const hard = s0.rate === 'baja' ? 2 : s0.rate === 'media' ? 1 : 0; const item = s0.item;
+  const zone = 22 + mod(stat('caz')) * 3 + (sea ? 2 : 0); const H0 = 96;
+  sfx('ok');
+  const caught = await ui.custom({
+    t: 0, zy: H0 / 2 - zone / 2, zv: 0, fy: H0 / 2 - 4, fv: 0, ft: 40, prog: 0.35, target: H0 / 2,
+    update() {
+      this.t++;
+      // zona del jugador: gravedad y empuje
+      this.zv += input.held('A') ? -0.22 : 0.18; this.zv *= 0.9; this.zy += this.zv;
+      if (this.zy < 0) { this.zy = 0; this.zv = 0; } if (this.zy > H0 - zone) { this.zy = H0 - zone; this.zv *= -0.3; }
+      // el pez: cambia de objetivo según su bravura
+      if (--this.ft <= 0) { this.target = Math.random() * (H0 - 8); this.ft = 30 + Math.random() * (60 - hard * 18); }
+      this.fv += (this.target - this.fy) * (0.004 + hard * 0.003); this.fv *= 0.86 - hard * 0.02; this.fy += this.fv;
+      this.fy = Math.max(0, Math.min(H0 - 8, this.fy));
+      const inside = this.fy + 4 >= this.zy && this.fy + 4 <= this.zy + zone;
+      this.prog += inside ? 0.0056 - hard * 0.001 : -(0.0022 + hard * 0.0008);
+      if (inside && this.t % 8 === 0) sfx('tick');
+      if (this.prog >= 1) { this.done = true; this.result = true; }
+      if (this.prog <= 0) { this.done = true; this.result = false; }
+    },
+    draw(ctx, fr) {
+      const x0 = 196, y0 = 22; panel(ctx, x0 - 8, y0 - 8, 44, H0 + 16, 'dark');
+      ctx.fillStyle = '#10305e'; ctx.fillRect(x0, y0, 14, H0); ctx.fillStyle = '#134a86'; for (let y = 0; y < H0; y += 6) ctx.fillRect(x0, y0 + y + ((fr >> 3) % 6), 14, 1);
+      const inside = this.fy + 4 >= this.zy && this.fy + 4 <= this.zy + zone;
+      ctx.fillStyle = inside ? '#62c070' : '#3a8a4a'; ctx.fillRect(x0 + 1, Math.round(y0 + this.zy), 12, zone); ctx.fillStyle = '#a8f0a0'; ctx.fillRect(x0 + 1, Math.round(y0 + this.zy), 12, 1);
+      const ic = itemIco(item); const wob = Math.round(Math.sin(fr / 3) * 1);
+      if (ic) ctx.drawImage(ic, x0 - 1 + wob, Math.round(y0 + this.fy) - 4); else { ctx.fillStyle = '#e8e0d0'; ctx.fillRect(x0 + 3, Math.round(y0 + this.fy), 8, 6); }
+      // progreso
+      ctx.fillStyle = '#1a1022'; ctx.fillRect(x0 + 19, y0, 6, H0); const ph = Math.round(H0 * this.prog); ctx.fillStyle = this.prog > 0.7 ? '#fcd456' : this.prog < 0.25 ? '#e84a4a' : '#f0a030'; ctx.fillRect(x0 + 20, y0 + H0 - ph, 4, ph);
+      drawOutlined(ctx, 'A', x0 + 4, y0 + H0 + 4 - 0, input.held('A') ? '#fcd456' : '#c8b8d8', '#1a1022');
+      // sedal tenso
+      const P = G.player; const [cx, cy] = G.cam; const d2 = dirs[P.dir]; const bx = P.px - cx + 8 + d2[0] * 22, by = P.py - cy + 8 + d2[1] * 22 + (fr % 6 < 3 ? 1 : 0);
+      ctx.fillStyle = 'rgba(240,240,240,.9)'; for (let i = 0; i <= 14; i++) { const t = i / 14; ctx.fillRect(Math.round(P.px - cx + 8 + d2[0] * 6 + (bx - (P.px - cx + 8 + d2[0] * 6)) * t), Math.round(P.py - cy + 2 + (by - (P.py - cy + 2)) * t), 1, 1); }
+      if (fr % 10 === 0) burst(bx + cx, by + cy, 2, { colors: ['#e8faff'], speed: 0.8, life: 12, ay: 0.06, layer: 'world' });
+    },
+  });
+  if (!caught) return ui.say('¡El sedal se afloja! El pez se ha soltado.');
+  takeFish(mapId, sp); addItem(item); sfx('splash'); sfx('item'); addXP(5 + hard * 4, 'Pesca');
   S.known['sp:' + sp] = 1;
-  if (SP[sp].flagship) logEvent(`Pescas un ${ITEMS[it].name.toLowerCase()}. Quedan muy pocos.`);
-  return ui.say(`¡Has pescado ${ITEMS[it].name}!`);
+  const P = G.player; spawn({ x: P.px + 8, y: P.py - 6, vx: 0, vy: -0.8, ay: 0.03, life: 50, kind: 'sprite', img: itemIco(item), layer: 'world', fade: false });
+  if (SP[sp].flagship) logEvent(`Pescas un ${ITEMS[item].name.toLowerCase()}. Quedan muy pocos.`);
+  return ui.say(`¡Has pescado ${ITEMS[item].name}!`);
 }
+function ringAt(ctx, x, y, r) { ctx.fillStyle = 'rgba(232,250,255,.6)'; ctx.fillRect(Math.round(x - r), Math.round(y), Math.round(r * 2), 1); }
 import { input } from './input.js';
 import { drawText } from './font.js';
 function input_pressed() { return input.pressed('A'); }
@@ -341,23 +414,32 @@ G.hooks.encounter = async (kind, e) => {
 
 // ───────────── Desmayos y sanatorios ─────────────
 G.hooks.faint = async () => {
-  S.flags.sleeping = true;
+  S.flags.sleeping = true; let lost = 0;
   await ui.say('Se te cierran los ojos. Te desplomas de cansancio donde estás...');
-  const lost = Math.min(S.money, Math.floor(S.money * 0.1)); S.money -= lost;
-  advance(360 < S.min ? 0 : 480 - S.min); S.flags.sleeping = false; S.player.hp = Math.round(S.player.hpMax * 0.6);
+  await transition('sleep', async () => {
+    lost = Math.min(S.money, Math.floor(S.money * 0.1)); S.money -= lost;
+    advance(360 < S.min ? 0 : 480 - S.min); S.flags.sleeping = false; S.player.hp = Math.round(S.player.hpMax * 0.6);
+    await dayCard();
+  }, { dur: 30, durIn: 30 });
   await ui.say(lost ? `Despiertas entumecido. Alguien te ha aligerado la bolsa: -${lost} dineros.` : 'Despiertas entumecido y con la boca seca.');
 };
-G.hooks.knockout = async (enemy) => {
-  await ui.say('Todo se vuelve negro...');
+// Derrota: la parte que ocurre a oscuras (pasan los días y despiertas en el hospital) y la que se cuenta después
+let koInfo = null;
+G.hooks.knockoutPrep = (enemy) => {
   const grave = enemy.kind !== 'npc';
   const days = grave ? 2 : 1; for (let i = 0; i < days; i++) newDay();
   S.min = 9 * 60; S.player.hp = Math.round(S.player.hpMax * 0.5);
   if (grave && !S.ailments.includes('herida')) S.ailments.push('herida');
   const cost = Math.min(S.money, grave ? 30 : 10); S.money -= cost;
   enterMap('int_hosp_cruz', 7, 6, 'down');
+  koInfo = { grave, days, cost };
+};
+G.hooks.knockoutAfter = async () => {
+  const { grave, days, cost } = koInfo || { grave: false, days: 1, cost: 0 };
   await ui.say(`Despiertas en el Hospital de la Santa Cruz, ${days} día${days > 1 ? 's' : ''} después. El doctor Oller te ha cosido.${cost ? ` Te cobran ${cost} dineros.` : ''}`);
   if (grave) await ui.say('Tienes una herida que tardará en cerrarse. Pide tratamiento en un sanatorio o usa ungüentos.');
 };
+G.hooks.knockout = async (enemy) => { await ui.say('Todo se vuelve negro...'); G.hooks.knockoutPrep(enemy); await G.hooks.knockoutAfter(); };
 // Tratamientos en los sanatorios
 export async function treatment(npc) {
   const fast = npc.id === 'aleix';

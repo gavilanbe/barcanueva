@@ -31,6 +31,7 @@ export const FESTIVALS = [
   { s: 3, d: 25, name: 'Nadal: el Tió', place: ['home'], ph: ['tarde', 'crepusculo', 'noche'], text: 'Navidad. En cada casa se golpea al Tió con un palo para que cague turrones.' },
   { s: 3, d: 28, name: 'L’Home dels Nassos', place: ['rambla_n', 'canaletas', 'sant_jaume'], ph: ['dia', 'tarde'], text: 'Último día del año: dicen que por la Rambla pasea l’Home dels Nassos, que tiene tantas narices como días quedan. Hoy, una.' },
 ];
+G.hooks.festivalToday = (d) => festivalToday(d);
 export function festivalToday(day = S.day) {
   const s = season(day), d = dayOfSeason(day);
   return FESTIVALS.find((f) => f.s === s && d >= f.d && d < f.d + (f.len || 1));

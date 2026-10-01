@@ -156,7 +156,10 @@ export async function fight(enemy) {
   }
   const out = await finish(enemy, result);
   b.menu = false;
-  await transition('fade', () => { B.active = null; G.mode = 'world'; updateMusic(); }, { dur: 18 });
+  if (result === 'lose') {
+    await transition('sleep', async () => { await ui.say('Todo se vuelve negro...'); B.active = null; G.mode = 'world'; G.hooks.knockoutPrep?.(enemy); updateMusic(); }, { dur: 30, durIn: 34 });
+    await G.hooks.knockoutAfter?.(enemy);
+  } else await transition('fade', () => { B.active = null; G.mode = 'world'; updateMusic(); }, { dur: 18 });
   return out;
 }
 function introLine(e) {
@@ -673,7 +676,7 @@ async function finish(e, result) {
   if (result === 'lose') {
     p.hp = 0; sfx('defeat'); b.pl.pose = 'hurt'; b.defeat = 1;
     await tween(b.pl, { alpha: 0 }, 50, ease.inQuad);
-    await G.hooks.knockout?.(e); return 'lose';
+    return 'lose';
   }
 }
 function a_cria(e) { return e.a && e.a.age < SP[e.sp].mature; }
