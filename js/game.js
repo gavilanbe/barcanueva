@@ -801,10 +801,10 @@ export function drawHUD(ctx) {
   const ph = phase(); const p = S.player; const pl = G.player;
   // se aparta si el jugador pasa por debajo
   const [cx, cy] = G.cam; const sx = pl ? pl.px - cx : 0, sy = pl ? pl.py - cy : 0;
-  const under = (sy < 34 && (sx < 92 || sx > 150));
+  const under = (sy < 34 && (sx < 100 || sx > 150));
   hud.alpha += ((under ? 0.35 : 1) - hud.alpha) * 0.15; ctx.globalAlpha = hud.alpha;
   // Reloj con esfera de día y noche
-  const bw = 88; ctx.fillStyle = INK; ctx.fillRect(2, 2, bw, 27); ctx.fillStyle = 'rgba(33,24,44,.92)'; ctx.fillRect(3, 3, bw - 2, 25); ctx.fillStyle = '#4a3462'; ctx.fillRect(3, 3, bw - 2, 1);
+  const bw = 96; ctx.fillStyle = INK; ctx.fillRect(2, 2, bw, 27); ctx.fillStyle = 'rgba(33,24,44,.92)'; ctx.fillRect(3, 3, bw - 2, 25); ctx.fillStyle = '#4a3462'; ctx.fillRect(3, 3, bw - 2, 1);
   drawDial(ctx, 15, 15);
   const col = { manana: '#f8d070', dia: '#fff4a0', tarde: '#f8a050', crepusculo: '#f08080', noche: '#a8b8ff' }[ph.id];
   drawText(ctx, clock(), 29, 6, '#fff4dc', INK);
