@@ -1,0 +1,22 @@
+<!doctype html><meta charset="utf-8"><title>Prueba de animales</title>
+<canvas id="g" width="8" height="8"></canvas>
+<script type="module">
+// Prueba exhaustiva del API de animales: todas las especies, poses, fotogramas, direcciones, crías y sexos.
+import { animalSprite, animalBattle, ANIMAL_POSES } from '../../js/sprites.js';
+import { SP } from '../../js/eco.js';
+const out = { errors: [], count: 0, sizes: {} };
+const t0 = performance.now(); let slow = [];
+for (const sp of Object.keys(SP).filter((k) => !SP[k].fish)) {
+  for (const pose of Object.keys(ANIMAL_POSES)) for (let f = 0; f < 4; f++) for (const dir of ['left', 'right']) for (const cria of [false, true]) for (const sex of ['m', 'f']) {
+    try { const a = performance.now(); const c = animalSprite(sp, dir, f, cria, sex, pose); const d = performance.now() - a; if (d > 25) slow.push(`${sp}/${pose}/${d.toFixed(1)}ms`); if (c.width !== 16 || c.height !== 16) out.errors.push(`${sp} size ${c.width}`); out.count++; } catch (e) { out.errors.push(`${sp} ${pose} ${f} ${dir}: ${e.message}`); }
+  }
+  for (const pose of ['idle', 'attack', 'hurt']) for (let f = 0; f < 2; f++) for (const cria of [false, true]) for (const sex of ['m', 'f']) {
+    try { const a = performance.now(); const c = animalBattle(sp, f, cria, sex, pose); const d = performance.now() - a; if (d > 60) slow.push(`B ${sp}/${pose}/${d.toFixed(1)}ms`); out.sizes[sp] = c.width + 'x' + c.height; out.count++;
+      // ¿toca algún borde? (el contorno debería caber)
+      const x = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let top = 0; for (let i = 0; i < c.width; i++) if (x[i * 4 + 3]) top++; if (top > 3) out.errors.push(`B ${sp} ${pose} toca arriba (${top}px)`);
+    } catch (e) { out.errors.push(`B ${sp} ${pose}: ${e.message}`); }
+  }
+}
+out.ms = Math.round(performance.now() - t0); out.slow = slow.slice(0, 20);
+window.result = out; document.title = 'done';
+</script>

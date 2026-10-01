@@ -3,12 +3,13 @@ import { spawn } from "node:child_process";
 import { writeFileSync } from "node:fs";
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const PORT = 9344;
+const PORT = +(process.env.CDP_PORT || 9344); // varios agentes en paralelo: cada uno con su puerto
+const PROFILE = `/tmp/barcanueva-cdp-profile-${PORT}`;
 
 export async function launch(url) {
-  try { const { execSync } = await import("node:child_process"); execSync("pkill -f barcanueva-cdp-profile || true"); await new Promise((r) => setTimeout(r, 400)); } catch (e) { }
+  try { const { execSync } = await import("node:child_process"); execSync(`pkill -f ${PROFILE} || true`); await new Promise((r) => setTimeout(r, 400)); } catch (e) { }
   const proc = spawn(CHROME, [
-    "--headless=new", `--remote-debugging-port=${PORT}`, "--user-data-dir=/tmp/barcanueva-cdp-profile",
+    "--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${PROFILE}`,
     "--no-first-run", "--disable-gpu", "--window-size=800,700", "--autoplay-policy=no-user-gesture-required", "about:blank",
   ], { stdio: "ignore" });
   let targets;

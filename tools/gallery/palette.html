@@ -1,0 +1,12 @@
+<!doctype html><meta charset="utf-8"><title>Paleta</title>
+<style>body{margin:0;background:#222}canvas{image-rendering:pixelated}</style>
+<canvas id="g"></canvas>
+<script type="module">
+import { PAL, ramp } from '../../js/pal.js';
+const c = document.getElementById('g'); const names = Object.keys(PAL);
+const S = 14; c.width = 9 * S + 90; c.height = (names.length + 8) * S; const x = c.getContext('2d');
+x.fillStyle = '#222'; x.fillRect(0, 0, c.width, c.height); x.font = '10px monospace';
+names.forEach((n, j) => { x.fillStyle = '#ddd'; x.fillText(n, 2, j * S + 10); PAL[n].forEach((col, i) => { x.fillStyle = col; x.fillRect(80 + i * S, j * S, S, S); }); });
+const tests = ['#f6d3b3', '#9a6440', '#c9504a', '#6d4a9c', '#3a6a9a', '#b8322c', '#e6cf7a', '#8a8a90'];
+tests.forEach((t, j) => { const y = (names.length + j) * S; x.fillStyle = '#ddd'; x.fillText('ramp ' + t, 2, y + 10); ramp(t).forEach((col, i) => { x.fillStyle = col; x.fillRect(80 + i * S, y, S, S); }); });
+</script>

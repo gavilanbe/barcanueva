@@ -1,0 +1,39 @@
+<!doctype html><meta charset="utf-8"><title>Personajes</title>
+<style>body{margin:0;background:#222}canvas{image-rendering:pixelated}</style>
+<canvas id="g"></canvas>
+<script type="module">
+import { charSprite, SKINS, TIEFLING_SKINS, HAIRS } from '../../js/chars.js';
+import { bust, figure } from '../../js/portraits.js';
+import { NPCS } from '../../js/data/npcs.js';
+const q = new URLSearchParams(location.search); const page = q.get('p') || (location.pathname.match(/chars-(\w+)/)?.[1]) || 'walk';
+const c = document.getElementById('g'); const x = c.getContext('2d');
+const look = (n) => ({ ...n.look, race: n.race, sex: n.sex, age: n.age, equip: n.look.equip || {} });
+if (page === 'walk') {
+  // Muestras de razas y peinados en las 4 direcciones y 5 fotogramas, ×3
+  const samples = [
+    { race: 'humano', sex: 'm', skin: SKINS[1], hair: HAIRS[1], hairStyle: 0, top: '#3a6a9a', bottom: '#4a4a6a', equip: {} },
+    { race: 'humano', sex: 'f', skin: SKINS[0], hair: HAIRS[5], hairStyle: 1, top: '#b85a3a', bottom: '#4a3a5a', equip: {} },
+    { race: 'elfo', sex: 'f', skin: SKINS[0], hair: HAIRS[4], hairStyle: 6, top: '#4a8a4a', bottom: '#3a4a3a', equip: { cape: 'capa_verde' } },
+    { race: 'tiefling', sex: 'm', skin: TIEFLING_SKINS[0], hair: HAIRS[0], hairStyle: 2, top: '#5a5a5a', bottom: '#2a2a3a', equip: {} },
+    { race: 'enano', sex: 'm', skin: SKINS[2], hair: HAIRS[5], hairStyle: 3, top: '#8a3a6a', bottom: '#4a3a2a', beard: true, equip: { head: 'cuernos_yelmo', body: 'cota' } },
+    { race: 'humano', sex: 'm', skin: SKINS[3], hair: HAIRS[0], hairStyle: 5, top: '#c8a040', bottom: '#5a4a3a', equip: { head: 'barretina' } },
+    { race: 'humano', sex: 'f', skin: SKINS[4], hair: HAIRS[0], hairStyle: 7, top: '#8a3a6a', bottom: '#2a2a3a', equip: { body: 'vestido', head: 'diadema' } },
+    { race: 'humano', sex: 'm', skin: SKINS[1], hair: HAIRS[6], hairStyle: 4, top: '#5a4636', bottom: '#2a2a3a', age: 'anciano', equip: { body: 'habito' } },
+  ];
+  const S = 3; c.width = (4 * 5 * 17 + 10) * S; c.height = samples.length * 26 * S; x.imageSmoothingEnabled = false; x.fillStyle = '#5a8a4a'; x.fillRect(0, 0, c.width, c.height);
+  samples.forEach((ap, j) => ['down', 'right', 'up', 'left'].forEach((d, k) => [0, 1, 2, 3, 4].forEach((f) => {
+    const s = charSprite(ap, d, f, f === 2 && d === 'down'); x.drawImage(s, ((k * 5 + f) * 17 + (k * 2)) * S, (j * 26 + 1) * S, 16 * S, 24 * S);
+  })));
+} else if (page === 'npcs') {
+  const S = 2; const cols = 16; c.width = cols * 20 * S; c.height = Math.ceil(NPCS.length / cols) * 28 * S; x.imageSmoothingEnabled = false; x.fillStyle = '#c8b898'; x.fillRect(0, 0, c.width, c.height);
+  NPCS.forEach((n, i) => x.drawImage(charSprite(look(n), 'down', 0), (i % cols) * 20 * S + 2 * S, Math.floor(i / cols) * 28 * S + 2 * S, 16 * S, 24 * S));
+} else if (page === 'busts') {
+  const S = 2; const cols = 10; const list = NPCS.slice(+(q.get('o') || 0), +(q.get('o') || 0) + 30);
+  c.width = cols * 44 * S; c.height = Math.ceil(list.length / cols) * 44 * S; x.imageSmoothingEnabled = false; x.fillStyle = '#3a2a30'; x.fillRect(0, 0, c.width, c.height);
+  const ex = ['neutral', 'alegre', 'triste', 'furia', 'sorpresa', 'miedo'];
+  list.forEach((n, i) => { x.fillStyle = '#d8c39a'; x.fillRect((i % cols) * 44 * S + 2 * S, Math.floor(i / cols) * 44 * S + 2 * S, 40 * S, 40 * S); x.drawImage(bust(look(n), ex[i % 6], i % 3 === 1 ? 1 : 0, false), (i % cols) * 44 * S + 2 * S, Math.floor(i / cols) * 44 * S + 2 * S, 40 * S, 40 * S); });
+} else if (page === 'figs') {
+  const S = 2; const list = NPCS.slice(0, 8); c.width = 8 * 46 * S; c.height = 3 * 66 * S; x.imageSmoothingEnabled = false; x.fillStyle = '#6a8a6a'; x.fillRect(0, 0, c.width, c.height);
+  list.forEach((n, i) => { x.drawImage(figure(look(n), 'back', 'idle0'), i * 46 * S, 0, 44 * S, 64 * S); x.drawImage(figure(look(n), 'front', 'idle0'), i * 46 * S, 66 * S, 44 * S, 64 * S); x.drawImage(figure(look(n), i % 2 ? 'front' : 'back', ['attack', 'hurt', 'cast', 'win'][i % 4]), i * 46 * S, 132 * S, 44 * S, 64 * S); });
+}
+</script>

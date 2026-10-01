@@ -116,6 +116,22 @@ def('☾', 0, S('.##.. #.... #.... #.... #.... #.... .##..'));
 def('†', 0, S('.#. ### .#. .#. .#. .#. ...'));
 def('ç', 2, S('.### #... #... #... .### ..#.'));
 def('Ç', 0, S('.###. #...# #.... #.... #.... #...# .###. ..#..'));
+def('×', 2, S('#...# .#.#. ..#.. .#.#. #...#'));
+def('♂', 0, S('..### ...## ..#.# .##.. #..#. #..#. .##..'));
+def('♀', 0, S('.###. #...# #...# .###. ..#.. .###. ..#..'));
+def('♪', 0, S('..##. ..#.# ..#.. ..#.. .##.. ###.. .#...'));
+def('…', 6, S('#.#.#'));
+def('⅓', 0, S('#.... #..#. #.#.. ..#.. .#.## #...# ....#'));
+def('⅔', 0, S('##... .#.#. #.#.. ..#.. .#.## #...# ....#'));
+def('✓', 1, S('....# ...#. #.#.. .#...'));
+def('✗', 1, S('#...# .#.#. ..#.. .#.#. #...#'));
+def('↑', 0, S('..#.. .###. #.#.# ..#.. ..#.. ..#.. ..#..'));
+def('↓', 0, S('..#.. ..#.. ..#.. ..#.. #.#.# .###. ..#..'));
+def('→', 1, S('...#. ....# ##### ....# ...#.'));
+def('←', 1, S('.#... #.... ##### #.... .#...'));
+def('º', 0, S('.#. #.# .#. ... ###'));
+def('ª', 0, S('.##. #.## .### .... ####'));
+def('@', 0, S('.###. #...# #.### #.#.# #.### #.... .###.'));
 
 // Marcas diacríticas: [filas, desplazamiento x] relativas a la parte superior del glifo base.
 const MARK = {
@@ -137,49 +153,119 @@ function glyph(ch) {
   return null;
 }
 
+// ───────────── Texto enriquecido ─────────────
+// Códigos en línea con «^»: ^r rojo · ^g verde · ^b azul · ^y oro · ^p rosa · ^c cian · ^o naranja · ^k gris · ^0 color normal
+// ^w onda (alterna) · ^s temblor (alterna) · ^^ un «^» literal.
+export const RICH = { r: '#c8323c', g: '#2f8a3e', b: '#2c5aa0', y: '#b8781c', p: '#c84a7a', c: '#1e86a8', o: '#d0601e', k: '#8a7a70' };
+export const RICH_DARK = { r: '#ff6a5a', g: '#8ae07a', b: '#8ab8ff', y: '#ffd456', p: '#ff9ac8', c: '#7ae0f0', o: '#ffa040', k: '#a89aa8' };
+const isCode = (s, i) => s[i] === '^' && i + 1 < s.length;
+
 export function charWidth(ch) {
   if (ch === ' ') return 3;
   const g = glyph(ch); return g ? g.base.w + 1 : 4;
 }
-export function textWidth(s) { let w = 0; for (const ch of s) w += charWidth(ch); return Math.max(0, w - 1); }
-
-// Dibuja texto. y es la parte superior de la celda de mayúsculas (las tildes de mayúsculas suben 3 px).
-export function drawText(ctx, s, x, y, color = '#f8f0d8', shadow = null) {
-  if (shadow) drawRaw(ctx, s, x + 1, y + 1, shadow, x);
-  drawRaw(ctx, s, x, y, color, x);
+export function textWidth(s) {
+  let w = 0;
+  for (let i = 0; i < s.length; i++) { if (isCode(s, i)) { if (s[i + 1] === '^') w += charWidth('^'); i++; continue; } w += charWidth(s[i]); }
+  return Math.max(0, w - 1);
 }
-function drawRaw(ctx, s, x, y, color, x0) {
-  ctx.fillStyle = color;
-  let cx = x;
-  for (const ch of s) {
-    if (ch === ' ') { cx += 3; continue; }
-    const g = glyph(ch);
-    if (!g) { cx += 4; continue; }
-    const b = g.base;
-    for (let r = 0; r < b.rows.length; r++) {
-      const row = b.rows[r];
-      for (let c = 0; c < row.length; c++) if (row[c] === '#') ctx.fillRect(cx + c, y + b.top + r, 1, 1);
+
+// Dibuja texto (con códigos de color). y es la parte superior de la celda de mayúsculas.
+export function drawText(ctx, s, x, y, color = '#f8f0d8', shadow = null, pal = null) {
+  if (shadow) drawRaw(ctx, s, x + 1, y + 1, shadow, null);
+  return drawRaw(ctx, s, x, y, color, pal || (lumHex(color) > 0.6 ? RICH_DARK : RICH));
+}
+function lumHex(c) { if (c[0] !== '#') return 0.5; const n = parseInt(c.slice(1, 7), 16); return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; }
+function drawRaw(ctx, s, x, y, color, pal) {
+  let cx = x; ctx.fillStyle = color;
+  for (let i = 0; i < s.length; i++) {
+    if (isCode(s, i)) {
+      const k = s[++i]; if (k === '^') { cx = glyphAt(ctx, '^', cx, y); continue; }
+      if (pal) ctx.fillStyle = k === '0' ? color : (pal[k] || ctx.fillStyle);
+      continue;
     }
-    if (g.mark) {
-      const my = b.top >= 2 ? y + b.top - 2 : y - 3; // minúscula: encima de la x; mayúscula: por encima de la celda
-      const mx = cx + Math.max(0, Math.floor((b.w - g.mark[0].length) / 2));
-      for (let r = 0; r < g.mark.length; r++) for (let c = 0; c < g.mark[r].length; c++) if (g.mark[r][c] === '#') ctx.fillRect(mx + c, my + r, 1, 1);
-    }
-    cx += b.w + 1;
+    cx = glyphAt(ctx, s[i], cx, y);
   }
   return cx;
 }
+// Pinta un glifo con el fillStyle actual y devuelve la x siguiente.
+export function glyphAt(ctx, ch, cx, y) {
+  if (ch === ' ') return cx + 3;
+  const g = glyph(ch); if (!g) return cx + 4;
+  const b = g.base;
+  for (let r = 0; r < b.rows.length; r++) { const row = b.rows[r]; let run = -1; for (let c = 0; c <= row.length; c++) { if (row[c] === '#') { if (run < 0) run = c; } else if (run >= 0) { ctx.fillRect(cx + run, y + b.top + r, c - run, 1); run = -1; } } }
+  if (g.mark) {
+    const my = b.top >= 2 ? y + b.top - 2 : y - 3;
+    const mx = cx + Math.max(0, Math.floor((b.w - g.mark[0].length) / 2));
+    for (let r = 0; r < g.mark.length; r++) for (let c = 0; c < g.mark[r].length; c++) if (g.mark[r][c] === '#') ctx.fillRect(mx + c, my + r, 1, 1);
+  }
+  return cx + b.w + 1;
+}
 
-// Parte un texto en líneas que quepan en maxW píxeles. Respeta \n.
+// Parte un texto en líneas de maxW píxeles. Respeta \n y arrastra los códigos activos a la línea siguiente.
 export function wrap(s, maxW) {
   const out = [];
   for (const para of s.split('\n')) {
-    let line = '';
+    let line = ''; let carry = '';
     for (const word of para.split(' ')) {
       const t = line ? line + ' ' + word : word;
-      if (textWidth(t) > maxW && line) { out.push(line); line = word; } else line = t;
+      if (textWidth(t) > maxW && line) { out.push(line); carry = activeCodes(carry + line); line = carry + word; } else line = t;
     }
     out.push(line);
   }
   return out;
 }
+function activeCodes(s) {
+  let col = '', w = false, sh = false;
+  for (let i = 0; i < s.length; i++) if (isCode(s, i)) { const k = s[++i]; if (k === 'w') w = !w; else if (k === 's') sh = !sh; else if (k === '0') col = ''; else if (k !== '^') col = k; }
+  return (col ? '^' + col : '') + (w ? '^w' : '') + (sh ? '^s' : '');
+}
+
+// Línea → glifos con posición, color y efecto (para la máquina de escribir de los diálogos).
+export function glyphs(line, pal = RICH) {
+  const out = []; let x = 0, col = null, w = false, sh = false;
+  for (let i = 0; i < line.length; i++) {
+    if (isCode(line, i)) { const k = line[++i]; if (k === 'w') w = !w; else if (k === 's') sh = !sh; else if (k === '0') col = null; else if (k === '^') { out.push({ ch: '^', x, col, w, sh }); x += charWidth('^'); } else col = pal[k] || col; continue; }
+    out.push({ ch: line[i], x, col, w, sh }); x += charWidth(line[i]);
+  }
+  return out;
+}
+// Dibuja los n primeros glifos (n = Infinity: todos). t = fotograma para ondas y temblores.
+export function drawGlyphs(ctx, gl, x, y, color, shadow, n = Infinity, t = 0) {
+  const m = Math.min(n, gl.length);
+  for (let pass = shadow ? 0 : 1; pass < 2; pass++) {
+    for (let i = 0; i < m; i++) {
+      const g = gl[i]; if (g.ch === ' ') continue;
+      let dy = 0, dx = 0;
+      if (g.w) dy = Math.round(Math.sin(t / 7 + i * 0.7) * 1.4);
+      if (g.sh) { const q = Math.floor(t / 3); dx = ((q * 7 + i * 13) % 3) - 1; dy += ((q * 11 + i * 5) % 3) - 1; }
+      ctx.fillStyle = pass === 0 ? shadow : g.col || color;
+      glyphAt(ctx, g.ch, x + g.x + dx + (pass === 0 ? 1 : 0), y + dy + (pass === 0 ? 1 : 0));
+    }
+  }
+}
+export function stripCodes(s) { return s.replace(/\^(.)/g, (m, k) => (k === '^' ? '^' : '')); }
+
+// Texto con contorno completo (8 vecinos): legible sobre cualquier fondo.
+export function drawOutlined(ctx, s, x, y, color = '#ffffff', outline = '#1a1022') {
+  const plain = stripCodes(s);
+  for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [1, -1], [-1, 1], [1, 1]]) drawRaw(ctx, plain, x + dx, y + dy, outline, null);
+  return drawRaw(ctx, s, x, y, color, RICH_DARK);
+}
+
+// Texto grande: la fuente ampliada ×scale con contorno de 1 px (en píxeles ampliados) y sombra dura.
+const bigCache = new Map();
+export function bigText(s, color = '#ffffff', outline = '#1a1022', scale = 2, shadow = null) {
+  const key = s + color + outline + scale + shadow; let c = bigCache.get(key); if (c) return c;
+  const w = textWidth(s) + 4, h = 13;
+  const a = document.createElement('canvas'); a.width = w; a.height = h; const x = a.getContext('2d');
+  for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [1, -1], [-1, 1], [1, 1]]) drawRaw(x, s, 2 + dx, 3 + dy, outline, null);
+  if (shadow) { drawRaw(x, s, 2, 4, shadow, null); drawRaw(x, s, 3, 4, outline, null); }
+  drawRaw(x, s, 2, 3, color, null);
+  c = document.createElement('canvas'); c.width = w * scale; c.height = (h + (shadow ? 1 : 0)) * scale; const y = c.getContext('2d'); y.imageSmoothingEnabled = false;
+  y.drawImage(a, 0, 0, w * scale, h * scale);
+  if (bigCache.size > 300) bigCache.delete(bigCache.keys().next().value);
+  bigCache.set(key, c); return c;
+}
+export function drawBig(ctx, s, x, y, color, outline, scale = 2) { const c = bigText(s, color, outline, scale); ctx.drawImage(c, Math.round(x), Math.round(y)); return c.width; }
+export function bigWidth(s, scale = 2) { return (textWidth(s) + 4) * scale; }

@@ -1,0 +1,68 @@
+<!doctype html><meta charset="utf-8"><title>Galería de combate</title>
+<style>body{margin:0;background:#1a1420}canvas{image-rendering:pixelated}</style>
+<canvas id="g"></canvas>
+<script type="module">
+// Galería del arte de combate. ?page=bg&b=0|1|2 · full&b=<bioma>&ph=<franja>&cam=<px>&t=<f> · plat · mon · fx&k=<grupo>
+import * as A from '../../js/battleart.js';
+const q = new URLSearchParams(location.search), page = q.get('page') || 'bg';
+const c = document.getElementById('g'), x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+const BI = ['pradera', 'bosque', 'montana', 'rio', 'costa', 'urbano', 'interior', 'cueva', 'montjuic'], PH = ['manana', 'dia', 'tarde', 'crepusculo', 'noche'];
+const lab = (s, px, py, col = '#e8dcc0') => { x.font = '10px monospace'; x.fillStyle = col; x.fillText(s, px, py); };
+const off = (w, h) => { const o = document.createElement('canvas'); o.width = w; o.height = h; const ox = o.getContext('2d'); ox.imageSmoothingEnabled = false; return [o, ox]; };
+const sil = (ctx, cx, fy, w, h, col) => { ctx.fillStyle = col; ctx.fillRect(cx - w / 2, fy - h, w, h); ctx.fillRect(cx - w / 2 + 3, fy - h - 8, w - 6, 9); };
+function scene(ctx, b, ph, t, cam) {
+  A.drawBattleBg(ctx, b, ph, t, cam);
+  const pe = A.parallaxAt ? A.parallaxAt(78, b) : 0.6, pp = A.parallaxAt ? A.parallaxAt(130, b) : 0.85;
+  A.drawPlatform(ctx, 176 - cam * pe, 78, 44, 10, b, ph); A.drawPlatform(ctx, 64 - cam * pp, 130, 52, 12, b, ph);
+  if (A.drawShadow) { A.drawShadow(ctx, 176 - cam * pe, 77, 18, 4); A.drawShadow(ctx, 64 - cam * pp, 129, 20, 5); }
+}
+const t0 = +(q.get('t') || 300);
+if (page === 'bg') {
+  const bs = BI.slice(+(q.get('b') || 0) * 3, +(q.get('b') || 0) * 3 + 3);
+  c.width = 5 * 244 + 4; c.height = bs.length * 174 + 4; x.fillStyle = '#1a1420'; x.fillRect(0, 0, c.width, c.height);
+  bs.forEach((b, j) => PH.forEach((ph, i) => { const [o, ox] = off(240, 160); const t1 = performance.now(); scene(ox, b, ph, t0, 0); const ms = performance.now() - t1; x.drawImage(o, 4 + i * 244, 14 + j * 174); lab(`${b} · ${ph} (${ms.toFixed(0)}ms)`, 6 + i * 244, 10 + j * 174); }));
+}
+if (page === 'full') {
+  const b = q.get('b') || 'pradera', ph = q.get('ph') || 'dia', cam = +(q.get('cam') || 0); const [o, ox] = off(240, 160);
+  scene(ox, b, ph, t0, cam);
+  // tiempo por fotograma ya cacheado
+  let t1 = performance.now(); for (let i = 0; i < 60; i++) A.drawBattleBg(ox, b, ph, t0 + i, cam); const per = (performance.now() - t1) / 60;
+  scene(ox, b, ph, t0, cam);
+  sil(ox, 176 - cam * 0.58, 78, 26, 36, 'rgba(255,0,200,.55)'); sil(ox, 64 - cam * 0.85, 130, 28, 50, 'rgba(0,200,255,.55)');
+  c.width = 480; c.height = 334; x.fillStyle = '#1a1420'; x.fillRect(0, 0, 480, 334); x.drawImage(o, 0, 14, 480, 320); lab(`${b} ${ph} cam=${cam} · ${per.toFixed(2)} ms/fotograma`, 4, 10);
+}
+if (page === 'plat') {
+  c.width = 3 * 160; c.height = 3 * 70; x.fillStyle = '#4a4458'; x.fillRect(0, 0, c.width, c.height);
+  BI.forEach((b, i) => { const [o, ox] = off(160, 70); ox.fillStyle = '#6a7a9a'; ox.fillRect(0, 0, 160, 70); A.drawPlatform(ox, 80, 40, 52, 12, b, 'dia'); lab(b, (i % 3) * 160 + 4, fl(i / 3) * 70 + 10); x.drawImage(o, (i % 3) * 160, fl(i / 3) * 70); });
+}
+function fl(v) { return Math.floor(v); }
+if (page === 'mon' && A.monsterSprite) {
+  const ids = q.get('id') ? [q.get('id')] : ['quarantamaula', 'simiot', 'follet', 'drac'], poses = [['idle', 0], ['idle', 1], ['attack', 0], ['hurt', 0]];
+  const Z = +(q.get('s') || 2), cw = q.get('id') ? A.MONSTER_SIZE[q.get('id')][0] * Z + 12 : 200, chh = q.get('id') ? A.MONSTER_SIZE[q.get('id')][1] * Z + 18 : 180;
+  c.width = 4 * cw + 8; c.height = ids.length * chh; x.fillStyle = q.get('bg') || '#5a6a8a'; x.fillRect(0, 0, c.width, c.height);
+  ids.forEach((id, j) => poses.forEach(([p, f], i) => { const s = A.monsterSprite(id, f, p); x.drawImage(s, 8 + i * cw, 14 + j * chh, s.width * Z, s.height * Z); lab(`${id} ${p}${f} ${s.width}x${s.height}`, 8 + i * cw, 10 + j * chh, '#fff'); }));
+}
+if (page === 'fx' && A.drawFx) {
+  const all = ['slash', 'slash2', 'claw', 'bite', 'impact', 'fire', 'frost', 'bolt', 'heal', 'holy', 'calm', 'smoke', 'poison', 'dust', 'charge', 'shield', 'counter', 'dark', 'roar', 'coins'];
+  const kinds = all.slice(+(q.get('k') || 0) * 5, +(q.get('k') || 0) * 5 + 5), T = [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9], S = 2, cw = 96, ch = 104;
+  c.width = T.length * cw * S / 2 * 1 + 10; c.height = kinds.length * ch * S / 2 + 10;
+  c.width = T.length * cw + 10; c.height = kinds.length * ch + 10; x.fillStyle = '#3a4a6a'; x.fillRect(0, 0, c.width, c.height);
+  kinds.forEach((k, j) => T.forEach((t, i) => { const [o, ox] = off(48, 52); ox.fillStyle = (i + j) % 2 ? '#4a5a7a' : '#44546e'; ox.fillRect(0, 0, 48, 52); A.drawFx(ox, k, 24, 34, t, { dir: 1 }); x.drawImage(o, 5 + i * cw, 12 + j * ch, 96, 104 - 12); lab(`${k} ${t}`, 5 + i * cw, 10 + j * ch, '#fff'); }));
+}
+</script>
+<script type="module">
+// Escena compuesta a 2×: fondo + plataformas + monstruo + efecto, para juzgar escala y legibilidad.
+import * as A from '../../js/battleart.js';
+const q = new URLSearchParams(location.search); if (q.get('page') === 'comp') {
+  const c = document.getElementById('g'), x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+  const o = document.createElement('canvas'); o.width = 240; o.height = 160; const ox = o.getContext('2d'); ox.imageSmoothingEnabled = false;
+  const b = q.get('b') || 'bosque', ph = q.get('ph') || 'noche', id = q.get('id') || 'quarantamaula', fx = q.get('fx') || 'slash', ft = +(q.get('ft') || 0.3), cam = +(q.get('cam') || 0), w = q.get('w');
+  A.drawBattleBg(ox, b, ph, 400, cam); const pe = A.parallaxAt(78, b), pp = A.parallaxAt(130, b);
+  A.drawPlatform(ox, 176 - cam * pe, 78, 44, 10, b, ph); A.drawPlatform(ox, 64 - cam * pp, 130, 52, 12, b, ph);
+  const m = A.monsterSprite(id, 0, q.get('pose') || 'idle'); A.drawShadow(ox, 176 - cam * pe, 77, m.width * 0.36, 4);
+  ox.drawImage(m, Math.round(176 - cam * pe - m.width / 2), 78 - m.height + (id === 'follet' ? 0 : 2));
+  ox.fillStyle = 'rgba(0,200,255,.6)'; ox.fillRect(64 - cam * pp - 14, 80, 28, 50);
+  A.drawFx(ox, fx, 176 - cam * pe, 78 - m.height / 2, ft, { dir: 1 }); if (w) A.drawWeather(ox, w, 400, cam);
+  c.width = 480; c.height = 320; x.drawImage(o, 0, 0, 480, 320);
+}
+</script>

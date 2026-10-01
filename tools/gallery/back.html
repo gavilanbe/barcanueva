@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><title>Espalda</title>
+<style>body{margin:0;background:#222}canvas{image-rendering:pixelated}</style>
+<canvas id="g"></canvas>
+<script type="module">
+import { backBust } from '../../js/portraits.js';
+import { NPCS } from '../../js/data/npcs.js';
+const c = document.getElementById('g'); const x = c.getContext('2d');
+const look = (n) => ({ ...n.look, race: n.race, sex: n.sex, age: n.age, equip: n.look.equip || {} });
+const list = NPCS.slice(0, 12); const S = 2; c.width = 6 * 66 * S; c.height = 4 * 66 * S; x.imageSmoothingEnabled = false; x.fillStyle = '#5a7a5a'; x.fillRect(0, 0, c.width, c.height);
+const t0 = performance.now();
+list.forEach((n, i) => { const poses = ['idle0', 'attack', 'cast', 'hurt']; x.drawImage(backBust(look(n), poses[Math.floor(i / 6) % 4]), (i % 6) * 66 * S, Math.floor(i / 6) * 66 * S, 64 * S, 64 * S); });
+[{ race: 'tiefling', sex: 'f', skin: '#c9504a', hair: '#2a1d18', hairStyle: 2, top: '#3a6a9a', bottom: '#333', equip: {} }, { race: 'elfo', sex: 'm', skin: '#f6d3b3', hair: '#e6cf7a', hairStyle: 1, top: '#4a8a4a', bottom: '#333', equip: { cape: 'capa_verde' } }, { race: 'enano', sex: 'm', skin: '#c98e62', hair: '#b8452c', hairStyle: 3, top: '#8a3a6a', bottom: '#333', beard: true, equip: { head: 'cuernos_yelmo', body: 'cota' } }].forEach((ap, i) => ['idle0', 'attack', 'hurt', 'cast'].forEach((p, k) => { if (i * 4 + k < 12) x.drawImage(backBust(ap, p), ((i * 4 + k) % 6) * 66 * S, (2 + Math.floor((i * 4 + k) / 6)) * 66 * S, 64 * S, 64 * S); }));
+console.log('ms', performance.now() - t0);
+</script>

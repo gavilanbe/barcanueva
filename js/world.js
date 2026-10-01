@@ -338,7 +338,7 @@ export function interior(id) {
       S('medico', ex, 3); S('enfermo', 3, 5); S('cama_jugador', 1, 5); break;
     }
     case 'taberna': {
-      m.rect(0, 2, w, 1, 'i');
+      m.rect(1, 2, w - 2, 1, 'i');
       O('barra', 1, 3, 5, 1); O('barriles', 1, 2, 2, 1); O('barriles', 4, 2, 2, 1); O('chimenea', w - 3, 1, 2, 2);
       O('mesa', 3, 6, 2, 1); O('mesa', w - 4, 5, 2, 1);
       S('tabernero', 3, 2 + 0); S('barra1', 2, 4); S('barra2', 5, 4); S('mesa1', 3, 7); S('mesa2', 5, 6); S('mesa3', w - 4, 6); S('mesa4', w - 2, 5); S('fuego', w - 3, 4);

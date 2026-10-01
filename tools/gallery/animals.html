@@ -1,0 +1,46 @@
+<!doctype html><meta charset="utf-8"><title>Animales</title>
+<style>body{margin:0;background:#222}canvas{image-rendering:pixelated}</style>
+<canvas id="g"></canvas>
+<script type="module">
+// Galería de animales: ?page=1..3 (mundo, 4×) · ?mode=battle&page=1..5 (combate, 2×)
+import { animalSprite, animalBattle, ANIMAL_POSES } from '../../js/sprites.js';
+import { SP } from '../../js/eco.js';
+const q = new URLSearchParams(location.search); const page = +(q.get('page') || 1); const battle = q.get('mode') === 'battle';
+const only = q.get('only'); const all = only ? only.split(',') : Object.keys(SP).filter((k) => !SP[k].fish);
+const c = document.getElementById('g'); const x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+const bgs = ['#5e9a4a', '#c8a870', '#3c5a46'];
+if (!battle) {
+  const per = 13, list = all.slice((page - 1) * per, page * per); const Z = +(q.get('z') || 4), cell = 16 * Z + 4;
+  let cols = [['walk', 0], ['walk', 1], ['walk', 2], ['walk', 3], ['idle', 0], ['idle', 1], ['fly', 0], ['fly', 1], ['sleep', 0], ['cw', 0], ['ci', 0], ['L', 0], ['L', 2]];
+  const cs = q.get('c'); const bgi = cols.map((_, i) => (i === 9 || i === 10) ? 1 : i >= 11 ? 2 : 0); let bgs2 = bgi;
+  if (cs) { const idx = cs.split(',').map(Number); cols = idx.map((i) => cols[i]); bgs2 = idx.map((i) => bgi[i]); }
+  c.width = 96 + cols.length * cell; c.height = list.length * cell + 4;
+  x.fillStyle = '#222'; x.fillRect(0, 0, c.width, c.height); x.font = '12px monospace';
+  list.forEach((sp, j) => {
+    x.fillStyle = '#ddd'; x.fillText(sp, 4, j * cell + 30);
+    cols.forEach(([p, f], i) => {
+      const X = 96 + i * cell, Y = j * cell + 2; x.fillStyle = bgs[bgs2[i]]; x.fillRect(X, Y, 16 * Z, 16 * Z);
+      let s;
+      if (p === 'cw') s = animalSprite(sp, 'right', 0, true, 'm', 'walk');
+      else if (p === 'ci') s = animalSprite(sp, 'right', 1, true, 'f', 'idle');
+      else if (p === 'L') s = animalSprite(sp, 'left', f, false, 'm', 'walk');
+      else s = animalSprite(sp, 'right', f, false, 'm', p);
+      x.drawImage(s, X, Y, 16 * Z, 16 * Z);
+    });
+  });
+} else {
+  const per = 8, list = all.slice((page - 1) * per, page * per); const Z = +(q.get('z') || 2), cell = 64 * Z + 6;
+  let cols = [['idle', 0, false, 'm'], ['idle', 1, false, 'm'], ['attack', 0, false, 'm'], ['hurt', 0, false, 'm'], ['idle', 0, false, 'f'], ['idle', 0, true, 'm']];
+  if (q.get('c')) cols = q.get('c').split(',').map((i) => cols[+i]);
+  c.width = 96 + cols.length * cell; c.height = list.length * cell + 4;
+  x.fillStyle = '#222'; x.fillRect(0, 0, c.width, c.height); x.font = '12px monospace';
+  list.forEach((sp, j) => {
+    x.fillStyle = '#ddd'; x.fillText(sp, 4, j * cell + 60);
+    cols.forEach(([p, f, cr, sx], i) => {
+      const X = 96 + i * cell, Y = j * cell + 2; x.fillStyle = i === 3 ? '#7a8a9a' : '#6e8a64'; x.fillRect(X, Y, 64 * Z, 64 * Z);
+      const s = animalBattle(sp, f, cr, sx, p); const w = s.width * Z, h = s.height * Z;
+      x.drawImage(s, X + (64 * Z - w) / 2, Y + 64 * Z - h, w, h);
+    });
+  });
+}
+</script>

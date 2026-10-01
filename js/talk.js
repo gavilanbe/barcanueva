@@ -372,3 +372,4 @@ export function rollMarket() {
 }
 
 G.hooks.talk = talk;
+G.hooks.attitude = attitude;
