@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><title>Bandolero</title><style>body{margin:0;background:#222}canvas{image-rendering:pixelated}</style><canvas id="g"></canvas>
+<script type="module">
+import { bandolero } from '../../js/portraits.js';
+const c = document.getElementById('g'); const x = c.getContext('2d'); const S = 3; c.width = 4 * 60 * S; c.height = 66 * S; x.imageSmoothingEnabled = false; x.fillStyle = '#5a7a5a'; x.fillRect(0, 0, c.width, c.height);
+[['idle', 0], ['idle', 1], ['attack', 0], ['hurt', 0]].forEach(([p, f], i) => x.drawImage(bandolero(p, f), i * 60 * S, 0, 56 * S, 64 * S));
+</script>

@@ -381,3 +381,113 @@ function paintBackBust(ap, pose) {
   x.clearRect(0, 63, 64, 1);
   return cv;
 }
+
+// ───────────── El bandolero (rival de combate, 56×64, mirando a la izquierda) ─────────────
+// Barretina, barba cerrada, capa parda, camisa blanca, faja roja, calzones, alpargatas de cintas y un
+// pedreñal (la pistola corta de los bandoleros catalanes). pose: idle (0/1), attack, hurt
+export function bandolero(pose = 'idle', frame = 0) {
+  const key = 'BAND' + pose + frame; let c = cache.get(key); if (c) return c;
+  const [cv, x] = mk(56, 64);
+  const P = (col, px, py, w = 1, h = 1) => { x.fillStyle = col; x.fillRect(px, py, w, h); };
+  const E = (cx, cy, rx, ry, col) => { for (let r = -ry; r <= ry; r++) { const w = Math.round(rx * Math.sqrt(Math.max(0, 1 - (r * r) / (ry * ry)))); if (w > 0) P(col, Math.round(cx - w), Math.round(cy + r), w * 2, 1); } };
+  const S = ramp('#c98e62'), Hb = ramp('#2a1d18'), Cp = ramp('#6a4a34'), Sh = ramp('#ece4d2'), Fx = ramp('#b8322c'), Br = ramp('#3a3448'), Ro = ramp('#d8c8a0'), Iro = ramp('#5e6476'), Wd = ramp('#7c4c38');
+  const atk = pose === 'attack', hurt = pose === 'hurt', br = pose === 'idle' && frame ? 1 : 0;
+  const lean = hurt ? 3 : atk ? -2 : 0; const dy = br + (hurt ? 2 : 0);
+  const cx = 28 + lean; // eje del cuerpo
+  // Piernas: calzones oscuros y alpargatas con cintas cruzadas
+  const leg = (lx, back) => { P(back ? Br[2] : Br[3], lx, 44, 6, 13); P(Br[4], lx + 1, 45, 1, 10); P(Br[1], lx + 4, 45, 2, 12); P(Ro[3], lx, 57, 7, 3); P(Ro[2], lx + 4, 58, 3, 2); P(Ro[4], lx, 57, 3, 1); for (let i = 0; i < 3; i++) { P(Fx[2], lx + (i & 1 ? 4 : 1), 51 + i * 2, 2, 1); } P(Hb[1], lx - 1, 60, 8, 2); };
+  leg(cx + 3, true); leg(cx - 8 + (atk ? -2 : 0), false);
+  // Capa por detrás (asoma a la derecha)
+  for (let y = 22 + dy; y < 52; y++) { const w = Math.round(6 + (y - 22) * 0.35); P(Cp[2], cx + 6, y, w, 1); P(Cp[1], cx + 6 + w - 2, y, 2, 1); }
+  // Torso: camisa blanca, chaleco pardo y faja roja con la culata de otro pedreñal
+  P(Sh[3], cx - 9, 24 + dy, 16, 14); P(Sh[4], cx - 8, 25 + dy, 5, 11); P(Sh[2], cx + 3, 25 + dy, 4, 12);
+  P(Cp[3], cx - 9, 24 + dy, 4, 15); P(Cp[3], cx + 4, 24 + dy, 4, 15); P(Cp[4], cx - 8, 25 + dy, 1, 12); P(Cp[1], cx + 7, 25 + dy, 1, 13);
+  P(Fx[3], cx - 10, 38 + dy, 19, 6); P(Fx[4], cx - 9, 38 + dy, 10, 1); P(Fx[2], cx - 10, 42 + dy, 19, 2); P(Fx[1], cx + 6, 39 + dy, 3, 5);
+  P(Wd[3], cx + 1, 36 + dy, 3, 4); P(Iro[4], cx + 2, 35 + dy, 1, 2); // culata en la faja
+  P(Iro[3], cx - 6, 39 + dy, 6, 1); P(Iro[5], cx - 6, 39 + dy, 2, 1); // cuchillo
+  // Brazo trasero (derecho del personaje) y brazo delantero según la pose
+  P(Sh[2], cx + 5, 26 + dy, 4, 11); P(S[2], cx + 5, 37 + dy, 4, 3);
+  if (atk) { // apunta el pedreñal hacia el jugador
+    P(Sh[3], cx - 18, 27 + dy, 12, 4); P(Sh[4], cx - 18, 27 + dy, 12, 1); P(S[3], cx - 21, 27 + dy, 4, 4);
+    P(Wd[3], cx - 22, 29 + dy, 4, 4); P(Iro[3], cx - 33, 27 + dy, 13, 2); P(Iro[5], cx - 33, 27 + dy, 11, 1); P(Iro[2], cx - 34, 26 + dy, 2, 4); P('#fcd456', cx - 25, 25 + dy, 2, 2);
+  } else if (hurt) { P(Sh[3], cx - 12, 22 + dy, 4, 10); P(S[3], cx - 13, 19 + dy, 4, 4); }
+  else { P(Sh[3], cx - 13, 26 + dy, 5, 11); P(Sh[4], cx - 13, 26 + dy, 1, 10); P(S[3], cx - 13, 37 + dy, 5, 3); P(Wd[3], cx - 14, 39 + dy, 4, 5); P(Iro[3], cx - 13, 44 + dy, 2, 6); P(Iro[5], cx - 13, 44 + dy, 1, 5); }
+  // Cabeza (de tres cuartos, mira a la izquierda)
+  const hy = 12 + dy + (hurt ? 1 : 0), hx = cx - 1;
+  E(hx, hy, 7, 8, S[3]); P(S[4], hx - 6, hy - 4, 3, 5); P(S[2], hx + 4, hy - 3, 3, 8);
+  P(S[3], hx - 8, hy + 1, 2, 2); // nariz
+  // barba y bigote
+  E(hx + 1, hy + 5, 7, 4, Hb[3]); P(Hb[3], hx - 6, hy + 1, 4, 5); P(Hb[4], hx - 5, hy + 3, 2, 2); P(Hb[2], hx + 3, hy + 4, 4, 4); P(Hb[1], hx - 7, hy + 2, 3, 1);
+  if (atk) { P('#3a1018', hx - 6, hy + 4, 3, 2); } // boca abierta
+  // ojo y ceja
+  if (hurt) P(INK, hx - 5, hy - 1, 3, 1); else { P('#fbf6ee', hx - 5, hy - 2, 3, 2); P(INK, hx - 5, hy - 2, 1, 2); }
+  P(Hb[2], hx - 6, hy - 4 + (atk ? 1 : 0), 4, 1);
+  P(S[2], hx + 2, hy - 2, 2, 3); // oreja
+  // Barretina roja caída hacia atrás
+  E(hx + 1, hy - 7, 8, 3, Fx[3]); P(Fx[4], hx - 5, hy - 9, 6, 1); P(Fx[2], hx - 7, hy - 5, 16, 2);
+  for (let i = 0; i < 7; i++) P(i > 4 ? Fx[2] : Fx[3], hx + 6 + i, hy - 9 + Math.round(i * 0.9) + (frame && pose === 'idle' && i > 3 ? 1 : 0), 3, 3);
+  P(Fx[1], hx + 12, hy - 1, 2, 2);
+  outlineSel(cv);
+  cache.set(key, cv); return cv;
+}
+
+// ───────────── Luchador de tres cuartos (PNJ en peleas, 56×64, mirando a la izquierda) ─────────────
+// Mismo estilo que el bandolero pero a partir del aspecto de cada PNJ. pose: idle (0/1), attack, hurt
+export function fighter(ap, pose = 'idle', frame = 0) {
+  const key = 'FT' + keyOf(ap) + pose + frame; let c = cache.get(key); if (c) return c;
+  const [cv, x] = mk(56, 64);
+  const P = (col, px, py, w = 1, h = 1) => { x.fillStyle = col; x.fillRect(px, py, w, h); };
+  const E = (cx, cy, rx, ry, col) => { for (let r = -ry; r <= ry; r++) { const w = Math.round(rx * Math.sqrt(Math.max(0, 1 - (r * r) / (ry * ry)))); if (w > 0) P(col, Math.round(cx - w), Math.round(cy + r), w * 2, 1); } };
+  const race = ap.race || 'humano', dwarf = race === 'enano', elf = race === 'elfo', tief = race === 'tiefling', fem = ap.sex === 'f', old = ap.age === 'anciano';
+  const eq = ap.equip || {}; const bodyL = eq.body ? LOOKS[eq.body] : null, capeL = eq.cape ? LOOKS[eq.cape] : null, headL = eq.head ? LOOKS[eq.head] : null;
+  const S = ramp(ap.skin || '#e8b48c'), Hh = ramp(old ? mix(ap.hair || '#5a3620', '#d8d4cc', 0.6) : ap.hair || '#5a3620'), Tp = ramp(bodyL?.color || ap.top || '#b85a3a'), Bt = ramp(ap.bottom || '#4a4a6a'), Sh = ramp('#5a3a2a');
+  const atk = pose === 'attack', hurt = pose === 'hurt', br = pose === 'idle' && frame ? 1 : 0;
+  const lean = hurt ? 3 : atk ? -2 : 0; const dy = br + (hurt ? 2 : 0) + (dwarf ? 6 : 0); const cx = 28 + lean;
+  const long = !!bodyL?.long; const tw = dwarf ? 20 : fem ? 14 : 16; const top = 24 + dy, waist = 38 + dy - (dwarf ? 1 : 0);
+  // Capa por detrás
+  if (capeL) { const C = ramp(capeL.color); for (let y = top - 2; y < 54; y++) { const w = Math.round(6 + (y - top) * 0.35); P(C[2], cx + 6, y, w, 1); P(C[1], cx + 6 + w - 2, y, 2, 1); } if (capeL.trim) P(capeL.trim, cx + 6, 53, 14, 1); }
+  // Cola de tiefling
+  if (tief) { const T = ramp(shift(ap.skin, -1)); for (let i = 0; i < 12; i++) P(i > 9 ? T[4] : T[3], cx + 9 + i, waist + 4 + Math.round(Math.sin(i / 2.5 + frame) * 2), 2, 2); }
+  // Piernas o falda
+  if (long) { for (let y = waist; y < 58; y++) { const w = Math.round(tw / 2 + 1 + (y - waist) * 0.25); P(Tp[3], cx - w, y, w * 2, 1); P(Tp[2], cx + 1, y, w - 1, 1); P(Tp[4], cx - w + 1, y, 2, 1); } P(Sh[3], cx - 7, 58, 6, 3); P(Sh[3], cx + 1, 58, 6, 3); }
+  else { const leg = (lx, back) => { P(back ? Bt[2] : Bt[3], lx, waist + 4, 6, 15 - (dwarf ? 4 : 0)); P(Bt[4], lx + 1, waist + 5, 1, 10 - (dwarf ? 4 : 0)); P(Bt[1], lx + 4, waist + 5, 2, 13 - (dwarf ? 4 : 0)); P(Sh[3], lx, 57, 7, 4); P(Sh[4], lx, 57, 3, 1); P(Sh[1], lx + 4, 59, 3, 2); }; leg(cx + 2, true); leg(cx - 8 + (atk ? -2 : 0), false); }
+  // Torso
+  P(Tp[3], cx - tw / 2, top, tw, waist - top + 4); P(Tp[4], cx - tw / 2 + 1, top + 1, 4, waist - top); P(Tp[2], cx + tw / 2 - 5, top + 1, 4, waist - top + 2); P(Tp[1], cx + tw / 2 - 1, top + 2, 1, waist - top);
+  if (eq.body === 'cota') for (let y = top + 1; y < waist + 3; y += 2) for (let i = cx - tw / 2 + 1 + ((y >> 1) & 1); i < cx + tw / 2 - 1; i += 2) P(Tp[2], i, y);
+  if (eq.body === 'coraza') { P(Tp[5], cx - tw / 2 + 2, top + 2, tw - 6, 9); P(Tp[6], cx - tw / 2 + 3, top + 3, 3, 3); }
+  if (eq.body === 'delantal') { const D = ramp('#ece4d2'); P(D[3], cx - 5, top + 4, 10, waist - top + 8); P(D[2], cx + 3, top + 5, 2, waist - top + 6); }
+  if (eq.body === 'jubon') for (let y = top + 2; y < waist; y += 3) P('#e8c050', cx - 3, y, 2, 1);
+  if (!long || eq.body === 'habito') { P(shift(Tp[3], -3), cx - tw / 2, waist, tw, 3); P('#d8a840', cx - 2, waist, 3, 3); }
+  // Brazos
+  P(Tp[2], cx + tw / 2 - 2, top + 2, 4, 11); P(S[2], cx + tw / 2 - 2, top + 13, 4, 3);
+  if (atk) { P(Tp[3], cx - tw / 2 - 10, top + 3, 12, 4); P(Tp[4], cx - tw / 2 - 10, top + 3, 12, 1); P(S[3], cx - tw / 2 - 15, top + 2, 6, 6); P(S[4], cx - tw / 2 - 15, top + 2, 3, 2); P(S[1], cx - tw / 2 - 11, top + 6, 2, 2); }
+  else if (hurt) { P(Tp[3], cx - tw / 2 - 3, top - 2, 4, 10); P(S[3], cx - tw / 2 - 4, top - 5, 5, 4); }
+  else { P(Tp[3], cx - tw / 2 - 4, top + 2, 5, 12); P(Tp[4], cx - tw / 2 - 4, top + 2, 1, 11); P(S[3], cx - tw / 2 - 4, top + 14, 5, 3); }
+  // Cabeza de tres cuartos mirando a la izquierda
+  const hy = top - 12 + (hurt ? 1 : 0), hx = cx - 1; const hr = dwarf ? 8 : 7;
+  E(hx, hy, hr, 8, S[3]); P(S[4], hx - 6, hy - 4, 3, 5); P(S[2], hx + 4, hy - 3, 3, 8); P(S[3], hx - hr - 1, hy + 1, 2, 2);
+  if (elf) { P(S[3], hx + 4, hy - 3, 3, 2); P(S[3], hx + 6, hy - 6, 2, 4); P(S[4], hx + 7, hy - 8, 1, 3); } else P(S[2], hx + 3, hy - 1, 2, 3);
+  if (ap.beard) { E(hx + 1, hy + 5, hr, dwarf ? 6 : 4, Hh[3]); P(Hh[3], hx - 6, hy + 1, 4, 5); P(Hh[4], hx - 5, hy + 3, 2, 2); P(Hh[2], hx + 3, hy + 4, 4, 5); if (dwarf) P('#e8c050', hx - 1, hy + 10, 2, 2); }
+  else { P(atk ? '#3a1018' : mix(S[1], '#9a3a3a', 0.4), hx - 5, hy + 4, 3, atk ? 2 : 1); if (fem) P(mix(S[3], '#e86a6a', 0.4), hx - 3, hy + 2, 2, 1); }
+  if (hurt) P(INK, hx - 5, hy - 1, 3, 1); else { P('#fbf6ee', hx - 5, hy - 2, 3, 2); P(tief ? '#e8b020' : ap.eyes || INK, hx - 5, hy - 2, 1, 2); if (fem) P(INK, hx - 6, hy - 3, 1, 1); }
+  P(Hh[2], hx - 6, hy - 4 + (atk ? 1 : 0), 4, 1);
+  // Pelo según peinado
+  const st = ap.hairStyle ?? 0;
+  if (st !== 4 || old) { E(hx + 2, hy - 4, hr, 5, Hh[3]); P(Hh[4], hx - 2, hy - 8, 5, 1); P(Hh[2], hx + 4, hy - 4, 4, 6); P(Hh[3], hx - 6, hy - 6, 4, 3); }
+  if (st === 1 || st === 6) { for (let y = hy; y < hy + 14; y++) P(Hh[3], hx + 3, y, 5, 1); P(Hh[2], hx + 6, hy, 2, 14); if (st === 6) P('#b8322c', hx + 4, hy + 13, 3, 2); }
+  if (st === 2) { P(Hh[3], hx + 7, hy - 3, 3, 3); P(Hh[3], hx + 9, hy, 3, 8); P('#b8322c', hx + 7, hy - 2, 2, 2); }
+  if (st === 3) for (let i = 0; i < 6; i++) E(hx - 4 + i * 3, hy - 7 + (i & 1), 2, 2, i & 1 ? Hh[4] : Hh[3]);
+  if (st === 5) { E(hx + 5, hy - 8, 3, 3, Hh[3]); P(Hh[4], hx + 4, hy - 10, 2, 1); }
+  if (st === 7) { P(Hh[3], hx, hy - 13, 3, 8); P(Hh[4], hx, hy - 13, 1, 6); }
+  if (tief && eq.head !== 'capucha') { const Hn = ramp('#4a3440'); P(Hn[3], hx - 2, hy - 9, 3, 3); P(Hn[3], hx - 1, hy - 12, 3, 3); P(Hn[4], hx, hy - 14, 2, 2); P(Hn[3], hx + 4, hy - 9, 3, 3); P(Hn[3], hx + 6, hy - 12, 3, 3); P(Hn[4], hx + 7, hy - 14, 2, 2); }
+  if (headL) { const C = ramp(headL.color); const id = eq.head;
+    if (id === 'barretina') { E(hx + 1, hy - 7, 8, 3, C[3]); P(C[4], hx - 5, hy - 9, 6, 1); P(C[2], hx - 7, hy - 5, 16, 2); for (let i = 0; i < 6; i++) P(i > 3 ? C[2] : C[3], hx + 6 + i, hy - 9 + Math.round(i * 0.9), 3, 3); }
+    else if (id === 'sombrero') { E(hx + 1, hy - 5, 13, 3, C[2]); E(hx + 1, hy - 6, 12, 2, C[3]); E(hx + 1, hy - 10, 7, 4, C[3]); P(C[4], hx - 3, hy - 12, 4, 1); P(C[1], hx - 6, hy - 6, 14, 1); }
+    else if (id === 'capucha') { E(hx + 1, hy - 1, 10, 11, C[3]); E(hx - 1, hy + 1, 6, 7, S[3]); P(C[4], hx - 4, hy - 9, 5, 1); P(C[2], hx + 6, hy - 4, 4, 14); P('#fbf6ee', hx - 5, hy - 1, 3, 2); P(INK, hx - 5, hy - 1, 1, 2); }
+    else if (id === 'casco' || id === 'cuernos_yelmo') { E(hx + 1, hy - 4, 9, 6, C[3]); P(C[5], hx - 5, hy - 8, 5, 2); P(C[2], hx - 8, hy, 18, 2); P(C[2], hx - 2, hy - 3, 2, 6); if (id === 'cuernos_yelmo') { const Hn = ramp('#e8e0cc'); P(Hn[3], hx - 10, hy - 7, 3, 4); P(Hn[4], hx - 11, hy - 11, 2, 4); P(Hn[3], hx + 9, hy - 7, 3, 4); P(Hn[2], hx + 10, hy - 11, 2, 4); } }
+    else if (id === 'diadema') { P(C[3], hx - 6, hy - 6, 14, 2); P('#e84a5a', hx - 2, hy - 7, 2, 2); }
+    else if (id === 'cofia') { E(hx + 2, hy - 5, 9, 5, C[3]); P(C[4], hx - 3, hy - 9, 5, 1); P(C[2], hx - 6, hy - 1, 16, 2); }
+  }
+  outlineSel(cv);
+  cache.set(key, cv); return cv;
+}

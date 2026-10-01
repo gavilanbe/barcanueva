@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>Luchadores</title><style>body{margin:0;background:#222}canvas{image-rendering:pixelated}</style><canvas id="g"></canvas>
+<script type="module">
+import { fighter } from '../../js/portraits.js';
+import { NPCS } from '../../js/data/npcs.js';
+const look = (n) => ({ ...n.look, race: n.race, sex: n.sex, age: n.age, equip: n.look.equip || {} });
+const c = document.getElementById('g'); const x = c.getContext('2d'); const S = 2; const list = NPCS.filter((n, i) => i % 4 === 0).slice(0, 14);
+c.width = 7 * 58 * S; c.height = 2 * 66 * S; x.imageSmoothingEnabled = false; x.fillStyle = '#5a7a5a'; x.fillRect(0, 0, c.width, c.height);
+list.forEach((n, i) => x.drawImage(fighter(look(n), ['idle', 'attack', 'hurt'][i % 3], 0), (i % 7) * 58 * S, Math.floor(i / 7) * 66 * S, 56 * S, 64 * S));
+</script>

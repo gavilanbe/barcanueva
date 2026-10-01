@@ -7,7 +7,7 @@ import { ITEMS, SPELLS } from './data/items.js';
 import { SP, removeAnimal } from './eco.js';
 import { ui, W, H, panel, text, icon, itemIco, bar, hand, drawD20, T as UIT } from './ui.js';
 import { drawText, textWidth, drawOutlined, drawBig, bigWidth, bigText } from './font.js';
-import { figure, backBust } from './portraits.js';
+import { figure, backBust, bandolero, fighter } from './portraits.js';
 import { animalSprite } from './sprites.js';
 import * as SPR from './sprites.js';
 import { G, addXP, playerLook, npcLook, updateMusic, weatherToday, resyncWatch } from './game.js';
@@ -723,7 +723,8 @@ function enemySprite(e, pose, frame) {
     return scaled3(animalSprite(e.sp, 'left', pose === 'attack' ? 1 : frame, cria, e.a?.sex));
   }
   const fp = pose === 'idle' ? (frame ? 'idle1' : 'idle0') : pose;
-  if (e.kind === 'npc') return figure(npcLook(e.npc), 'front', fp);
+  if (e.kind === 'npc') return fighter(npcLook(e.npc), pose, frame);
+  if (e.id === 'bandido') return bandolero(pose, frame);
   if (e.look) return figure({ ...e.look, race: 'humano', sex: 'm' }, 'front', fp);
   if (BA?.monsterSprite) { try { return BA.monsterSprite(e.id, frame, pose); } catch (er) { } }
   return null;
