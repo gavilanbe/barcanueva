@@ -37,7 +37,7 @@ function page(ctx, t, title, ic) {
   return y;
 }
 
-const ENTRIES = [['Estado', 'estado'], ['Mochila', 'mochila'], ['Relaciones', 'relaciones'], ['Saber', 'saber'], ['Diario', 'diario'], ['Mapa', 'mapa'], ['Ecosistema', 'ecosistema'], ['Guardar', 'guardar'], ['Opciones', 'opciones'], ['Volver', 'volver']];
+const ENTRIES = [['Estado', 'estado'], ['Mochila', 'mochila'], ['Relaciones', 'relaciones'], ['Saber', 'saber'], ['Diario', 'diario'], ['Mapa', 'mapa'], ['Ecosistema', 'ecosistema'], ['Guía', 'saber'], ['Guardar', 'guardar'], ['Opciones', 'opciones']];
 let lastEntry = 0;
 G.hooks.menu = async () => {
   sfx('open');
@@ -50,9 +50,10 @@ G.hooks.menu = async () => {
     if (i === 4) await journal();
     if (i === 5) await mapScreen();
     if (i === 6) await ecology();
-    if (i === 7) await saveGame();
-    if (i === 8) await options();
-    if (i === 9 || i === -1) { sfx('close'); return; }
+    if (i === 7) await guide();
+    if (i === 8) await saveGame();
+    if (i === 9) await options();
+    if (i === -1) { sfx('close'); return; }
   }
 };
 
@@ -70,15 +71,15 @@ function pauseMenu() {
       const k = Math.min(1, this.t / 8); veil(ctx, k * 0.75);
       const p = S.player; const x0 = Math.round(W - 92 * ease.outBack(Math.min(1, this.t / 12)));
       // ficha del personaje
-      const fy = 4; panel(ctx, x0 - 2, fy, 92, 52, 'dark');
-      ctx.fillStyle = '#d8c39a'; ctx.fillRect(x0 + 3, fy + 5, 40, 40); ctx.drawImage(bust(playerLook(), 'neutral', 0, (fr % 160) < 6), x0 + 3, fy + 5);
+      const fy = 3; panel(ctx, x0 - 2, fy, 92, 49, 'dark');
+      ctx.fillStyle = '#d8c39a'; ctx.fillRect(x0 + 3, fy + 4, 40, 40); ctx.drawImage(bust(playerLook(), 'neutral', 0, (fr % 160) < 6), x0 + 3, fy + 4);
       drawText(ctx, p.name.slice(0, 8), x0 + 46, fy + 6, '#fff4d8', INK); drawText(ctx, `Nv ${p.level}`, x0 + 46, fy + 17, '#f0b030', INK);
       bar(ctx, x0 + 46, fy + 29, 38, 2, p.xp / XP_FOR(p.level), p.xp / XP_FOR(p.level), ['#6a5a10', '#fcd456', '#fff4a0']);
       const ci = icon('moneda'); if (ci) ctx.drawImage(ci, x0 + 45, fy + 34); drawText(ctx, String(S.money), x0 + 59, fy + 36, '#fcd456', INK);
       // entradas
-      const ly = fy + 55; const h = ENTRIES.length * 10 + 8; panel(ctx, x0 - 2, ly, 92, h, 'dark');
+      const ly = fy + 51; const h = ENTRIES.length * 10 + 6; panel(ctx, x0 - 2, ly, 92, h, 'dark');
       const ty = ly + 5 + this.i * 10; if (this.hy === null) this.hy = ty; this.hy += (ty - this.hy) * 0.45;
-      ctx.fillStyle = '#4a3462'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 84, 9); ctx.fillStyle = '#f0b030'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 2, 9);
+      ctx.fillStyle = '#4a3462'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 84, 10); ctx.fillStyle = '#f0b030'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 2, 10);
       ENTRIES.forEach(([lab, ic], j) => {
         const rowT = prog(this.t, 6, 2 + j, ease.outCubic); const off = Math.round((1 - rowT) * 20); const y = ly + 5 + j * 10; const sel = j === this.i;
         const im = icon(ic); const b = sel && this.bounce > 0 ? -Math.round(Math.sin((this.bounce / 6) * Math.PI) * 2) : 0;
@@ -90,8 +91,8 @@ function pauseMenu() {
       if (this.bounce > 0) this.bounce--;
       // fecha y lugar
       const dl = `${weekday()} · ${dateStr()}`; const pl = G.map?.name || '';
-      const bw = Math.max(textWidth(dl), textWidth(pl)) + 14; panel(ctx, 4, 136 + Math.round((1 - k) * 30), Math.min(140, bw), 22, 'dark');
-      drawText(ctx, dl.slice(0, 26), 10, 141 + Math.round((1 - k) * 30), '#e8d8f0', INK); drawText(ctx, pl.slice(0, 26), 10, 150 + Math.round((1 - k) * 30), '#f0b030', INK);
+      const bw = Math.max(textWidth(dl), textWidth(pl)) + 14; panel(ctx, 4, 136 + Math.round((1 - k) * 30), Math.min(142, bw), 22, 'dark');
+      drawText(ctx, dl.replace('Primavera', 'Prim.').replace('Invierno', 'Inv.'), 10, 141 + Math.round((1 - k) * 30), '#e8d8f0', INK); drawText(ctx, pl.slice(0, 26), 10, 150 + Math.round((1 - k) * 30), '#f0b030', INK);
     },
   });
 }
@@ -373,6 +374,31 @@ async function ecology() {
       });
       const k = list[this.sel]; const t = total(k); const where = ECO_MAPS.filter((m) => count(m, k) > 0).map(mapName).join(', ');
       panel(ctx, 6, 124, 228, 32, 'dark'); wrap(t === 0 ? 'Desaparecido de la comarca.' : `Visto en: ${where}.`, 214).slice(0, 3).forEach((l, i) => drawText(ctx, l, 12, 129 + i * 9, '#e8d8f0', INK));
+    },
+  });
+}
+
+// ───────────── Guía: cómo se juega ─────────────
+const GUIDE = [
+  ['Controles', 'estado', ['^bFlechas^0: andar. Mantén ^bB^0 para correr.', '^bA^0: hablar, mirar, recoger, pescar... Cuando te pares delante de algo, una burbuja «A ...» te dice qué puedes hacer.', '^bMENÚ^0: este cuaderno. Desde aquí, estado, mochila, mapa y guardar.', 'Dormir en una cama guarda la partida. Si a las 2:30 sigues en pie, te desplomas.']],
+  ['Tiradas y pulso', 'dado', ['Casi todo se decide con un ^yd20^0: tu tirada más tu estadística contra una dificultad (CD).', 'Mientras el dado rueda, un anillo se cierra sobre él. Pulsa ^yA^0 cuando lo abrace: ^y¡pulso!^0 suma +1 (+2 en combate).', 'Un 20 natural es ^ycrítico^0; un 1 es ^rpifia^0.']],
+  ['Combate', 'atacar', ['Atacar, conjurar, objetos, acciones, guardia o huir. Encima del rival ves lo que hará después, si sabes leer a esa criatura (NATURALEZA, ARCANO o CARISMA).', 'Cuando te ataque, un anillo se cierra sobre ti: pulsa ^yA^0 justo antes del golpe para ^bbloquear^0, o en el último instante para una ^y¡parada!^0 sin daño y con contraataque. Si pulsas muy pronto, «precipitado».']],
+  ['Seny i rauxa', 'rauxa', ['La balanza de abajo mide tu calma (^cseny^0) y tu arrebato (^rrauxa^0).', 'Atacar y recibir golpes te llevan a la rauxa: pegas más, te defiendes peor. La guardia, calmar y curar te llevan al seny: paras mejor y aciertas en todo lo que no es pegar.', 'En un extremo, pulsa ^yMENÚ^0: ^r¡RAUXA!^0 son tres golpes al ritmo; ^cSENY^0 te cura y te deja ver todo lo que piensa el rival.']],
+  ['Acciones de folclore', 'accion', ['Cada criatura tiene sus debilidades. A las bestias se las calma, se las alimenta o se las espanta.', 'A un bandolero se le negocia, se le amenaza... o se le nombra a Perot. Al follet hay que darle faena. La Quarantamaula teme el fuego.', 'Y dicen que en la sierra duerme un drac. Pregunta a quien sepa de rondallas.']],
+  ['Vida en Barcanueva', 'nat', ['Recolecta en la hierba y los bosques, cultiva en la huerta de Agnès, pesca con caña (la picada y luego la lucha), mezcla en los calderos y forja en la ferrería.', 'Habla con todos: cada uno tiene su vida, rumores, un secreto y una lección. Regalos, encargos y fiestas acercan; los insultos alejan.', 'El ecosistema vive: lo que cazas falta. El mapa te muestra dónde estás y lo que te falta por explorar.']],
+];
+async function guide() {
+  let pg = 0;
+  await ui.custom({
+    t: 0,
+    update() { const o = pg; if (input.pressed('right') || input.pressed('down')) pg = Math.min(GUIDE.length - 1, pg + 1); if (input.pressed('left') || input.pressed('up')) pg = Math.max(0, pg - 1); if (o !== pg) { sfx('page'); this.pt = 0; } this.pt = (this.pt || 0) + 1; if ((input.pressed('A') || input.pressed('B') || input.pressed('S')) && this.t > 4) this.done = true; },
+    draw(ctx, fr) {
+      const [title, ic, paras] = GUIDE[pg]; const y0 = page(ctx, this.t, `Guía · ${title}`, ic);
+      const k = Math.min(1, (this.pt || 0) / 8); const off = Math.round((1 - ease.outCubic(k)) * 10);
+      let y = y0 + 14;
+      for (const para of paras) { for (const l of wrap(para, 214)) { text(ctx, l, 12 + off, y); y += 11; } y += 4; if (y > 136) break; }
+      for (let i = 0; i < GUIDE.length; i++) { ctx.fillStyle = i === pg ? '#a42632' : '#d8c094'; ctx.fillRect(100 + i * 8, 148, 5, 3); }
+      drawText(ctx, '◀ ▶ página · B volver', 12, 146, '#8a7a70');
     },
   });
 }
