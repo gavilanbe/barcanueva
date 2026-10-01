@@ -261,7 +261,6 @@ export async function fish(mapId, sea = false) {
   const hook = await ui.custom({
     t: 0, bite: 50 + Math.floor(Math.random() * (rain ? 70 : 130)), win: 20 + mod(stat('caz')) * 3, fakes: Math.random() < 0.5 ? [20 + Math.floor(Math.random() * 25)] : [],
     update() {
-      this.t++;
       if (this.t === this.bite) { sfx('splash'); const P = G.player; const d2 = dirs[P.dir]; burst(P.px + 8 + d2[0] * 22, P.py + 8 + d2[1] * 22, 8, { colors: ['#e8faff', '#a8d8f0'], speed: 1.2, life: 18, ay: 0.08, layer: 'world' }); }
       if (this.fakes.includes(this.t)) sfx('tick');
       const pr = input.pressed('A');
@@ -291,7 +290,6 @@ export async function fish(mapId, sea = false) {
   const caught = await ui.custom({
     t: 0, zy: H0 / 2 - zone / 2, zv: 0, fy: H0 / 2 - 4, fv: 0, ft: 40, prog: 0.35, target: H0 / 2,
     update() {
-      this.t++;
       // zona del jugador: gravedad y empuje
       this.zv += input.held('A') ? -0.22 : 0.18; this.zv *= 0.9; this.zy += this.zv;
       if (this.zy < 0) { this.zy = 0; this.zv = 0; } if (this.zy > H0 - zone) { this.zy = H0 - zone; this.zv *= -0.3; }

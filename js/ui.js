@@ -144,7 +144,7 @@ class Say {
 // ───────────── Elección ─────────────
 class Choose {
   constructor(opts, o) {
-    this.kind = 'choose'; this.t = 0; this.opts = opts; this.i = Math.max(0, Math.min(opts.length - 1, o.start || 0)); this.title = o.title; this.cancel = o.cancel ?? -1; this.top = 0; this.cols = o.cols || 1; this.prompt = o.prompt;
+    this.kind = 'choose'; this.t = 0; this.opts = opts; this.i = Math.max(0, Math.min(opts.length - 1, o.start || 0)); this.title = o.title; this.cancel = o.cancel === undefined ? -1 : o.cancel; this.top = 0; this.cols = o.cols || 1; this.prompt = o.prompt;
     const lw = (s) => textWidth(typeof s === 'string' ? s : s.label) + 26 + (typeof s === 'object' && s.icon ? 14 : 0) + (typeof s === 'object' && s.right ? textWidth(String(s.right)) + 10 : 0);
     this.w = Math.min(228, Math.max(70, ...opts.map(lw), this.title ? textWidth(this.title) + 20 : 0));
     this.max = Math.min(opts.length, o.max || 7);
@@ -247,7 +247,6 @@ class Roll {
   }
   ringR() { return 34 - (this.t / this.ringT) * 24; }
   update() {
-    this.t++;
     if (!this.final) {
       this.rot += 0.35 * (1 - this.t / 60); this.sq = Math.abs(Math.cos(this.t * 0.45)) * 0.6 + 0.4;
       if (this.t % 3 === 0) { this.face = 1 + Math.floor(Math.random() * 20); this.face2 = 1 + Math.floor(Math.random() * 20); sfx('tick'); }
@@ -326,7 +325,7 @@ export const ui = {
   say(msg, opt = {}) { return this.push(new Say(msg, opt)); },
   async sayAll(msgs, opt = {}) { for (const m of msgs) await this.say(m, opt); },
   choose(opts, o = {}) { return this.push(new Choose(opts, o)); },
-  async ask(msg, opts, o = {}) { const s = new Say(msg, o); s.keep = true; s.resolve = () => {}; this.stack.push(s); const r = await this.choose(opts, o); const k = this.stack.indexOf(s); if (k >= 0) this.stack.splice(k, 1); this.dlg.closingSay = s; return r; },
+  async ask(msg, opts, o = {}) { const s = new Say(msg, o); s.keep = true; s.resolve = () => {}; this.stack.push(s); const r = await this.choose(opts, { ...o, cancel: o.cancel === undefined ? opts.length - 1 : o.cancel }); const k = this.stack.indexOf(s); if (k >= 0) this.stack.splice(k, 1); this.dlg.closingSay = s; return r; },
   roll(label, mod, dc, opt = {}) { return this.push(new Roll(label, mod, dc, opt)); },
   custom(o) { return this.push(new Custom(o)); },
   toast(msg, color = '#f8f0d8', ic = null) {
@@ -361,9 +360,9 @@ export const ui = {
     for (const a of this.announces) a.t++; this.announces = this.announces.filter((a) => a.t < a.life);
   },
   draw(ctx, fr) {
-    let drewBox = false;
+    let drewBox = false; let topSay = null; for (const w of this.stack) if (w.kind === 'say') topSay = w;
     for (const w of this.stack) {
-      if (w.kind === 'say') { if (!drewBox) { this.drawBox(ctx, fr, w); drewBox = true; } continue; }
+      if (w.kind === 'say') { if (w === topSay) { this.drawBox(ctx, fr, w); drewBox = true; } continue; }
       w.draw(ctx, fr);
     }
     if (!drewBox && this.dlg.open > 0 && this.dlg.closingSay) this.drawBox(ctx, fr, this.dlg.closingSay);

@@ -44,7 +44,7 @@ export function creator() {
   return {
     t: 0, st,
     update() {
-      this.t++; const k = steps[st.step];
+      const k = steps[st.step];
       if (k === 'Nombre') {
         if (input.pressed('up')) st.ky = (st.ky + KB.length) % (KB.length + 1);
         if (input.pressed('down')) st.ky = (st.ky + 1) % (KB.length + 1);

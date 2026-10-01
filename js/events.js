@@ -248,7 +248,7 @@ function audience(npc, say) {
   } });
   if (S.flags.letter_delivered === 1) o.push({ label: 'Transmitir el mensaje del Consejo', f: async () => {
     S.flags.letter_delivered = 2;
-    const i = await ui.ask('El Conde lee la carta de Fiveller con el ceño fruncido. «¿Y tú qué opinas del tributo del vino?»', ['Que el Consejo tiene razón', 'Que la ciudad debe pagar a su señor', 'Que busque otro modo de pagar sus deudas']);
+    const i = await ui.ask('El Conde lee la carta de Fiveller con el ceño fruncido. «¿Y tú qué opinas del tributo del vino?»', ['Que el Consejo tiene razón', 'Que la ciudad debe pagar a su señor', 'Que busque otro modo de pagar sus deudas'], { cancel: null });
     if (i === 0) { S.rep.ciudad += 8; S.rep.corte -= 3; changeRel(N('fiveller'), 15); await say('Hmm. Hablas como un conseller. Retiraré el tributo... por ahora.'); }
     if (i === 1) { S.rep.corte += 8; S.rep.ciudad -= 5; changeRel(N('fiveller'), -15); await say('¡Al fin alguien sensato! El tributo se aplicará.'); logEvent('El tributo del vino se aprueba'); }
     if (i === 2) { const r = await check('Diplomacia (CARISMA + COMERCIO)', ['car', 'com'], 14); if (r.ok) { S.rep.corte += 5; S.rep.ciudad += 5; await say('...¿Vender la galera nueva a los genoveses? No es mala idea. Nada mal.'); } else await say('Fácil de decir. Retírate.'); }

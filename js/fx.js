@@ -132,14 +132,14 @@ export function transition(kind = 'fade', mid = null, o = {}) {
   // si ya había una en curso, se da por terminada (que nadie se quede esperando)
   if (trans.on && trans.res) { const r = trans.res; trans.res = null; if (trans.mid) { const f = trans.mid; trans.mid = null; try { f(); } catch (e) { } } r(); }
   return new Promise((res) => {
-    Object.assign(trans, { on: true, kind, t: 0, phase: 'out', mid, res, dur: o.dur || ({ fade: 16, iris: 22, diamond: 22, wipe: 18, battle: 40, sleep: 50, curtain: 24 }[kind] || 20), cx: o.cx ?? 120, cy: o.cy ?? 80, dir: o.dir || 'right', hold: o.hold ?? 4, inKind: o.inKind || kind, snap: o.snap || null, durIn: o.durIn || null });
+    Object.assign(trans, { on: true, waiting: false, kind, t: 0, phase: 'out', mid, res, dur: o.dur || ({ fade: 16, iris: 22, diamond: 22, wipe: 18, battle: 40, sleep: 50, curtain: 24 }[kind] || 20), cx: o.cx ?? 120, cy: o.cy ?? 80, dir: o.dir || 'right', hold: o.hold ?? 4, inKind: o.inKind || kind, snap: o.snap || null, durIn: o.durIn || null });
   });
 }
 function stepTrans() {
   trans.t++;
   if (trans.phase === 'out' && trans.t >= trans.dur) {
     trans.phase = 'hold'; trans.t = 0;
-    const f = trans.mid; trans.mid = null; if (f) { try { const r = f(); if (r && r.then) { trans.waiting = true; r.then(() => { trans.waiting = false; }); } } catch (e) { console.error(e); } }
+    const f = trans.mid; trans.mid = null; if (f) { try { const r = f(); if (r && r.then) { trans.waiting = true; r.then(() => { trans.waiting = false; }, (e) => { console.error(e); trans.waiting = false; }); } } catch (e) { console.error(e); } }
   } else if (trans.phase === 'hold' && trans.t >= trans.hold && !trans.waiting) {
     trans.phase = 'in'; trans.t = 0; trans.kind = trans.inKind; if (trans.durIn) trans.dur = trans.durIn;
   } else if (trans.phase === 'in' && trans.t >= trans.dur) {

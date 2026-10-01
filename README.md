@@ -4,8 +4,12 @@ Simulador de vida y RPG en pixel art estilo **Game Boy Advance** (240×160), amb
 
 ## Jugar
 
+En línea: **[gavilanbe.github.io/barcanueva](https://gavilanbe.github.io/barcanueva/)**
+
+En local, desde la carpeta del juego:
+
 ```sh
-cd ~/barcanueva && python3 -m http.server 8494
+python3 -m http.server 8494
 # abre http://localhost:8494
 ```
 
@@ -68,6 +72,6 @@ Por turnos, con d20 a lo D&D y tres capas de habilidad y decisión:
 node tools/shot.mjs "quick=elfo,f" /tmp/a.png 'k:down*3' k:A w:500   # captura tras pulsar teclas
 node tools/map.mjs ciudad bosque                                    # vuelca el mapa completo a /tmp/map_*.png
 node tools/smoke.mjs                                                # recorre mapas, 60 días, PNJ y combates buscando excepciones
-node tools/battle-test.mjs                                          # lleva diez combates completos hasta el final
+node tools/battle-test.mjs                                          # lleva once combates completos hasta el final
 CDP_PORT=9350 node tools/gal.mjs animals /tmp/g.png                 # captura una galería de arte (tools/gallery/*.html)
 ```

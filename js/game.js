@@ -290,7 +290,7 @@ export function addXP(n, why) {
 export function updateWorld() {
   // compatibilidad con código que aún pide fundidos a la antigua
   if (G.fade > 0) { const f = G.fadeTo; G.fade = 0; G.fadeTo = null; transition(f ? 'fade' : 'sleep', f || null); }
-  if (trans.on) { camFollow(); return; }
+  if (trans.on || G.lock) { camFollow(); return; }
   if (ui.busy) { camFollow(); return; }
   advance(G.timeScale / 60);
   if (S.min > 150 && S.min < 360 && !S.flags.sleeping) { G.hooks.faint?.(); return; }
@@ -365,6 +365,7 @@ function stepEnt(e, speed = 1) {
 }
 function arrived(running) {
   const p = G.player; if (p.bumped) p.bumped = 0;
+  S.pos.x = p.x; S.pos.y = p.y; S.pos.dir = p.dir;
   const t = G.map.get(p.x, p.y); const ter = terrainAt(p.x, p.y);
   if (p.stepN % 2 === 0 || running) stepSound(ter === 'tall' ? 'grass' : ter);
   if (ter === 'tall') { sfx('rustle'); for (let i = 0; i < 3; i++) spawn({ x: p.px + 4 + Math.random() * 8, y: p.py + 8 + Math.random() * 4, vx: (Math.random() - 0.5) * 0.8, vy: -0.8 - Math.random() * 0.6, ay: 0.06, life: 26, kind: 'leaf', color: PAL.grass[5], color2: PAL.grass[7], layer: 'world' }); }
@@ -421,8 +422,8 @@ function updateAnimal(e) {
     return;
   }
   if (s.beh === 'embiste' && dist <= 2 && !e.calm && !e.charged && Math.random() < 0.02) { e.charged = true; G.hooks.encounter?.('embiste', e); return; }
-  if (s.beh === 'caza' && dist <= 3 && !e.calm && (S.min > 1140 || S.min < 360) && Math.random() < 0.01) { G.hooks.encounter?.('caza', e); return; }
-  if (s.beh === 'pica' && dist <= 1 && !e.calm && Math.random() < 0.01) { G.hooks.encounter?.('pica', e); return; }
+  if (s.beh === 'caza' && dist <= 3 && !e.calm && !e.charged && (S.min > 1140 || S.min < 360) && Math.random() < 0.01) { e.charged = true; G.hooks.encounter?.('caza', e); return; }
+  if (s.beh === 'pica' && dist <= 1 && !e.calm && !e.charged && Math.random() < 0.01) { e.charged = true; G.hooks.encounter?.('pica', e); return; }
   if (flee) {
     if (!e.fast) { emote(e, '!'); }
     e.fast = true; const dx = Math.sign(e.x - p.x), dy = Math.sign(e.y - p.y);

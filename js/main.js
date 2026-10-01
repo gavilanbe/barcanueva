@@ -8,7 +8,7 @@ import { dumpMap, G, enterMap, updateWorld, drawWorld, drawHUD, advance, newDay,
 import { initEco } from './eco.js';
 import { drawBattle, B, fight, animalEnemy, monster } from './battle.js';
 import { creator, allocate } from './creator.js';
-import { sfx, music, preloadMusic } from './audio.js';
+import { sfx, music, preloadMusic, musicState } from './audio.js';
 import { rollMarket } from './talk.js';
 import { fish } from './activities.js';
 import './events.js';
@@ -173,9 +173,9 @@ function continueGame() {
 // ───────────── Bucle ─────────────
 let last = performance.now(), acc = 0; const STEP = 1000 / 60;
 function frame(now) {
+  requestAnimationFrame(frame); // primero: un error en un fotograma no debe parar el juego
   acc += Math.min(100, now - last); last = now;
-  while (acc >= STEP) { tick(); acc -= STEP; }
-  render(); requestAnimationFrame(frame);
+  try { while (acc >= STEP) { tick(); acc -= STEP; } render(); } catch (e) { acc = 0; console.error(e); }
 }
 function tick() {
   G.frame++;
@@ -212,7 +212,7 @@ requestAnimationFrame(frame);
 window.__barca = {
   talkTo(id) { const e = G.ents.find((x) => x.npc?.id === id); if (!e) return 'no está'; const p = G.player; p.x = e.x; p.y = e.y + 1; p.px = p.x * 16; p.py = p.y * 16; p.dir = 'up'; G.hooks.talk(e); return 'ok'; },
   where(id) { return G.ents.filter((e) => !id || e.npc?.id === id || e.sp === id).map((e) => (e.npc?.id || e.sp || e.kind) + '@' + e.x + ',' + e.y).join(' '); },
-  fish, fight, animalEnemy, monster, dumpMap, G, S, MAPS, ui, input, enterMap, advance, newDay, addXP, save, NPCS, fx };
+  fish, fight, animalEnemy, monster, dumpMap, G, S, MAPS, ui, input, enterMap, advance, newDay, addXP, save, NPCS, fx, musicState };
 
 const qs = new URLSearchParams(location.search);
 if (qs.has('quick')) {

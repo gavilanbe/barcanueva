@@ -115,8 +115,14 @@ export function monster(id) { const m = MONSTERS[id]; return { kind: 'monster', 
 // ───────────── Combate ─────────────
 const EN0 = { x: 176, y: 76 }, PL0 = { x: 70, y: 120 };
 export async function fight(enemy) {
+  if (B.active || G.lock) return 'busy';
+  G.lock = true; // desde el «!» el mundo se detiene
+  try { return await fightInner(enemy); }
+  catch (err) { console.error(err); B.active = null; G.mode = 'world'; updateMusic(); return 'flee'; }
+  finally { G.lock = false; }
+}
+async function fightInner(enemy) {
   const p = S.player;
-  if (B.active) return 'busy';
   // «¡!» sobre el jugador y transición de persianas con la imagen congelada
   const snap = document.createElement('canvas'); snap.width = W; snap.height = H; snap.getContext('2d').drawImage(document.getElementById('screen'), 0, 0);
   if (G.player) { G.player.emote = { name: '!', t: 0, life: 40 }; sfx('encounter'); await wait(26); }
@@ -153,6 +159,7 @@ export async function fight(enemy) {
     if (enemy.sleep > 0) { enemy.sleep--; spawnZ(); await say(`${enemy.name} duerme profundamente.`); b.intent = chooseMove(enemy); continue; }
     result = await enemyTurn(enemy);
     if (!result && p.hp <= 0) result = 'lose';
+    if (!result && enemy.hp <= 0) result = 'win';
   }
   const out = await finish(enemy, result);
   b.menu = false;
@@ -238,7 +245,6 @@ function broll(label, modv, dc, o = {}) {
   return ui.custom({
     t: 0, t2: 0, final: null, face: 1, face2: 1, rot: 0, sq: 1, ringT: o.ringT || 42, pulse: 0,
     update() {
-      this.t++;
       if (!this.final) {
         this.rot += 0.4 * (1 - this.t / 60); this.sq = Math.abs(Math.cos(this.t * 0.5)) * 0.6 + 0.4;
         if (this.t % 3 === 0) { this.face = 1 + Math.floor(Math.random() * 20); this.face2 = 1 + Math.floor(Math.random() * 20); sfx('tick'); }
@@ -358,7 +364,7 @@ async function cast(e) {
 
 // ───────────── Objetos ─────────────
 async function useItem(e) {
-  const b = B.active; const p = S.player; const inv = Object.keys(S.inv).filter((k) => ITEMS[k] && (ITEMS[k].heal || ITEMS[k].mp || ITEMS[k].battle || ITEMS[k].cure));
+  const b = B.active; const p = S.player; const inv = Object.keys(S.inv).filter((k) => ITEMS[k] && (ITEMS[k].heal || ITEMS[k].mp || ITEMS[k].battle || ITEMS[k].cure || (k === 'agua_bendita' && e.fae)));
   if (!inv.length) { await say('No llevas nada útil.', { auto: 60 }); return false; }
   const i = await ui.choose([...inv.map((k) => ({ label: ITEMS[k].name, right: `×${S.inv[k]}`, hint: ITEMS[k].desc, icon: ICO?.itemIcon?.(k) })), 'Volver'], { cancel: inv.length, max: 6, style: 'dark', x: 100, y: 8 });
   if (i === inv.length) return false;
@@ -499,7 +505,7 @@ function rhythm(k) {
   return ui.custom({
     t: 0, speed: 3.2 + k * 0.9, res: null, hold: 0,
     update() {
-      this.t++; if (this.res !== null) { if (++this.hold > 10) { this.done = true; this.result = this.res; } return; }
+      if (this.res !== null) { if (++this.hold > 10) { this.done = true; this.result = this.res; } return; }
       const x = this.pos(); if ((input.pressed('A') || input.pressed('B')) && this.t > 3) { const dd = Math.abs(x - 120); this.res = dd <= 6 ? 2 : dd <= 18 ? 1 : 0; sfx(this.res === 2 ? 'perfect' : this.res ? 'block' : 'early'); if (this.res === 2) burst(x, 135, 12, { layer: 'screen', colors: ['#fff070', '#ff7050'], speed: 2.4, life: 20, kind: 'spark' }); }
       if (this.t > 200 / this.speed * 2.4) { this.res = 0; }
     },
@@ -568,9 +574,9 @@ function enemyAttack(e, mv) {
   const perf = 3 + (stat('def') >= 6 ? 1 : 0) + (b.guard ? 1 : 0);
   tween(b, { cam: -16 }, 14, ease.inOutQuad);
   return ui.custom({
-    t: 0, press: null, res: null, kind: 'eatk',
+    t: 0, press: null, res: null, tag: 'eatk', T0, win, perf,
     update() {
-      const t = ++this.t;
+      const t = this.t;
       // animación del rival
       if (t <= W0) { const k = t / W0; b.en.ox = 10 * ease.outQuad(Math.min(1, k * 1.3)); b.en.oy = -3 * k; b.en.pose = k > 0.6 ? 'attack' : 'idle'; if (t === W0 - 10) { b.gleam = 10; sfx('alert'); } }
       else if (t <= W0 + FE) { const k = (t - W0) / Math.max(1, FE); b.en.ox = 10 - 26 * Math.sin(k * Math.PI) ; if (t === W0 + 2) sfx('swing'); }
@@ -581,12 +587,12 @@ function enemyAttack(e, mv) {
         if (t < T0 - win - 2) { this.early = true; sfx('early'); popText(plX(), PL0.y - 70, '¡Precipitado!', { color: '#ff9070' }); b.pl.pose = 'cast'; }
         else { b.pl.pose = 'cast'; sfx('swing'); }
       }
-      if (t === T0) this.resolve();
+      if (!this.resolved && t >= T0) { this.resolved = true; this.impact(); }
       if (t > T0 && t <= T0 + 14) { b.en.ox = -90 + (t - T0) * 1.5; }
       if (t > T0 + 14) { const k = Math.min(1, (t - T0 - 14) / 16); b.en.ox = (-69) * (1 - ease.outCubic(k)); b.en.oy = 46 * (1 - ease.outCubic(k)); }
       if (t >= T0 + 32) { b.en.ox = 0; b.en.oy = 0; b.en.pose = 'idle'; if (b.pl.pose !== 'hurt' || t > T0 + 40) b.pl.pose = 'idle'; if (t >= T0 + 40) { this.done = true; this.result = this.res; tween(b, { cam: 0 }, 16, ease.inOutQuad); } }
     },
-    resolve() {
+    impact() { // ojo: no llamarlo «resolve», que es el nombre con el que ui cierra la promesa del widget
       const pr = this.press; let par = 'none';
       if (pr !== null && !this.early) { const dt = T0 - pr; if (dt >= -1 && dt <= perf) par = 'perfect'; else if (dt >= -2 && dt <= win) par = 'block'; }
       if (par === 'perfect' && mv.noPerfect) par = 'block';
@@ -686,7 +692,6 @@ function results(e, xp, loot, money, why) {
   return ui.custom({
     t: 0,
     update() {
-      this.t++;
       if (this.t === 30 && !given) { given = true; addXP(xp, why); }
       if (this.t > 10 && this.t % 12 === 0 && this.t / 12 - 1 < loot.length) sfx('item');
       if (this.t > 50 && (input.pressed('A') || input.pressed('B'))) this.done = true;

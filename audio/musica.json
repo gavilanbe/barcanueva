@@ -1,0 +1,45 @@
+{
+  "titulo": {
+    "loopStart": 9.6,
+    "loopEnd": 83.2
+  },
+  "ciudad": {
+    "loopStart": 8.0,
+    "loopEnd": 72.0
+  },
+  "campo": {
+    "loopStart": 9.6,
+    "loopEnd": 76.8
+  },
+  "bosque": {
+    "loopStart": 11.52,
+    "loopEnd": 63.36
+  },
+  "noche": {
+    "loopStart": 12.0,
+    "loopEnd": 76.0
+  },
+  "batalla": {
+    "loopStart": 6.4,
+    "loopEnd": 54.4
+  },
+  "jefe": {
+    "loopStart": 9.6,
+    "loopEnd": 57.6
+  },
+  "taberna": {
+    "loopStart": 8.0,
+    "loopEnd": 72.0
+  },
+  "iglesia": {
+    "loopStart": 12.0,
+    "loopEnd": 76.0
+  },
+  "castillo": {
+    "loopStart": 19.2,
+    "loopEnd": 76.8
+  },
+  "victoria": {
+    "loop": false
+  }
+}

@@ -196,6 +196,8 @@ export function music(name) {
   if (e.buf === undefined) e.pr.then((b) => { if (b && cur === name) playFile(name, b); });
 }
 export function currentMusic() { return cur; }
+// Estado para pruebas: qué suena y qué pistas están ya cargadas
+export function musicState() { return { cur, file: !!fileSrc, loop: fileSrc ? [fileSrc.loopStart, fileSrc.loopEnd, fileSrc.loop] : null, loaded: [...buffers].filter(([, v]) => v.buf).map(([k]) => k), ctx: ac?.state }; }
 const FALLBACK = { titulo: 'ciudad', victoria: null };
 export function preloadMusic(names) { if (!ensure()) return; for (const n of names) loadTrack(n); }
 function schedule() {
