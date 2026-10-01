@@ -365,7 +365,8 @@ G.hooks.animal = async (e) => {
   const s = SP[e.sp]; const a = e.a; const cria = a.age < s.mature;
   const known = S.known['sp:' + e.sp];
   const opts = ['Observar', 'Cazar', 'Calmar', s.plan === 'enjambre' ? 'Buscar miel' : null, 'Dejarlo'].filter(Boolean);
-  const i = await ui.choose(opts, { cancel: opts.length - 1, title: known ? s.name : '¿Qué animal es?' });
+  const AI = { Observar: icon('saber'), Cazar: icon('atacar'), Calmar: icon('corazon'), 'Buscar miel': itemIco('miel'), Dejarlo: icon('volver') };
+  const i = await ui.choose(opts.map((o) => ({ label: o, icon: AI[o] })), { cancel: opts.length - 1, title: known ? s.name : '¿Qué animal es?' });
   const o = opts[i];
   if (o === 'Observar') {
     const r = await check('Observar (NATURALEZA)', ['nat'], 8);

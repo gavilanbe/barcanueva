@@ -3,7 +3,7 @@ import { S, npcState, tier, TIERS, stat, mod, addItem, hasItem, logEvent, STAT_N
 import { ITEMS } from './data/items.js';
 import { SHOPS, MARKET, MARKET_RARE } from './data/shops.js';
 import { NPC_BY_ID } from './data/npcs.js';
-import { ui, itemIco } from './ui.js';
+import { ui, itemIco, icon } from './ui.js';
 let lastBuy = 0;
 import { G, addXP, npcLook } from './game.js';
 import { sfx } from './audio.js';
@@ -115,7 +115,8 @@ async function menu(npc, e, say, special) {
     if (special?.options) opts.push(...special.options);
     opts.push({ label: 'Provocar', f: () => provoke(npc, e, say) });
     opts.push({ label: 'Adiós', f: null });
-    const i = await ui.choose(opts.map((o) => ({ label: o.label, hint: o.hint })), { cancel: opts.length - 1 });
+    const IC = { Charlar: 'accion', 'Preguntar…': 'i_duda', Regalar: 'corazon', Comerciar: 'moneda', 'Taula de Canvi': 'com', 'Pedir encargo': 'diario', Persuadir: 'car', Coquetear: 'corazon', 'Cariño ♥': 'corazon', Provocar: 'atacar', 'Adiós': 'volver' };
+    const i = await ui.choose(opts.map((o) => ({ label: o.label, hint: o.hint, icon: icon(IC[o.label] || 'estrella') })), { cancel: opts.length - 1 });
     const o = opts[i]; if (!o.f) { await say(pick(['Ve con Dios.', 'Hasta luego.', 'Adéu.', 'Cuídate.'])); return; }
     const r = await o.f(); if (r === 'end') return;
   }
