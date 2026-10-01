@@ -452,8 +452,12 @@ export async function treatment(npc) {
   if (i !== 0) return;
   if (S.money < cost) return ui.say('No te llega. Vuelve cuando tengas.');
   S.money -= cost; const n = fast ? days : days + 1;
-  for (let k = 0; k < n; k++) newDay(); S.min = 8 * 60;
-  S.ailments = []; S.player.hp = S.player.hpMax; S.player.mp = S.player.mpMax;
+  sfx('close');
+  await transition('sleep', async () => {
+    for (let k = 0; k < n; k++) newDay(); S.min = 8 * 60;
+    S.ailments = []; S.player.hp = S.player.hpMax; S.player.mp = S.player.mpMax;
+    await dayCard();
+  }, { dur: 40, durIn: 30 });
   if (!fast) { learn('nat', 1, 'Hermana Clara'); }
   await ui.say(fast ? `${n} día${n > 1 ? 's' : ''} después, sales como nuevo. Con alguna cicatriz más.` : `${n} días de caldo y reposo. Sales curado... y con un par de remedios aprendidos.`);
   G.hooks.afterTreatment?.();
