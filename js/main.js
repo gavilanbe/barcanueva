@@ -25,7 +25,7 @@ G.hooks.advance = advance;
 
 function resize() {
   const touch = document.body.classList.contains('touch');
-  const aw = innerWidth - (touch ? 8 : 16), ah = (touch ? innerHeight * 0.6 - 30 : innerHeight) - 16;
+  const aw = innerWidth - (touch ? 24 : 48), ah = (touch ? innerHeight * 0.6 - 44 : innerHeight - 64) - 16;
   let s = Math.min(aw / W, ah / H);
   if (!touch || s >= 2) s = Math.max(1, Math.floor(s));
   cv.style.width = Math.floor(W * s) + 'px'; cv.style.height = Math.floor(H * s) + 'px';

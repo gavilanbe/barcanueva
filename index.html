@@ -3,31 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#1b1420">
+<meta name="theme-color" content="#120d16">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="Barcanueva: simulador de vida y RPG en pixel art estilo GBA en una ciudad de fantasía inspirada en Barcelona.">
 <title>Barcanueva</title>
 <style>
-  html,body{margin:0;height:100%;background:#1b1420;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
-  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
-  #screen{image-rendering:pixelated;image-rendering:crisp-edges;background:#000;box-shadow:0 0 0 4px #2d2433,0 0 0 8px #120d16}
-  #pad{display:none;position:fixed;left:0;right:0;bottom:0;height:40vh;pointer-events:none;padding-bottom:env(safe-area-inset-bottom)}
-  body.touch #pad{display:block}
-  body.touch #wrap{bottom:40vh;padding-top:env(safe-area-inset-top)}
-  #brand{display:none;color:#6a5a7a;font:bold 11px monospace;letter-spacing:4px;margin-top:10px}
-  body.touch #brand{display:block}
-  .btn{position:absolute;pointer-events:auto;border-radius:50%;background:#3b2f45;color:#e8d9b8;font:bold 16px monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 #1f1826;opacity:.85}
-  .btn.on{transform:translateY(3px);box-shadow:0 1px 0 #1f1826;background:#574566}
-  #dpad{position:absolute;left:5vw;bottom:6vh;width:40vw;height:40vw;max-width:170px;max-height:170px;pointer-events:auto}
-  #dpad div{position:absolute;background:#3b2f45;box-shadow:0 4px 0 #1f1826}
-  #dpad .h{left:0;right:0;top:33%;height:34%;border-radius:8px}
-  #dpad .v{top:0;bottom:0;left:33%;width:34%;border-radius:8px}
-  #bA{right:5vw;bottom:14vh;width:17vw;height:17vw;max-width:72px;max-height:72px}
-  #bB{right:25vw;bottom:7vh;width:15vw;height:15vw;max-width:62px;max-height:62px}
-  #bS{right:9vw;bottom:2vh;width:20vw;height:7vw;max-width:90px;max-height:28px;border-radius:14px;font-size:11px}
+  :root { --ink: #1a1022; --plum: #2b1d36; --plum2: #3b2a4a; --gold: #f0b030; --cream: #f8ecd0; --red: #a42632; }
+  html, body { margin: 0; height: 100%; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; }
+  body { background: radial-gradient(ellipse at 50% 40%, #2a1e36 0%, #160f1c 60%, #0b0710 100%); color: var(--cream); font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .07;
+    background-image: linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%), linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%);
+    background-size: 24px 24px; background-position: 0 0, 12px 12px; }
+  #wrap { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
+  #bezel { padding: 6px; border-radius: 10px; background: linear-gradient(180deg, #3b2a4a, #22182c); box-shadow: 0 0 0 2px var(--ink), 0 10px 30px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.12); }
+  #screen { display: block; image-rendering: pixelated; image-rendering: crisp-edges; background: #000; border-radius: 3px; box-shadow: 0 0 0 2px var(--ink); }
+  #help { color: #8a7a9a; letter-spacing: 1px; text-align: center; font-size: 11px; }
+  #help b { color: var(--gold); font-weight: normal; }
+  #brand { display: none; color: #7a6a8a; font: bold 11px ui-monospace, Menlo, monospace; letter-spacing: 6px; }
+  body.touch #help { display: none; }
+  body.touch #brand { display: block; }
+  #pad { display: none; position: fixed; left: 0; right: 0; bottom: 0; height: 40vh; pointer-events: none; padding-bottom: env(safe-area-inset-bottom); }
+  body.touch #pad { display: block; }
+  body.touch #wrap { bottom: 40vh; padding-top: env(safe-area-inset-top); }
+  .btn { position: absolute; pointer-events: auto; border-radius: 50%; color: var(--cream); font: bold 17px ui-monospace, Menlo, monospace; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 5px 0 var(--ink), inset 0 2px 0 rgba(255,255,255,.25); transition: transform .05s; }
+  .btn.on { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink), inset 0 2px 0 rgba(255,255,255,.15); filter: brightness(1.15); }
+  #dpad { position: absolute; left: 5vw; bottom: 6vh; width: 40vw; height: 40vw; max-width: 170px; max-height: 170px; pointer-events: auto; }
+  #dpad div { position: absolute; background: linear-gradient(180deg, #4a3a5a, #33264a); box-shadow: 0 5px 0 var(--ink); }
+  #dpad .h { left: 0; right: 0; top: 33%; height: 34%; border-radius: 10px; }
+  #dpad .v { top: 0; bottom: 0; left: 33%; width: 34%; border-radius: 10px; }
+  #dpad::after { content: ''; position: absolute; left: 41%; top: 41%; width: 18%; height: 18%; border-radius: 50%; background: #2a1e38; box-shadow: inset 0 2px 3px rgba(0,0,0,.5); }
+  #bA { right: 5vw; bottom: 14vh; width: 17vw; height: 17vw; max-width: 74px; max-height: 74px; background: radial-gradient(circle at 35% 30%, #d84a52, var(--red) 60%, #7c1a2a); }
+  #bB { right: 25vw; bottom: 7vh; width: 15vw; height: 15vw; max-width: 64px; max-height: 64px; background: radial-gradient(circle at 35% 30%, #5a7ad0, #2c5aa0 60%, #1c3a70); }
+  #bS { right: 9vw; bottom: 2vh; width: 20vw; height: 7vw; max-width: 92px; max-height: 28px; border-radius: 14px; font-size: 11px; letter-spacing: 1px; background: linear-gradient(180deg, #5a4a6a, #3b2a4a); }
 </style>
 </head>
 <body>
-<div id="wrap"><canvas id="screen" width="240" height="160"></canvas><div id="brand">BARCANUEVA</div></div>
+<div id="wrap">
+  <div id="bezel"><canvas id="screen" width="240" height="160"></canvas></div>
+  <div id="help"><b>flechas</b> mover · <b>Z</b> hablar · <b>X</b> correr · <b>Esc</b> menú · <b>Z</b> a tiempo para el pulso y las paradas</div>
+  <div id="brand">BARCANUEVA</div>
+</div>
 <div id="pad">
   <div id="dpad"><div class="h"></div><div class="v"></div></div>
   <div class="btn" id="bA">A</div>

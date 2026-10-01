@@ -196,7 +196,7 @@ async function playerTurn(e) {
 }
 
 // Menú de órdenes: rejilla de 3×2 con iconos y, en los extremos de la balanza, el golpe especial con MENÚ.
-const CMDS = [['Atacar', 'atacar', 'Golpe con tu arma. Empuja hacia la rauxa.'], ['Conjuro', 'conjuro', 'INTELIGENCIA + ARCANO. Consume PM.'], ['Objeto', 'objeto', 'Pociones, comida, humos...'], ['Acción', 'accion', 'Calmar, observar, negociar, conjurar... según el rival.'], ['Guardia', 'guardia', 'Te cubres: parar es más fácil y el daño, menor. Empuja hacia el seny.'], ['Huir', 'huir', 'FUERZA + NATURALEZA.']];
+const CMDS = [['Atacar', 'atacar', 'Golpe con tu arma. Empuja a la rauxa.'], ['Conjuro', 'conjuro', 'INTELIGENCIA + ARCANO. Gasta PM.'], ['Objeto', 'objeto', 'Pociones, comida, humos...'], ['Acción', 'accion', 'Calmar, observar, negociar... según quién.'], ['Guardia', 'guardia', 'Paras mejor y duele menos. Empuja al seny.'], ['Huir', 'huir', 'FUERZA + NATURALEZA. No siempre se puede.']];
 function commandMenu(e) {
   const b = B.active;
   return ui.custom({
@@ -221,7 +221,7 @@ function commandMenu(e) {
         drawText(ctx, CMDS[k][0], cx + 18, cy + 4 - lift, sel ? '#fff4d8' : '#c8b8d8', INK);
       }
       // descripción en una cinta
-      const ds = CMDS[this.i][2]; const dw = Math.min(232, textWidth(ds) + 12);
+      const ds = CMDS[this.i][2]; const dw = Math.min(234, textWidth(ds) + 12);
       ctx.fillStyle = INK; ctx.fillRect(4, y0 - 12, dw, 12); ctx.fillStyle = 'rgba(33,24,44,.95)'; ctx.fillRect(5, y0 - 11, dw - 2, 10); drawText(ctx, ds, 10, y0 - 9, '#e8d8f0', INK);
       if (Math.abs(b.needle) === 5) {
         const r = b.needle > 0; const s = r ? '¡RAUXA! · pulsa MENÚ' : 'SENY · pulsa MENÚ'; const w = textWidth(s) + 14; const x = 236 - w; const yy = y0 - 26 + Math.round(Math.sin(fr / 6));

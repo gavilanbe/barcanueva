@@ -10,7 +10,8 @@ import { input } from './input.js';
 import { charSprite, RACE_NAME } from './chars.js';
 import { bust, figure } from './portraits.js';
 import { animalSprite } from './sprites.js';
-import { G, addXP, playerLook } from './game.js';
+import { G, addXP, playerLook, mapLayers } from './game.js';
+import { MAPS, BUILDINGS } from './world.js';
 import { learn } from './talk.js';
 import { RANKS } from './events.js';
 import { sfx, audio, setMuted } from './audio.js';
@@ -36,7 +37,7 @@ function page(ctx, t, title, ic) {
   return y;
 }
 
-const ENTRIES = [['Estado', 'estado'], ['Mochila', 'mochila'], ['Relaciones', 'relaciones'], ['Saber', 'saber'], ['Diario', 'diario'], ['Ecosistema', 'ecosistema'], ['Guardar', 'guardar'], ['Opciones', 'opciones'], ['Volver', 'volver']];
+const ENTRIES = [['Estado', 'estado'], ['Mochila', 'mochila'], ['Relaciones', 'relaciones'], ['Saber', 'saber'], ['Diario', 'diario'], ['Mapa', 'mapa'], ['Ecosistema', 'ecosistema'], ['Guardar', 'guardar'], ['Opciones', 'opciones'], ['Volver', 'volver']];
 let lastEntry = 0;
 G.hooks.menu = async () => {
   sfx('open');
@@ -47,10 +48,11 @@ G.hooks.menu = async () => {
     if (i === 2) await relations();
     if (i === 3) await knowledge();
     if (i === 4) await journal();
-    if (i === 5) await ecology();
-    if (i === 6) await saveGame();
-    if (i === 7) await options();
-    if (i === 8 || i === -1) { sfx('close'); return; }
+    if (i === 5) await mapScreen();
+    if (i === 6) await ecology();
+    if (i === 7) await saveGame();
+    if (i === 8) await options();
+    if (i === 9 || i === -1) { sfx('close'); return; }
   }
 };
 
@@ -74,11 +76,11 @@ function pauseMenu() {
       bar(ctx, x0 + 46, fy + 29, 38, 2, p.xp / XP_FOR(p.level), p.xp / XP_FOR(p.level), ['#6a5a10', '#fcd456', '#fff4a0']);
       const ci = icon('moneda'); if (ci) ctx.drawImage(ci, x0 + 45, fy + 34); drawText(ctx, String(S.money), x0 + 59, fy + 36, '#fcd456', INK);
       // entradas
-      const ly = fy + 56; const h = ENTRIES.length * 11 + 8; panel(ctx, x0 - 2, ly, 92, h, 'dark');
-      const ty = ly + 5 + this.i * 11; if (this.hy === null) this.hy = ty; this.hy += (ty - this.hy) * 0.45;
-      ctx.fillStyle = '#4a3462'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 84, 10); ctx.fillStyle = '#f0b030'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 2, 10);
+      const ly = fy + 55; const h = ENTRIES.length * 10 + 8; panel(ctx, x0 - 2, ly, 92, h, 'dark');
+      const ty = ly + 5 + this.i * 10; if (this.hy === null) this.hy = ty; this.hy += (ty - this.hy) * 0.45;
+      ctx.fillStyle = '#4a3462'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 84, 9); ctx.fillStyle = '#f0b030'; ctx.fillRect(x0 + 2, Math.round(this.hy) - 1, 2, 9);
       ENTRIES.forEach(([lab, ic], j) => {
-        const rowT = prog(this.t, 6, 2 + j, ease.outCubic); const off = Math.round((1 - rowT) * 20); const y = ly + 5 + j * 11; const sel = j === this.i;
+        const rowT = prog(this.t, 6, 2 + j, ease.outCubic); const off = Math.round((1 - rowT) * 20); const y = ly + 5 + j * 10; const sel = j === this.i;
         const im = icon(ic); const b = sel && this.bounce > 0 ? -Math.round(Math.sin((this.bounce / 6) * Math.PI) * 2) : 0;
         if (im) ctx.drawImage(im, x0 + 6 + off, y - 2 + b);
         const pts = j === 0 && (p.ptsB + p.ptsK) > 0;
@@ -287,6 +289,57 @@ async function journal() {
   if (i === opts.length - 2) { const L = S.log.slice(0, 30); if (!L.length) return ui.say('Nada aún.'); await ui.choose([...L.map((l) => ({ label: l.slice(0, 34), hint: l })), 'Volver'], { cancel: L.length, max: 7, x: 30, y: 8 }); }
 }
 function hasCarta() { return (S.inv.carta_fiveller || 0) > 0; }
+
+// ───────────── Mapa: el lugar actual en miniatura y la comarca ─────────────
+const miniCache = new Map();
+const NODES = { montana: [120, 16], bosque: [120, 38], rio: [58, 54], pradera: [120, 60], costa: [184, 70], ciudad: [120, 82], montjuic: [56, 86] };
+async function mapScreen() {
+  const m = G.map; const L = mapLayers(m);
+  const key = m.id + ':' + L.season; let mini = miniCache.get(key);
+  if (!mini) { mini = document.createElement('canvas'); mini.width = Math.ceil(L.W / 4); mini.height = Math.ceil(L.H / 4); const x = mini.getContext('2d'); x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high'; x.drawImage(L.base, 0, 0, mini.width, mini.height); x.drawImage(L.over, 0, 0, mini.width, mini.height); miniCache.set(key, mini); }
+  const here = m.outdoor ? m.id : (BUILDINGS[m.id.slice(4)]?.map || S.pos.map);
+  await ui.custom({
+    t: 0, tab: m.outdoor ? 0 : 0,
+    update() { if (input.pressed('left') || input.pressed('right')) { this.tab ^= 1; sfx('page'); this.t2 = 0; } if ((input.pressed('A') || input.pressed('B') || input.pressed('S')) && this.t > 4) this.done = true; this.t2 = (this.t2 || 0) + 1; },
+    draw(ctx, fr) {
+      const y0 = page(ctx, this.t, this.tab ? 'Comarca' : m.name, 'mapa');
+      const VX = 8, VY = y0 + 14, VW = 224, VH = 108;
+      ctx.fillStyle = '#3a2228'; ctx.fillRect(VX - 1, VY - 1, VW + 2, VH + 2);
+      if (!this.tab) {
+        const p = G.player; const px = p.px / 4 + 2, py = p.py / 4 + 2;
+        let ox = Math.round(px - VW / 2), oy = Math.round(py - VH / 2); ox = Math.max(0, Math.min(Math.max(0, mini.width - VW), ox)); oy = Math.max(0, Math.min(Math.max(0, mini.height - VH), oy));
+        const dx = mini.width < VW ? Math.round((VW - mini.width) / 2) : 0, dy = mini.height < VH ? Math.round((VH - mini.height) / 2) : 0;
+        ctx.fillStyle = '#1a1424'; ctx.fillRect(VX, VY, VW, VH);
+        ctx.drawImage(mini, ox, oy, Math.min(VW, mini.width), Math.min(VH, mini.height), VX + dx, VY + dy, Math.min(VW, mini.width), Math.min(VH, mini.height));
+        // marcadores: personas y misiones
+        for (const e of G.ents) { if (e.kind !== 'npc') continue; const ex = VX + dx + e.px / 4 + 2 - ox, ey = VY + dy + e.py / 4 + 2 - oy; if (ex < VX || ey < VY || ex > VX + VW - 2 || ey > VY + VH - 2) continue; const st = S.npc[e.npc.id]; const q = st?.req && !st.req.done; ctx.fillStyle = q ? '#fcd456' : st?.met ? '#f8ecd0' : '#a898b8'; ctx.fillRect(Math.round(ex), Math.round(ey), 2, 2); }
+        const bl = fr % 30 < 20; const mx = Math.round(VX + dx + px - ox), my = Math.round(VY + dy + py - oy);
+        ctx.fillStyle = INK; ctx.fillRect(mx - 2, my - 2, 5, 5); ctx.fillStyle = bl ? '#ff5050' : '#ffffff'; ctx.fillRect(mx - 1, my - 1, 3, 3);
+        // salidas con el nombre del destino
+        for (const [edge, ex] of Object.entries(m.exits || {})) { const T = MAPS[ex.to]; if (!T) continue; const nm = (S.known['map:' + ex.to] ? T.name : '???'); const w = textWidth(nm) + 10;
+          const ax = edge === 'west' ? VX + 2 : edge === 'east' ? VX + VW - w - 2 : Math.round(VX + VW / 2 - w / 2), ay = edge === 'north' ? VY + 2 : edge === 'south' ? VY + VH - 12 : Math.round(VY + VH / 2 - 5);
+          ctx.fillStyle = 'rgba(26,16,34,.85)'; ctx.fillRect(ax, ay, w, 10); drawText(ctx, (edge === 'west' ? '←' : edge === 'east' ? '→' : edge === 'north' ? '↑' : '↓') + nm.slice(0, 18), ax + 2, ay + 2, '#f0d8a0'); }
+      } else {
+        ctx.fillStyle = '#e8d4a8'; ctx.fillRect(VX, VY, VW, VH);
+        for (let i = 0; i < 40; i++) { ctx.fillStyle = '#d8c094'; ctx.fillRect(VX + Math.floor(((i * 97) % VW)), VY + Math.floor((i * 53) % VH), 2, 1); }
+        // mar y costa
+        ctx.fillStyle = '#9ac0d0'; ctx.fillRect(VX + 150, VY + 96, 74, 12); ctx.fillRect(VX + 196, VY + 60, 28, 48); ctx.fillRect(VX, VY + 100, 150, 8);
+        const links = [['montana', 'bosque'], ['bosque', 'pradera'], ['bosque', 'rio'], ['rio', 'pradera'], ['pradera', 'ciudad'], ['pradera', 'costa'], ['ciudad', 'costa'], ['ciudad', 'montjuic']];
+        for (const [a2, b2] of links) { const [ax, ay] = NODES[a2], [bx, by] = NODES[b2]; const n = Math.max(Math.abs(bx - ax), Math.abs(by - ay)); for (let i = 0; i <= n; i += 3) { ctx.fillStyle = '#9a6a3a'; ctx.fillRect(VX + Math.round(ax + (bx - ax) * i / n) - 8, VY + Math.round(ay + (by - ay) * i / n) - 8, 2, 1); } }
+        const IC = { montana: 'nieve', bosque: 'nat', rio: 'gota', pradera: 'primavera', costa: 'nube', ciudad: 'estado', montjuic: 'candado' };
+        for (const [id, [nx, ny]] of Object.entries(NODES)) {
+          const known = S.known['map:' + id] || id === 'ciudad'; const x = VX + nx - 8, y = VY + ny - 8; const cur = id === here;
+          ctx.fillStyle = INK; ctx.fillRect(x - 7, y - 7, 15, 15); ctx.fillStyle = cur ? '#f0b030' : known ? '#f6eccc' : '#b8a888'; ctx.fillRect(x - 6, y - 6, 13, 13);
+          const im = icon(known ? IC[id] : 'i_duda'); if (im) ctx.drawImage(im, x - 6, y - 6);
+          const nm = known ? MAPS[id].name : '???'; drawText(ctx, nm, Math.round(x - textWidth(nm) / 2), y + 9, cur ? '#a42632' : '#4a3430', '#f6eccc');
+          if (cur && fr % 40 < 26) { ctx.fillStyle = '#a42632'; ctx.fillRect(x - 8, y - 8, 17, 1); ctx.fillRect(x - 8, y + 8, 17, 1); ctx.fillRect(x - 8, y - 8, 1, 17); ctx.fillRect(x + 8, y - 8, 1, 17); }
+        }
+      }
+      drawText(ctx, `◀ ▶ ${this.tab ? 'este lugar' : 'la comarca'} · B volver`, 12, 146, '#8a7a70');
+      if (!m.outdoor && !this.tab) drawText(ctx, 'Interior', 190, 146, '#8a7a70');
+    },
+  });
+}
 
 // ───────────── Ecosistema ─────────────
 async function ecology() {

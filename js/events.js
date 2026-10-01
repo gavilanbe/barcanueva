@@ -318,7 +318,16 @@ G.hooks.npcBadge = (ctx, e, x, y) => {
   if (st?.req && !st.req.done && hasItem(st.req.item, st.req.n)) m = '!';
   if (st?.partner || st?.married) { m = '♥'; c = '#f86890'; }
   if (id === 'arnau_guardia' && !S.flags.castle_ok) m = '?';
-  if (m) { const b = Math.floor(G.frame / 16) % 2; drawText(ctx, m, x + 6, y - 18 - b, c, '#1c1424'); }
+  if (!m || e.emote) return;
+  // Marcador flotante: rombo con brillo que sube y baja
+  const b = Math.round(Math.sin(G.frame / 9) * 1.5); const cx = x + 8, cy = y - 19 + b;
+  const R = m === '♥' ? ['#7a1a3a', '#e84a7a', '#ff9ac0'] : m === '?' ? ['#1a3a6a', '#4a8af0', '#a8d0ff'] : ['#6a3e10', '#f0b030', '#fff0a0'];
+  ctx.fillStyle = '#1a1022'; for (let j = -6; j <= 6; j++) { const w = 6 - Math.abs(j) + 1; ctx.fillRect(cx - w, cy + j, w * 2, 1); }
+  ctx.fillStyle = R[1]; for (let j = -5; j <= 5; j++) { const w = 5 - Math.abs(j) + 1; ctx.fillRect(cx - w, cy + j, w * 2, 1); }
+  ctx.fillStyle = R[2]; for (let j = -5; j <= -1; j++) { const w = 5 - Math.abs(j) + 1; ctx.fillRect(cx - w, cy + j, w, 1); }
+  ctx.fillStyle = R[0]; ctx.fillRect(cx - 1, cy + 4, 2, 1);
+  drawText(ctx, m, cx - (m === '♥' ? 3 : m === '?' ? 2 : 0), cy - 3, '#ffffff', R[0]);
+  if (G.frame % 50 < 6) { ctx.fillStyle = '#ffffff'; ctx.fillRect(cx + 3, cy - 6, 1, 3); ctx.fillRect(cx + 2, cy - 5, 3, 1); }
 };
 
 // Pelea contra un NPC

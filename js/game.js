@@ -14,7 +14,7 @@ import { drawText, textWidth, drawOutlined } from './font.js';
 import { input } from './input.js';
 import { sfx, music, step as stepSound, ambient } from './audio.js';
 import { canvas, hash2, dirs, clamp } from './util.js';
-import { fx, spawn, burst, shake, transition, trans, drawParts, drawTrans, drawFlash, ease } from './fx.js';
+import { fx, spawn, burst, shake, transition, trans, drawParts, drawTrans, drawFlash, ease, tween } from './fx.js';
 import { INK, alpha, mix, PAL } from './pal.js';
 import { bayer, ellipse, ellipseDither } from './px.js';
 
@@ -67,6 +67,7 @@ function mapLayers(m) {
   if (layers.size > 10) layers.delete(layers.keys().next().value);
   return L;
 }
+export { mapLayers };
 export function dumpMap(id) { const m = MAPS[id] || interior(id); const L = mapLayers(m); const [c, x] = canvas(L.W, L.H); x.drawImage(L.base, 0, 0); x.drawImage(L.over, 0, 0); return c.toDataURL(); }
 export function invalidateMap(id) { for (const k of [...layers.keys()]) if (k.startsWith(id + ':')) layers.delete(k); }
 
@@ -364,6 +365,7 @@ function arrived(running) {
   const t = G.map.get(p.x, p.y); const ter = terrainAt(p.x, p.y);
   if (p.stepN % 2 === 0 || running) stepSound(ter === 'tall' ? 'grass' : ter);
   if (ter === 'tall') { sfx('rustle'); for (let i = 0; i < 3; i++) spawn({ x: p.px + 4 + Math.random() * 8, y: p.py + 8 + Math.random() * 4, vx: (Math.random() - 0.5) * 0.8, vy: -0.8 - Math.random() * 0.6, ay: 0.06, life: 26, kind: 'leaf', color: PAL.grass[5], color2: PAL.grass[7], layer: 'world' }); }
+  if (ter === 'sand' || ter === 'snow') { const off = p.stepN % 2 ? 3 : -3; const horiz = p.dir === 'left' || p.dir === 'right'; spawn({ x: p.px + 8 + (horiz ? 0 : off), y: p.py + 13 + (horiz ? off * 0.5 : 0), life: 420, kind: 'px', size: 2, color: ter === 'sand' ? 'rgba(150,110,70,.55)' : 'rgba(150,170,210,.6)', layer: 'ground' }); }
   if (ter === 'water') { for (let i = 0; i < 4; i++) spawn({ x: p.px + 8, y: p.py + 14, vx: (Math.random() - 0.5) * 1.2, vy: -0.6 - Math.random() * 0.6, ay: 0.08, life: 18, kind: 'px', color: '#c8f0ff', layer: 'world' }); spawn({ x: p.px + 8, y: p.py + 14, life: 22, kind: 'ring', size: 2, color: '#e8faff', layer: 'ground' }); }
   if (running && (ter === 'grass' || ter === 'sand' || ter === 'stone' || ter === 'snow')) { const c = ter === 'sand' ? '#f0dcb0' : ter === 'snow' ? '#ffffff' : ter === 'stone' ? '#c8bcb0' : '#d8c8a0'; spawn({ x: p.px + 8 - dirs[p.dir][0] * 6, y: p.py + 14, vx: -dirs[p.dir][0] * 0.4, vy: -0.25, life: 16, kind: 'puff', size: 1, color: c, layer: 'ground' }); }
   if (t === '"' && G.map.outdoor && Math.random() < 0.035) G.hooks.encounter?.('hierba');
@@ -455,7 +457,7 @@ function updatePet(e) {
   } else if (p.still > 120 && Math.random() < 0.004) emote(e, 'heart');
 }
 
-export function autoWalk(dirsList) { return new Promise((res) => { G.auto = { q: [...dirsList], res }; }); }
+export function autoWalk(dirsList) { G.letterbox = G.letterbox || 0; tween(G, { letterbox: 1 }, 20, ease.outCubic); return new Promise((res) => { G.auto = { q: [...dirsList], res: () => { tween(G, { letterbox: 0 }, 24, ease.inOutQuad); res(); } }; }); }
 
 // ───────────── Emoticonos y reacciones ─────────────
 export function emote(e, name, life = 70) { e.emote = { name, t: 0, life }; if (e === G.player || (Math.abs(e.x - G.player.x) + Math.abs(e.y - G.player.y) < 8)) sfx('emote'); }
@@ -588,6 +590,32 @@ export function drawWorld(ctx) {
   // emoticonos (por encima de la luz para que se lean)
   for (const e of list) if (e.emote) drawEmote(ctx, e, Math.round(e.px - cx), Math.round(e.py - cy));
   drawTexts(ctx, cx, cy);
+  drawHint(ctx, cx, cy);
+  if (G.letterbox > 0.01) { const hh = Math.round(16 * G.letterbox); ctx.fillStyle = '#0c0812'; ctx.fillRect(0, 0, W, hh); ctx.fillRect(0, H - hh, W, hh); }
+}
+// Qué hay delante del jugador (para la burbuja «A ...»)
+function hintAt() {
+  const p = G.player; if (!p || p.mv > 0 || (p.still || 0) < 12 || ui.busy || trans.on || G.auto) return null;
+  const [dx, dy] = dirs[p.dir]; const tx = p.x + dx, ty = p.y + dy; const m = G.map;
+  const e = G.ents.find((o) => o !== p && !o.gone && o.x === tx && o.y === ty);
+  if (e?.kind === 'npc') return [tx, ty, 'Hablar', 'accion']; if (e?.kind === 'animal') return [tx, ty, 'Observar', 'ecosistema']; if (e?.kind === 'pet') return [tx, ty, 'Mimar', 'corazon'];
+  if (m.signs?.find((s) => s.x === tx && s.y === ty)) return [tx, ty, 'Leer', 'diario'];
+  const obj = m.objects.find((o) => tx >= o.x && tx < o.x + o.w && ty >= o.y && ty < o.y + o.h);
+  if (obj) { const L = { cama: 'Dormir', caldero: 'Alquimia', yunque: 'Forjar', fragua: 'Forjar', altar: 'Rezar', cruz: 'Rezar', pila: 'Agua bendita', arcon: 'Arcón', chimenea: 'Fuego', mesa: 'Mesa' }; return [tx, ty, L[obj.type] || 'Mirar', 'saber']; }
+  const b = m.buildings.find((b) => tx >= b.x && tx < b.x + b.w && ty >= b.y && ty < b.y + b.h); if (b) return b.forSale && !S.house ? [tx, ty, 'Comprar', 'moneda'] : null;
+  const t = m.get(tx, ty);
+  if (TILE[t]?.water || t === 'f') return S.inv.cana_pescar && t !== 'f' && m.outdoor ? [tx, ty, 'Pescar', 'caz'] : t === 'f' ? [tx, ty, 'Beber', 'gota'] : null;
+  if ((t === 'a' || t === 'A') && S.flags.plot) return [tx, ty, 'Huerto', 'nat'];
+  return null;
+}
+function drawHint(ctx, cx, cy) {
+  const h = hintAt(); if (!h) { G.hintT = 0; return; } G.hintT = Math.min(10, (G.hintT || 0) + 1);
+  const [tx, ty, lab, ic] = h; const k = ease.outBack(G.hintT / 10); const w = textWidth(lab) + 20; const x = Math.round(tx * TS + 8 - cx - w / 2), y = Math.round(ty * TS - cy - 14 - Math.sin(G.frame / 10) * 1.5);
+  if (k < 0.2) return; const ww = Math.round(w * k);
+  ctx.fillStyle = INK; ctx.fillRect(x + (w - ww) / 2 - 1, y - 1, ww + 2, 12); ctx.fillStyle = 'rgba(33,24,44,.94)'; ctx.fillRect(x + (w - ww) / 2, y, ww, 10);
+  if (k < 0.9) return;
+  ctx.fillStyle = '#a42632'; ctx.fillRect(x + 2, y + 1, 8, 8); drawText(ctx, 'A', x + 4, y + 2, '#fff0d8');
+  drawText(ctx, lab, x + 13, y + 2, '#fff4d8', INK);
 }
 function drawCrops(ctx, m, cx, cy) {
   for (const [k, f] of Object.entries(S.farm || {})) {
