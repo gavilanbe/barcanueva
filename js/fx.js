@@ -129,6 +129,8 @@ export function popText(x, y, text, o = {}) {
 // kinds: fade, iris (círculo hacia cx,cy), diamond, wipe (dir), battle (persianas + destello), sleep (fundido lento), curtain
 export const trans = { on: false, kind: 'fade', t: 0, dur: 20, phase: 'out', mid: null, res: null, cx: 120, cy: 80, dir: 'right', snap: null, hold: 0 };
 export function transition(kind = 'fade', mid = null, o = {}) {
+  // si ya había una en curso, se da por terminada (que nadie se quede esperando)
+  if (trans.on && trans.res) { const r = trans.res; trans.res = null; if (trans.mid) { const f = trans.mid; trans.mid = null; try { f(); } catch (e) { } } r(); }
   return new Promise((res) => {
     Object.assign(trans, { on: true, kind, t: 0, phase: 'out', mid, res, dur: o.dur || ({ fade: 16, iris: 22, diamond: 22, wipe: 18, battle: 40, sleep: 50, curtain: 24 }[kind] || 20), cx: o.cx ?? 120, cy: o.cy ?? 80, dir: o.dir || 'right', hold: o.hold ?? 4, inKind: o.inKind || kind, snap: o.snap || null, durIn: o.durIn || null });
   });

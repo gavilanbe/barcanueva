@@ -109,7 +109,7 @@ class Say {
     }
     if (this.talk > 0) this.talk--;
   }
-  tick() { this.t++; this.type(false); }
+  tick() { this.type(false); }
   update() {
     const total = this.pageLen();
     if (this.chars < total) { this.type(input.held('A') || input.held('B')); if (input.pressed('A') && this.t > 2) { this.chars = total; this.pause = 0; } return; }
@@ -144,7 +144,7 @@ class Say {
 // ───────────── Elección ─────────────
 class Choose {
   constructor(opts, o) {
-    this.kind = 'choose'; this.t = 0; this.opts = opts; this.i = o.start || 0; this.title = o.title; this.cancel = o.cancel ?? -1; this.top = 0; this.cols = o.cols || 1; this.prompt = o.prompt;
+    this.kind = 'choose'; this.t = 0; this.opts = opts; this.i = Math.max(0, Math.min(opts.length - 1, o.start || 0)); this.title = o.title; this.cancel = o.cancel ?? -1; this.top = 0; this.cols = o.cols || 1; this.prompt = o.prompt;
     const lw = (s) => textWidth(typeof s === 'string' ? s : s.label) + 26 + (typeof s === 'object' && s.icon ? 14 : 0) + (typeof s === 'object' && s.right ? textWidth(String(s.right)) + 10 : 0);
     this.w = Math.min(228, Math.max(70, ...opts.map(lw), this.title ? textWidth(this.title) + 20 : 0));
     this.max = Math.min(opts.length, o.max || 7);
