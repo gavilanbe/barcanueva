@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#1b1420">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Barcanueva</title>
+<style>
+  html,body{margin:0;height:100%;background:#1b1420;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+  #screen{image-rendering:pixelated;image-rendering:crisp-edges;background:#000;box-shadow:0 0 0 4px #2d2433,0 0 0 8px #120d16}
+  #pad{display:none;position:fixed;left:0;right:0;bottom:0;height:40vh;pointer-events:none;padding-bottom:env(safe-area-inset-bottom)}
+  body.touch #pad{display:block}
+  body.touch #wrap{bottom:40vh;padding-top:env(safe-area-inset-top)}
+  #brand{display:none;color:#6a5a7a;font:bold 11px monospace;letter-spacing:4px;margin-top:10px}
+  body.touch #brand{display:block}
+  .btn{position:absolute;pointer-events:auto;border-radius:50%;background:#3b2f45;color:#e8d9b8;font:bold 16px monospace;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 #1f1826;opacity:.85}
+  .btn.on{transform:translateY(3px);box-shadow:0 1px 0 #1f1826;background:#574566}
+  #dpad{position:absolute;left:5vw;bottom:6vh;width:40vw;height:40vw;max-width:170px;max-height:170px;pointer-events:auto}
+  #dpad div{position:absolute;background:#3b2f45;box-shadow:0 4px 0 #1f1826}
+  #dpad .h{left:0;right:0;top:33%;height:34%;border-radius:8px}
+  #dpad .v{top:0;bottom:0;left:33%;width:34%;border-radius:8px}
+  #bA{right:5vw;bottom:14vh;width:17vw;height:17vw;max-width:72px;max-height:72px}
+  #bB{right:25vw;bottom:7vh;width:15vw;height:15vw;max-width:62px;max-height:62px}
+  #bS{right:9vw;bottom:2vh;width:20vw;height:7vw;max-width:90px;max-height:28px;border-radius:14px;font-size:11px}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="screen" width="240" height="160"></canvas><div id="brand">BARCANUEVA</div></div>
+<div id="pad">
+  <div id="dpad"><div class="h"></div><div class="v"></div></div>
+  <div class="btn" id="bA">A</div>
+  <div class="btn" id="bB">B</div>
+  <div class="btn" id="bS">MENÚ</div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

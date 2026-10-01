@@ -1,0 +1,5662 @@
+[
+  {
+    "id": "rata_negra",
+    "nombre": "Rata negra",
+    "nombreCa": "Rata negra",
+    "cientifico": "Rattus rattus",
+    "biomas": [
+      "urbano",
+      "costa",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:basura",
+      "g:semillas",
+      "trigo",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "lechuza",
+      "garduna",
+      "gato",
+      "gineta",
+      "azor",
+      "gaviota",
+      "buho_real",
+      "vibria"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "todo el año (pico primavera-otoño)",
+      "camada": "5-8 crías, 3-5 camadas/año"
+    },
+    "reproduccion": "alta",
+    "conducta": "colonial, huidiza; invade graneros y barcos",
+    "recursos": [
+      "ninguno (plaga); cebo"
+    ],
+    "estado": "Llegó con el comercio romano; reina de puertos y graneros medievales hasta que la rata parda (s. XVIII) la desplazó.",
+    "folklore": "Portadora de la pulga de la Pesta Negra de 1348 en Barcelona.",
+    "nota": "Llegó con el comercio romano; reina de puertos y graneros medievales hasta que la rata parda (s. XVIII) la desplazó. Folklore: Portadora de la pulga de la Pesta Negra de 1348 en Barcelona."
+  },
+  {
+    "id": "raton_casero",
+    "nombre": "Ratón casero",
+    "nombreCa": "Ratolí domèstic",
+    "cientifico": "Mus musculus",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:semillas",
+      "trigo",
+      "g:basura",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "lechuza",
+      "gato",
+      "cernicalo",
+      "garduna",
+      "culebra_bastarda"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "todo el año",
+      "camada": "4-8 crías, 5-8 camadas/año"
+    },
+    "reproduccion": "alta",
+    "conducta": "esquivo, vive en muros y despensas",
+    "recursos": [
+      "cebo"
+    ],
+    "estado": "Común en toda casa y masía.",
+    "folklore": "",
+    "nota": "Común en toda casa y masía."
+  },
+  {
+    "id": "gorrion",
+    "nombre": "Gorrión común",
+    "nombreCa": "Pardal",
+    "cientifico": "Passer domesticus",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "granívoro",
+    "dieta": [
+      "g:semillas",
+      "trigo",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "gato",
+      "cernicalo",
+      "azor",
+      "lechuza",
+      "gineta",
+      "carabo",
+      "halcon_peregrino"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "marzo-agosto",
+      "camada": "3-5 huevos, 2-3 puestas"
+    },
+    "reproduccion": "alta",
+    "conducta": "gregario, ruidoso, oportunista",
+    "recursos": [
+      "pluma pequeña"
+    ],
+    "estado": "Siempre ligado al humano; roba grano en eras y mercados.",
+    "folklore": "Refranes sobre el pardal como ladrón de grano.",
+    "nota": "Siempre ligado al humano; roba grano en eras y mercados. Folklore: Refranes sobre el pardal como ladrón de grano."
+  },
+  {
+    "id": "paloma",
+    "nombre": "Paloma bravía / zurita",
+    "nombreCa": "Colom roquer",
+    "cientifico": "Columba livia",
+    "biomas": [
+      "urbano",
+      "costa",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "granívoro",
+    "dieta": [
+      "g:semillas",
+      "trigo"
+    ],
+    "depredadores": [
+      "halcon_peregrino",
+      "azor",
+      "gato",
+      "garduna",
+      "aguila_perdicera",
+      "vibria"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "todo el año",
+      "camada": "2 huevos, 3-5 puestas"
+    },
+    "reproduccion": "alta",
+    "conducta": "bandadas; anida en cornisas y acantilados",
+    "recursos": [
+      "carne",
+      "pluma",
+      "palomina (abono)",
+      "mensajería"
+    ],
+    "estado": "Silvestre en roquedos del Garraf; palomares en masías y torres de la ciudad.",
+    "folklore": "",
+    "nota": "Silvestre en roquedos del Garraf; palomares en masías y torres de la ciudad."
+  },
+  {
+    "id": "vencejo",
+    "nombre": "Vencejo común",
+    "nombreCa": "Falciot",
+    "cientifico": "Apus apus",
+    "biomas": [
+      "urbano",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro aéreo",
+    "dieta": [
+      "g:insectos"
+    ],
+    "depredadores": [
+      "halcon_peregrino"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "mayo-julio (migrador, abril-agosto)",
+      "camada": "2-3 huevos, 1 puesta"
+    },
+    "reproduccion": "baja",
+    "conducta": "pasa la vida volando; chilla en bandadas al atardecer",
+    "recursos": [
+      "ninguno (augurio de verano)"
+    ],
+    "estado": "Migrador estival que anida bajo tejas y en murallas; símbolo del verano barcelonés.",
+    "folklore": "",
+    "nota": "Migrador estival que anida bajo tejas y en murallas; símbolo del verano barcelonés."
+  },
+  {
+    "id": "golondrina",
+    "nombre": "Golondrina común",
+    "nombreCa": "Oreneta",
+    "cientifico": "Hirundo rustica",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro aéreo",
+    "dieta": [
+      "g:insectos"
+    ],
+    "depredadores": [
+      "cernicalo",
+      "gato"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "abril-agosto (migradora)",
+      "camada": "4-5 huevos, 2 puestas"
+    },
+    "reproduccion": "media",
+    "conducta": "anida en establos y porches; vuelo rasante",
+    "recursos": [
+      "ninguno (buena suerte)"
+    ],
+    "estado": "Estival; nidos de barro en cuadras de masías.",
+    "folklore": "Traer mala suerte destruir su nido; anuncia la primavera.",
+    "nota": "Estival; nidos de barro en cuadras de masías. Folklore: Traer mala suerte destruir su nido; anuncia la primavera."
+  },
+  {
+    "id": "murcielago",
+    "nombre": "Murciélago enano",
+    "nombreCa": "Pipistrel·la comuna",
+    "cientifico": "Pipistrellus pipistrellus",
+    "biomas": [
+      "urbano",
+      "bosque",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:insectos"
+    ],
+    "depredadores": [
+      "lechuza",
+      "carabo",
+      "garduna",
+      "gato"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "junio-julio (hiberna en invierno)",
+      "camada": "1-2 crías, 1 parto/año"
+    },
+    "reproduccion": "baja",
+    "conducta": "colonias en grietas y desvanes; hiberna",
+    "recursos": [
+      "guano (abono",
+      "salitre)",
+      "ala de murciélago (alquimia)"
+    ],
+    "estado": "Muy común en la ciudad y el campo.",
+    "folklore": "Ingrediente de brebajes de bruja; se clavaban en puertas contra el mal.",
+    "nota": "Muy común en la ciudad y el campo. Folklore: Ingrediente de brebajes de bruja; se clavaban en puertas contra el mal."
+  },
+  {
+    "id": "gaviota",
+    "nombre": "Gaviota patiamarilla",
+    "nombreCa": "Gavià argentat",
+    "cientifico": "Larus michahellis",
+    "biomas": [
+      "costa",
+      "urbano",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro / carroñero",
+    "dieta": [
+      "g:peces_pequenos",
+      "sardina",
+      "g:carrona",
+      "g:basura",
+      "rata_negra",
+      "erizo_mar",
+      "mejillon"
+    ],
+    "depredadores": [
+      "halcon_peregrino",
+      "vibria"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "marzo-junio",
+      "camada": "2-3 huevos, 1 puesta"
+    },
+    "reproduccion": "media",
+    "conducta": "colonial, agresiva defendiendo nido; roba comida",
+    "recursos": [
+      "huevos",
+      "pluma"
+    ],
+    "estado": "Siempre en el puerto; hoy muy abundante por la basura. En la Edad Media menos numerosa.",
+    "folklore": "",
+    "nota": "Siempre en el puerto; hoy muy abundante por la basura. En la Edad Media menos numerosa."
+  },
+  {
+    "id": "lechuza",
+    "nombre": "Lechuza común",
+    "nombreCa": "Òliba",
+    "cientifico": "Tyto alba",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "rata_negra",
+      "raton_casero",
+      "topillo",
+      "raton_campo",
+      "murcielago",
+      "gorrion",
+      "salamanquesa"
+    ],
+    "depredadores": [
+      "azor",
+      "carabo"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "marzo-julio (a veces 2 ciclos)",
+      "camada": "4-7 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "solitaria, silenciosa, anida en campanarios y masías",
+    "recursos": [
+      "pluma",
+      "egagrópilas (alquimia)"
+    ],
+    "estado": "Común en campanarios y masías; en años de topillos cría dos veces.",
+    "folklore": "Se la acusaba de beber el aceite de las lámparas de las iglesias; ave de mal agüero.",
+    "nota": "Común en campanarios y masías; en años de topillos cría dos veces. Folklore: Se la acusaba de beber el aceite de las lámparas de las iglesias; ave de mal agüero."
+  },
+  {
+    "id": "cernicalo",
+    "nombre": "Cernícalo vulgar",
+    "nombreCa": "Xoriguer comú",
+    "cientifico": "Falco tinnunculus",
+    "biomas": [
+      "pradera",
+      "urbano",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "topillo",
+      "raton_casero",
+      "lagartija",
+      "g:insectos",
+      "gorrion",
+      "golondrina",
+      "codorniz",
+      "abubilla"
+    ],
+    "depredadores": [
+      "azor",
+      "aguila_real"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "4-6 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "se cierne en el aire; anida en torres y cortados",
+    "recursos": [
+      "pluma (cetrería menor)"
+    ],
+    "estado": "Frecuente en campos y torres.",
+    "folklore": "Usado en cetrería de aprendices.",
+    "nota": "Frecuente en campos y torres. Folklore: Usado en cetrería de aprendices."
+  },
+  {
+    "id": "salamanquesa",
+    "nombre": "Salamanquesa común",
+    "nombreCa": "Dragó comú",
+    "cientifico": "Tarentola mauritanica",
+    "biomas": [
+      "urbano",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:insectos"
+    ],
+    "depredadores": [
+      "gato",
+      "lechuza",
+      "gineta"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "abril-julio",
+      "camada": "1-2 huevos, 2-3 puestas"
+    },
+    "reproduccion": "media",
+    "conducta": "trepa muros; caza junto a lámparas",
+    "recursos": [
+      "piel (alquimia menor)"
+    ],
+    "estado": "Abundante en muros viejos y casas.",
+    "folklore": "En catalán «dragó»: se decía que su mordisco era venenoso (falso).",
+    "nota": "Abundante en muros viejos y casas. Folklore: En catalán «dragó»: se decía que su mordisco era venenoso (falso)."
+  },
+  {
+    "id": "gato",
+    "nombre": "Gato doméstico / callejero",
+    "nombreCa": "Gat",
+    "cientifico": "Felis catus",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "rata_negra",
+      "raton_casero",
+      "gorrion",
+      "salamanquesa",
+      "murcielago",
+      "golondrina",
+      "paloma",
+      "follet",
+      "pesanta"
+    ],
+    "depredadores": [
+      "lobo",
+      "zorro"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera-verano",
+      "camada": "3-5 crías, 2 camadas/año"
+    },
+    "reproduccion": "alta",
+    "conducta": "solitario, territorial",
+    "recursos": [
+      "ninguno (control de plagas)"
+    ],
+    "estado": "Guardián de graneros; controla ratas.",
+    "folklore": "Asociado a brujas; quemas de gatos en fiestas medievales.",
+    "nota": "Guardián de graneros; controla ratas. Folklore: Asociado a brujas; quemas de gatos en fiestas medievales."
+  },
+  {
+    "id": "jabali",
+    "nombre": "Jabalí",
+    "nombreCa": "Senglar",
+    "cientifico": "Sus scrofa",
+    "biomas": [
+      "bosque",
+      "pradera",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "encina",
+      "roble",
+      "g:raices",
+      "g:lombrices",
+      "raton_campo",
+      "trigo",
+      "vid",
+      "alcachofa",
+      "rovellon",
+      "g:carrona",
+      "tortuga_mediterranea"
+    ],
+    "depredadores": [
+      "lobo",
+      "oso",
+      "lince",
+      "drac"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "enero-mayo",
+      "camada": "4-6 rayones, 1 camada/año"
+    },
+    "reproduccion": "alta",
+    "conducta": "piaras de hembras; machos solitarios; embiste si se le acorrala",
+    "recursos": [
+      "carne",
+      "piel",
+      "cerdas",
+      "colmillos"
+    ],
+    "estado": "Presente siempre; hoy sobreabundante en Collserola por falta de depredadores y caza.",
+    "folklore": "Caza nobiliaria; las cerdas se usaban para pinceles y cepillos.",
+    "nota": "Presente siempre; hoy sobreabundante en Collserola por falta de depredadores y caza. Folklore: Caza nobiliaria; las cerdas se usaban para pinceles y cepillos."
+  },
+  {
+    "id": "lobo",
+    "nombre": "Lobo",
+    "nombreCa": "Llop",
+    "cientifico": "Canis lupus",
+    "biomas": [
+      "bosque",
+      "montana",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "superdepredador",
+    "dieta": [
+      "corzo",
+      "ciervo",
+      "jabali",
+      "conejo",
+      "liebre",
+      "cabra_montes",
+      "g:ganado",
+      "gato",
+      "zorro",
+      "tejon",
+      "lince",
+      "castor",
+      "simiot"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "4-7 lobeznos, 1 camada/año"
+    },
+    "reproduccion": "baja",
+    "conducta": "manada jerárquica; territorial; ataca ganado; evita al humano",
+    "recursos": [
+      "piel",
+      "colmillos",
+      "grasa (ungüento)"
+    ],
+    "estado": "Común en la Edad Media; en el Montseny aún había en 1915, en Montnegre hacia 1900; último en Catalunya en 1935 (Ports). Regresó al Cadí en 2000-2004.",
+    "folklore": "Se pagaban recompensas municipales por cabeza de lobo; «llop» es el coco de los cuentos.",
+    "nota": "Común en la Edad Media; en el Montseny aún había en 1915, en Montnegre hacia 1900; último en Catalunya en 1935 (Ports). Regresó al Cadí en 2000-2004. Folklore: Se pagaban recompensas municipales por cabeza de lobo; «llop» es el coco de los cuentos."
+  },
+  {
+    "id": "corzo",
+    "nombre": "Corzo",
+    "nombreCa": "Cabirol",
+    "cientifico": "Capreolus capreolus",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro ramoneador",
+    "dieta": [
+      "roble",
+      "g:hojas",
+      "g:hierba",
+      "g:frutos"
+    ],
+    "depredadores": [
+      "lobo",
+      "lince",
+      "oso",
+      "aguila_real",
+      "zorro"
+    ],
+    "actividad": [
+      "manana",
+      "tarde",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "parto mayo-junio (celo julio-agosto)",
+      "camada": "1-2 gabatos"
+    },
+    "reproduccion": "media",
+    "conducta": "solitario o en grupos pequeños; huye saltando; ladra",
+    "recursos": [
+      "carne",
+      "piel",
+      "cuerna"
+    ],
+    "estado": "Extinguido en gran parte de Catalunya en el s. XX; hoy en expansión.",
+    "folklore": "",
+    "nota": "Extinguido en gran parte de Catalunya en el s. XX; hoy en expansión."
+  },
+  {
+    "id": "zorro",
+    "nombre": "Zorro",
+    "nombreCa": "Guineu",
+    "cientifico": "Vulpes vulpes",
+    "biomas": [
+      "bosque",
+      "pradera",
+      "urbano"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro oportunista",
+    "dieta": [
+      "conejo",
+      "raton_campo",
+      "topillo",
+      "g:insectos",
+      "g:frutos",
+      "perdiz",
+      "pota_blava",
+      "g:carrona",
+      "g:basura",
+      "gato",
+      "corzo",
+      "liebre",
+      "codorniz",
+      "erizo",
+      "lagarto_ocelado",
+      "mochuelo",
+      "anade_real",
+      "tortuga_mediterranea"
+    ],
+    "depredadores": [
+      "lobo",
+      "lince",
+      "aguila_real"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "marzo-mayo",
+      "camada": "4-6 zorreznos"
+    },
+    "reproduccion": "media",
+    "conducta": "solitario, astuto; asalta gallineros",
+    "recursos": [
+      "piel (muy apreciada)",
+      "cola"
+    ],
+    "estado": "Siempre presente; enemigo del gallinero.",
+    "folklore": "Personaje astuto de rondallas; se le colgaba muerto en las puertas de las masías.",
+    "nota": "Siempre presente; enemigo del gallinero. Folklore: Personaje astuto de rondallas; se le colgaba muerto en las puertas de las masías."
+  },
+  {
+    "id": "tejon",
+    "nombre": "Tejón",
+    "nombreCa": "Toixó",
+    "cientifico": "Meles meles",
+    "biomas": [
+      "bosque",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:lombrices",
+      "g:raices",
+      "g:frutos",
+      "vid",
+      "g:insectos",
+      "raton_campo",
+      "salamandra",
+      "erizo",
+      "tortuga_mediterranea"
+    ],
+    "depredadores": [
+      "lobo"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto febrero-marzo",
+      "camada": "2-3 crías"
+    },
+    "reproduccion": "baja",
+    "conducta": "familias en tejoneras; tozudo, muerde si se le acorrala",
+    "recursos": [
+      "piel",
+      "pelo (brochas)",
+      "grasa (ungüento antirreumático)"
+    ],
+    "estado": "Común en Collserola, Montseny y el llano.",
+    "folklore": "La grasa de tejón como remedio para el reuma.",
+    "nota": "Común en Collserola, Montseny y el llano. Folklore: La grasa de tejón como remedio para el reuma."
+  },
+  {
+    "id": "gineta",
+    "nombre": "Gineta",
+    "nombreCa": "Geneta",
+    "cientifico": "Genetta genetta",
+    "biomas": [
+      "bosque",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "raton_campo",
+      "liron_careto",
+      "ardilla",
+      "gorrion",
+      "rata_negra",
+      "g:frutos",
+      "salamanquesa"
+    ],
+    "depredadores": [
+      "lince",
+      "aguila_real",
+      "carabo"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera (a veces otoño)",
+      "camada": "2-3 crías"
+    },
+    "reproduccion": "media",
+    "conducta": "solitaria, arborícola, letrinas fijas",
+    "recursos": [
+      "piel moteada"
+    ],
+    "estado": "Introducida desde el norte de África probablemente en época antigua o árabe; hoy común en Collserola.",
+    "folklore": "En la Edad Media se tenía como «gato» para cazar ratones.",
+    "nota": "Introducida desde el norte de África probablemente en época antigua o árabe; hoy común en Collserola. Folklore: En la Edad Media se tenía como «gato» para cazar ratones."
+  },
+  {
+    "id": "garduna",
+    "nombre": "Garduña",
+    "nombreCa": "Fagina",
+    "cientifico": "Martes foina",
+    "biomas": [
+      "bosque",
+      "urbano",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "depredador omnívoro",
+    "dieta": [
+      "raton_campo",
+      "rata_negra",
+      "ardilla",
+      "paloma",
+      "murcielago",
+      "g:frutos",
+      "pota_blava",
+      "raton_casero",
+      "liron_careto",
+      "arrendajo",
+      "conejo",
+      "perdiz",
+      "lagarto_ocelado"
+    ],
+    "depredadores": [
+      "lince",
+      "aguila_real",
+      "carabo"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto marzo-abril",
+      "camada": "2-4 crías"
+    },
+    "reproduccion": "media",
+    "conducta": "solitaria, trepa, entra en graneros y gallineros",
+    "recursos": [
+      "piel"
+    ],
+    "estado": "Común en bosques y pueblos.",
+    "folklore": "Enemiga de gallineros, como el zorro.",
+    "nota": "Común en bosques y pueblos. Folklore: Enemiga de gallineros, como el zorro."
+  },
+  {
+    "id": "ardilla",
+    "nombre": "Ardilla roja",
+    "nombreCa": "Esquirol",
+    "cientifico": "Sciurus vulgaris",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "granívoro / frugívoro",
+    "dieta": [
+      "pino_carrasco",
+      "pino_silvestre",
+      "encina",
+      "roble",
+      "haya",
+      "g:frutos",
+      "rovellon"
+    ],
+    "depredadores": [
+      "azor",
+      "gineta",
+      "garduna",
+      "aguila_real",
+      "lince"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "febrero-agosto",
+      "camada": "3-4 crías, 1-2 camadas"
+    },
+    "reproduccion": "media",
+    "conducta": "arborícola, solitaria; entierra piñones",
+    "recursos": [
+      "piel (menor)",
+      "cola"
+    ],
+    "estado": "Muy ligada a los pinares de Collserola.",
+    "folklore": "",
+    "nota": "Muy ligada a los pinares de Collserola."
+  },
+  {
+    "id": "liron_careto",
+    "nombre": "Lirón careto",
+    "nombreCa": "Rata cellarda",
+    "cientifico": "Eliomys quercinus",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:insectos",
+      "g:frutos",
+      "g:semillas",
+      "g:huevos"
+    ],
+    "depredadores": [
+      "gineta",
+      "garduna",
+      "carabo"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "mayo-julio",
+      "camada": "4-6 crías"
+    },
+    "reproduccion": "media",
+    "conducta": "hiberna octubre-abril; trepa; se esconde en huecos y masías",
+    "recursos": [
+      "ninguno"
+    ],
+    "estado": "Frecuente en bosques y pedregales; entra en masías en invierno.",
+    "folklore": "",
+    "nota": "Frecuente en bosques y pedregales; entra en masías en invierno."
+  },
+  {
+    "id": "raton_campo",
+    "nombre": "Ratón de campo",
+    "nombreCa": "Ratolí de bosc",
+    "cientifico": "Apodemus sylvaticus",
+    "biomas": [
+      "bosque",
+      "pradera",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "granívoro",
+    "dieta": [
+      "g:semillas",
+      "encina",
+      "g:frutos",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "carabo",
+      "lechuza",
+      "gineta",
+      "garduna",
+      "zorro",
+      "culebra_bastarda",
+      "vibora_aspid",
+      "azor",
+      "jabali",
+      "tejon"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "febrero-noviembre",
+      "camada": "4-7 crías, varias camadas"
+    },
+    "reproduccion": "alta",
+    "conducta": "huidizo; base de la red trófica del bosque",
+    "recursos": [
+      "cebo"
+    ],
+    "estado": "Muy abundante; base alimentaria de rapaces nocturnas y carnívoros.",
+    "folklore": "",
+    "nota": "Muy abundante; base alimentaria de rapaces nocturnas y carnívoros."
+  },
+  {
+    "id": "azor",
+    "nombre": "Azor",
+    "nombreCa": "Astor",
+    "cientifico": "Accipiter gentilis",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "paloma",
+      "ardilla",
+      "gorrion",
+      "perdiz",
+      "conejo",
+      "arrendajo",
+      "rata_negra",
+      "lechuza",
+      "cernicalo",
+      "raton_campo",
+      "codorniz",
+      "abubilla",
+      "pota_blava",
+      "martin_pescador",
+      "anade_real"
+    ],
+    "depredadores": [
+      "aguila_real"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "marzo-julio",
+      "camada": "3-4 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitario, emboscador",
+    "recursos": [
+      "pluma",
+      "cetrería"
+    ],
+    "estado": "Rapaz forestal.",
+    "folklore": "Ave de cetrería noble por excelencia.",
+    "nota": "Rapaz forestal. Folklore: Ave de cetrería noble por excelencia."
+  },
+  {
+    "id": "carabo",
+    "nombre": "Cárabo",
+    "nombreCa": "Gamarús",
+    "cientifico": "Strix aluco",
+    "biomas": [
+      "bosque",
+      "montana",
+      "urbano"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "raton_campo",
+      "liron_careto",
+      "topillo",
+      "gorrion",
+      "murcielago",
+      "rana_comun",
+      "lechuza",
+      "gineta",
+      "garduna",
+      "minairons"
+    ],
+    "depredadores": [
+      "aguila_real",
+      "buho_real"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "febrero-junio",
+      "camada": "2-4 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "territorial, ulula en otoño",
+    "recursos": [
+      "pluma"
+    ],
+    "estado": "La rapaz nocturna más común del bosque.",
+    "folklore": "Su canto nocturno anunciaba muerte.",
+    "nota": "La rapaz nocturna más común del bosque. Folklore: Su canto nocturno anunciaba muerte."
+  },
+  {
+    "id": "arrendajo",
+    "nombre": "Arrendajo",
+    "nombreCa": "Gaig",
+    "cientifico": "Garrulus glandarius",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro (dispersor de bellotas)",
+    "dieta": [
+      "encina",
+      "roble",
+      "g:insectos",
+      "g:huevos"
+    ],
+    "depredadores": [
+      "azor",
+      "aguila_real",
+      "garduna"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "4-6 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "ruidoso, imita sonidos; entierra bellotas (planta robledales)",
+    "recursos": [
+      "pluma azul (adorno)"
+    ],
+    "estado": "Común; «plantador» de encinas.",
+    "folklore": "",
+    "nota": "Común; «plantador» de encinas."
+  },
+  {
+    "id": "salamandra",
+    "nombre": "Salamandra común",
+    "nombreCa": "Salamandra",
+    "cientifico": "Salamandra salamandra",
+    "biomas": [
+      "bosque",
+      "montana",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:lombrices",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "culebra_viperina",
+      "tejon"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto en otoño-primavera (vivípara en arroyos)",
+      "camada": "20-40 larvas"
+    },
+    "reproduccion": "media",
+    "conducta": "lenta, sale tras la lluvia; piel tóxica",
+    "recursos": [
+      "veneno cutáneo (alquimia)"
+    ],
+    "estado": "En hayedos y arroyos del Montseny y Collserola húmeda.",
+    "folklore": "Se creía que vivía en el fuego y era inmune a él.",
+    "nota": "En hayedos y arroyos del Montseny y Collserola húmeda. Folklore: Se creía que vivía en el fuego y era inmune a él."
+  },
+  {
+    "id": "conejo",
+    "nombre": "Conejo",
+    "nombreCa": "Conill",
+    "cientifico": "Oryctolagus cuniculus",
+    "biomas": [
+      "pradera",
+      "bosque",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro",
+    "dieta": [
+      "g:hierba",
+      "trigo",
+      "alcachofa",
+      "vid"
+    ],
+    "depredadores": [
+      "lobo",
+      "lince",
+      "zorro",
+      "aguila_real",
+      "aguila_perdicera",
+      "azor",
+      "garduna",
+      "buho_real",
+      "quarantamaula"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche",
+      "manana"
+    ],
+    "cria": {
+      "estacion": "febrero-junio (casi todo el año)",
+      "camada": "3-6 gazapos, 3-5 camadas"
+    },
+    "reproduccion": "alta",
+    "conducta": "colonial en madrigueras; huye",
+    "recursos": [
+      "carne",
+      "piel"
+    ],
+    "estado": "Especie base del bosque mediterráneo; Hispania «tierra de conejos».",
+    "folklore": "Hispania se ha interpretado como «tierra de conejos» (etimología discutida).",
+    "nota": "Especie base del bosque mediterráneo; Hispania «tierra de conejos». Folklore: Hispania se ha interpretado como «tierra de conejos» (etimología discutida)."
+  },
+  {
+    "id": "liebre",
+    "nombre": "Liebre ibérica",
+    "nombreCa": "Llebre",
+    "cientifico": "Lepus granatensis",
+    "biomas": [
+      "pradera",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro",
+    "dieta": [
+      "g:hierba",
+      "trigo"
+    ],
+    "depredadores": [
+      "lobo",
+      "lince",
+      "zorro",
+      "aguila_real",
+      "quarantamaula"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche",
+      "manana"
+    ],
+    "cria": {
+      "estacion": "todo el año (pico primavera)",
+      "camada": "1-4 lebratos, 3-4 partos"
+    },
+    "reproduccion": "alta",
+    "conducta": "solitaria; huye en zigzag",
+    "recursos": [
+      "carne",
+      "piel"
+    ],
+    "estado": "Común en campos abiertos del llano.",
+    "folklore": "",
+    "nota": "Común en campos abiertos del llano."
+  },
+  {
+    "id": "perdiz",
+    "nombre": "Perdiz roja",
+    "nombreCa": "Perdiu roja",
+    "cientifico": "Alectoris rufa",
+    "biomas": [
+      "pradera",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "granívoro / herbívoro",
+    "dieta": [
+      "g:semillas",
+      "trigo",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "zorro",
+      "azor",
+      "aguila_perdicera",
+      "garduna",
+      "culebra_bastarda",
+      "lince",
+      "aguila_real"
+    ],
+    "actividad": [
+      "manana",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "10-16 huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "bandos (colles) en invierno; corre antes que volar",
+    "recursos": [
+      "carne",
+      "pluma"
+    ],
+    "estado": "Caza menor tradicional.",
+    "folklore": "",
+    "nota": "Caza menor tradicional."
+  },
+  {
+    "id": "codorniz",
+    "nombre": "Codorniz",
+    "nombreCa": "Guatlla",
+    "cientifico": "Coturnix coturnix",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "granívoro",
+    "dieta": [
+      "g:semillas",
+      "trigo",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "zorro",
+      "cernicalo",
+      "azor"
+    ],
+    "actividad": [
+      "manana",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "mayo-julio (migradora estival)",
+      "camada": "8-12 huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "escondida en el trigo; canto «pal-pal-pà»",
+    "recursos": [
+      "carne",
+      "huevos"
+    ],
+    "estado": "Estival en trigales y prados del Llobregat.",
+    "folklore": "",
+    "nota": "Estival en trigales y prados del Llobregat."
+  },
+  {
+    "id": "erizo",
+    "nombre": "Erizo europeo",
+    "nombreCa": "Eriçó",
+    "cientifico": "Erinaceus europaeus",
+    "biomas": [
+      "pradera",
+      "bosque",
+      "urbano"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:insectos",
+      "g:lombrices",
+      "g:huevos",
+      "culebra_bastarda"
+    ],
+    "depredadores": [
+      "tejon",
+      "zorro",
+      "buho_real"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "mayo-septiembre",
+      "camada": "3-6 crías"
+    },
+    "reproduccion": "media",
+    "conducta": "solitario, se hace bola; hiberna",
+    "recursos": [
+      "púas",
+      "carne (se comía)"
+    ],
+    "estado": "Común en huertas y bordes de bosque.",
+    "folklore": "Se decía que ordeñaba a las cabras de noche.",
+    "nota": "Común en huertas y bordes de bosque. Folklore: Se decía que ordeñaba a las cabras de noche."
+  },
+  {
+    "id": "topillo",
+    "nombre": "Topillo mediterráneo",
+    "nombreCa": "Talpó comú",
+    "cientifico": "Microtus duodecimcostatus",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro (raíces)",
+    "dieta": [
+      "g:raices",
+      "alcachofa",
+      "trigo"
+    ],
+    "depredadores": [
+      "lechuza",
+      "cernicalo",
+      "zorro",
+      "culebra_bastarda",
+      "carabo",
+      "mochuelo",
+      "garza_real"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "todo el año",
+      "camada": "2-4 crías, varias camadas"
+    },
+    "reproduccion": "alta",
+    "conducta": "excavador; ciclos de plaga",
+    "recursos": [
+      "ninguno (plaga de huertos)"
+    ],
+    "estado": "Plaga clásica de la huerta del Llobregat.",
+    "folklore": "",
+    "nota": "Plaga clásica de la huerta del Llobregat."
+  },
+  {
+    "id": "culebra_bastarda",
+    "nombre": "Culebra bastarda",
+    "nombreCa": "Serp verda",
+    "cientifico": "Malpolon monspessulanus",
+    "biomas": [
+      "pradera",
+      "bosque",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "raton_campo",
+      "raton_casero",
+      "lagartija",
+      "topillo",
+      "perdiz",
+      "lagarto_ocelado"
+    ],
+    "depredadores": [
+      "aguila_real",
+      "buho_real",
+      "erizo"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "junio-julio",
+      "camada": "4-15 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "rápida, se yergue y bufa; veneno débil (colmillos traseros)",
+    "recursos": [
+      "piel (muda)",
+      "carne"
+    ],
+    "estado": "La serpiente grande del llano mediterráneo.",
+    "folklore": "Se decía que mamaba de las vacas.",
+    "nota": "La serpiente grande del llano mediterráneo. Folklore: Se decía que mamaba de las vacas."
+  },
+  {
+    "id": "lagarto_ocelado",
+    "nombre": "Lagarto ocelado",
+    "nombreCa": "Llangardaix",
+    "cientifico": "Timon lepidus",
+    "biomas": [
+      "pradera",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro / omnívoro",
+    "dieta": [
+      "g:insectos",
+      "g:frutos",
+      "lagartija",
+      "abeja"
+    ],
+    "depredadores": [
+      "aguila_real",
+      "culebra_bastarda",
+      "zorro",
+      "garduna",
+      "aguila_perdicera"
+    ],
+    "actividad": [
+      "dia"
+    ],
+    "cria": {
+      "estacion": "mayo-julio",
+      "camada": "8-20 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "territorial al sol; muerde fuerte",
+    "recursos": [
+      "carne (se comía)",
+      "piel"
+    ],
+    "estado": "Todavía presente en zonas secas; muy perseguido.",
+    "folklore": "En catalán «llangardaix»; su grasa servía de remedio.",
+    "nota": "Todavía presente en zonas secas; muy perseguido. Folklore: En catalán «llangardaix»; su grasa servía de remedio."
+  },
+  {
+    "id": "mochuelo",
+    "nombre": "Mochuelo",
+    "nombreCa": "Mussol comú",
+    "cientifico": "Athene noctua",
+    "biomas": [
+      "pradera",
+      "urbano"
+    ],
+    "tipo": "animal",
+    "rol": "depredador menor",
+    "dieta": [
+      "g:insectos",
+      "topillo",
+      "lagartija"
+    ],
+    "depredadores": [
+      "buho_real",
+      "zorro"
+    ],
+    "actividad": [
+      "crepusculo",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "3-5 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "posa en tapias y postes; cabecea",
+    "recursos": [
+      "pluma"
+    ],
+    "estado": "Típico de masías, olivares y tapias.",
+    "folklore": "Símbolo de Atenea; en masías se tenía por ave de mal agüero.",
+    "nota": "Típico de masías, olivares y tapias. Folklore: Símbolo de Atenea; en masías se tenía por ave de mal agüero."
+  },
+  {
+    "id": "abubilla",
+    "nombre": "Abubilla",
+    "nombreCa": "Puput",
+    "cientifico": "Upupa epops",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:insectos",
+      "g:lombrices"
+    ],
+    "depredadores": [
+      "azor",
+      "cernicalo"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "5-8 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "hace «pu-pu-pu»; nido maloliente",
+    "recursos": [
+      "pluma"
+    ],
+    "estado": "Estival en campos y olivares.",
+    "folklore": "El mal olor del nido la hacía símbolo de suciedad; en recetas mágicas árabes y medievales.",
+    "nota": "Estival en campos y olivares. Folklore: El mal olor del nido la hacía símbolo de suciedad; en recetas mágicas árabes y medievales."
+  },
+  {
+    "id": "abeja",
+    "nombre": "Abeja melífera",
+    "nombreCa": "Abella",
+    "cientifico": "Apis mellifera",
+    "biomas": [
+      "pradera",
+      "bosque",
+      "montana",
+      "urbano"
+    ],
+    "tipo": "animal",
+    "rol": "polinizador",
+    "dieta": [
+      "g:nectar",
+      "romero",
+      "tomillo",
+      "almendro"
+    ],
+    "depredadores": [
+      "abejaruco",
+      "lagarto_ocelado",
+      "oso"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "primavera (enjambrazón abril-junio)",
+      "camada": "enjambre (miles)"
+    },
+    "reproduccion": "alta",
+    "conducta": "colmena; pica si se la ataca",
+    "recursos": [
+      "miel",
+      "cera",
+      "propóleo",
+      "jalea",
+      "veneno"
+    ],
+    "estado": "Apicultura en arnas (colmenas de corcho) tradicional en Catalunya.",
+    "folklore": "Se «avisaba» a las abejas de la muerte del amo de la casa.",
+    "nota": "Apicultura en arnas (colmenas de corcho) tradicional en Catalunya. Folklore: Se «avisaba» a las abejas de la muerte del amo de la casa."
+  },
+  {
+    "id": "abejaruco",
+    "nombre": "Abejaruco",
+    "nombreCa": "Abellerol",
+    "cientifico": "Merops apiaster",
+    "biomas": [
+      "pradera",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro aéreo",
+    "dieta": [
+      "abeja",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "halcon_peregrino"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "mayo-julio (migrador)",
+      "camada": "4-7 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "colonias en taludes arenosos; muy colorido",
+    "recursos": [
+      "pluma iridiscente"
+    ],
+    "estado": "Estival en taludes del Llobregat.",
+    "folklore": "Enemigo de los apicultores.",
+    "nota": "Estival en taludes del Llobregat. Folklore: Enemigo de los apicultores."
+  },
+  {
+    "id": "pota_blava",
+    "nombre": "Pollo del Prat (Pota Blava)",
+    "nombreCa": "Pollastre del Prat / Pota Blava",
+    "cientifico": "Gallus gallus domesticus (raza Prat)",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "doméstico omnívoro",
+    "dieta": [
+      "g:semillas",
+      "trigo",
+      "g:insectos"
+    ],
+    "depredadores": [
+      "zorro",
+      "garduna",
+      "azor"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "primavera",
+      "camada": "10-15 huevos (clueca)"
+    },
+    "reproduccion": "alta",
+    "conducta": "gallinero; huye",
+    "recursos": [
+      "carne",
+      "huevos",
+      "pluma"
+    ],
+    "estado": "Raza rústica seleccionada a fines del s. XIX en el Prat; IGP desde 1996. En un mundo premoderno, gallinas rústicas «del Prat».",
+    "folklore": "Capón del Prat en Navidad.",
+    "nota": "Raza rústica seleccionada a fines del s. XIX en el Prat; IGP desde 1996. En un mundo premoderno, gallinas rústicas «del Prat». Folklore: Capón del Prat en Navidad."
+  },
+  {
+    "id": "cabra_montes",
+    "nombre": "Cabra montés",
+    "nombreCa": "Cabra salvatge",
+    "cientifico": "Capra pyrenaica hispanica",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro",
+    "dieta": [
+      "g:hierba",
+      "g:hojas",
+      "boj",
+      "encina"
+    ],
+    "depredadores": [
+      "lobo",
+      "lince",
+      "aguila_real",
+      "oso",
+      "drac"
+    ],
+    "actividad": [
+      "manana",
+      "tarde",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "parto mayo-junio (celo nov-dic)",
+      "camada": "1 (rara vez 2) chivo"
+    },
+    "reproduccion": "baja",
+    "conducta": "rebaños; salta por roquedos; machos embisten en celo",
+    "recursos": [
+      "carne",
+      "piel",
+      "cuernos (trofeo)"
+    ],
+    "estado": "Desaparecida de Montserrat; reintroducida en 1995 con ~20 ejemplares de los Ports; hoy ~440.",
+    "folklore": "",
+    "nota": "Desaparecida de Montserrat; reintroducida en 1995 con ~20 ejemplares de los Ports; hoy ~440."
+  },
+  {
+    "id": "ciervo",
+    "nombre": "Ciervo",
+    "nombreCa": "Cérvol",
+    "cientifico": "Cervus elaphus",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro",
+    "dieta": [
+      "g:hierba",
+      "g:hojas",
+      "roble",
+      "haya",
+      "trigo"
+    ],
+    "depredadores": [
+      "lobo",
+      "oso",
+      "lince",
+      "drac"
+    ],
+    "actividad": [
+      "crepusculo",
+      "manana",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto mayo-junio (berrea sept-oct)",
+      "camada": "1 cervato"
+    },
+    "reproduccion": "baja",
+    "conducta": "manadas por sexos; berrea; machos embisten en celo",
+    "recursos": [
+      "carne",
+      "piel",
+      "cuerna (cuchillería",
+      "alquimia)"
+    ],
+    "estado": "Presente en la Edad Media; exterminado en casi toda Catalunya; reintroducido en el s. XX.",
+    "folklore": "Cuerna quemada como remedio y en ritos de caza.",
+    "nota": "Presente en la Edad Media; exterminado en casi toda Catalunya; reintroducido en el s. XX. Folklore: Cuerna quemada como remedio y en ritos de caza."
+  },
+  {
+    "id": "oso",
+    "nombre": "Oso pardo",
+    "nombreCa": "Ós bru",
+    "cientifico": "Ursus arctos",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:frutos",
+      "haya",
+      "encina",
+      "g:raices",
+      "g:insectos",
+      "abeja",
+      "jabali",
+      "corzo",
+      "g:carrona",
+      "cabra_montes",
+      "ciervo",
+      "castor"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "manana",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto enero-febrero en la osera",
+      "camada": "1-3 oseznos cada 2-3 años"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitario; hiberna; peligroso con crías",
+    "recursos": [
+      "carne",
+      "piel",
+      "grasa (ungüento)",
+      "garras"
+    ],
+    "estado": "Presente en montañas catalanas en la Edad Media; desapareció de las sierras prelitorales en época moderna y sobrevive en el Pirineo (reintroducido).",
+    "folklore": "Fiestas del oso en el Pirineo (Prats de Molló); el oso como antepasado salvaje.",
+    "nota": "Presente en montañas catalanas en la Edad Media; desapareció de las sierras prelitorales en época moderna y sobrevive en el Pirineo (reintroducido). Folklore: Fiestas del oso en el Pirineo (Prats de Molló); el oso como antepasado salvaje."
+  },
+  {
+    "id": "lince",
+    "nombre": "Lince (llop cerval)",
+    "nombreCa": "Linx / llop cerval",
+    "cientifico": "Lynx sp. (lynx / pardinus)",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "conejo",
+      "liebre",
+      "corzo",
+      "cabra_montes",
+      "perdiz",
+      "ardilla",
+      "jabali",
+      "zorro",
+      "gineta",
+      "garduna",
+      "ciervo"
+    ],
+    "depredadores": [
+      "lobo"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto abril-mayo",
+      "camada": "2-3 crías"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitario, esquivo, emboscador",
+    "recursos": [
+      "piel (lujo)"
+    ],
+    "estado": "Llamado «llop cerval» o «gatillop»; exterminado en los ss. XVIII-XX como alimaña. Especie exacta en Catalunya discutida.",
+    "folklore": "Nombre popular llop cerval = «lobo de los ciervos».",
+    "nota": "Llamado «llop cerval» o «gatillop»; exterminado en los ss. XVIII-XX como alimaña. Especie exacta en Catalunya discutida. Folklore: Nombre popular llop cerval = «lobo de los ciervos»."
+  },
+  {
+    "id": "quebrantahuesos",
+    "nombre": "Quebrantahuesos",
+    "nombreCa": "Trencalòs",
+    "cientifico": "Gypaetus barbatus",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "carroñero (huesos)",
+    "dieta": [
+      "g:carrona",
+      "g:huesos"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "puesta dic-feb",
+      "camada": "1-2 huevos (sobrevive 1)"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitario; suelta huesos desde el aire para romperlos",
+    "recursos": [
+      "pluma (trofeo raro)"
+    ],
+    "estado": "Hoy solo en el Pirineo; en sierras prelitorales solo como rareza histórica o visitante.",
+    "folklore": "Se decía que dejaba caer tortugas y huesos sobre las rocas.",
+    "nota": "Hoy solo en el Pirineo; en sierras prelitorales solo como rareza histórica o visitante. Folklore: Se decía que dejaba caer tortugas y huesos sobre las rocas."
+  },
+  {
+    "id": "buitre",
+    "nombre": "Buitre leonado",
+    "nombreCa": "Voltor comú",
+    "cientifico": "Gyps fulvus",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "carroñero",
+    "dieta": [
+      "g:carrona"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "puesta enero-marzo",
+      "camada": "1 huevo"
+    },
+    "reproduccion": "baja",
+    "conducta": "colonial en cortados; planea",
+    "recursos": [
+      "pluma"
+    ],
+    "estado": "Frecuente en sierras catalanas hasta el s. XIX; hoy recupera los Prepirineos.",
+    "folklore": "",
+    "nota": "Frecuente en sierras catalanas hasta el s. XIX; hoy recupera los Prepirineos."
+  },
+  {
+    "id": "aguila_real",
+    "nombre": "Águila real",
+    "nombreCa": "Àliga daurada",
+    "cientifico": "Aquila chrysaetos",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "animal",
+    "rol": "superdepredador",
+    "dieta": [
+      "conejo",
+      "liebre",
+      "ardilla",
+      "perdiz",
+      "corzo",
+      "cabra_montes",
+      "zorro",
+      "g:carrona",
+      "cernicalo",
+      "gineta",
+      "garduna",
+      "azor",
+      "carabo",
+      "arrendajo",
+      "culebra_bastarda",
+      "lagarto_ocelado",
+      "halcon_peregrino",
+      "vibora_aspid",
+      "chova",
+      "tortuga_mediterranea"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "puesta febrero-abril",
+      "camada": "1-2 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "parejas territoriales de por vida",
+    "recursos": [
+      "pluma (penacho noble)"
+    ],
+    "estado": "Presente en Montserrat y Montseny.",
+    "folklore": "Heráldica: el águila de la ciudad (Àliga) en fiestas de Corpus.",
+    "nota": "Presente en Montserrat y Montseny. Folklore: Heráldica: el águila de la ciudad (Àliga) en fiestas de Corpus."
+  },
+  {
+    "id": "aguila_perdicera",
+    "nombre": "Águila perdicera",
+    "nombreCa": "Àliga cuabarrada",
+    "cientifico": "Aquila fasciata",
+    "biomas": [
+      "montana",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "conejo",
+      "perdiz",
+      "paloma",
+      "lagarto_ocelado",
+      "anade_real"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "puesta febrero-marzo",
+      "camada": "2 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "parejas en cortados; caza al acecho",
+    "recursos": [
+      "pluma"
+    ],
+    "estado": "Nidificante en Garraf y sierras litorales; hoy amenazada.",
+    "folklore": "",
+    "nota": "Nidificante en Garraf y sierras litorales; hoy amenazada."
+  },
+  {
+    "id": "halcon_peregrino",
+    "nombre": "Halcón peregrino",
+    "nombreCa": "Falcó pelegrí",
+    "cientifico": "Falco peregrinus",
+    "biomas": [
+      "montana",
+      "costa",
+      "urbano"
+    ],
+    "tipo": "animal",
+    "rol": "depredador aéreo",
+    "dieta": [
+      "paloma",
+      "gorrion",
+      "vencejo",
+      "abejaruco",
+      "gaviota",
+      "chova",
+      "cormoran_mono"
+    ],
+    "depredadores": [
+      "aguila_real"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "marzo-junio",
+      "camada": "3-4 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "picado a gran velocidad; anida en cortados (y torres)",
+    "recursos": [
+      "pluma",
+      "cetrería real"
+    ],
+    "estado": "En cortados de Montserrat y Garraf; hoy anida en la Sagrada Família.",
+    "folklore": "Ave de cetrería de reyes.",
+    "nota": "En cortados de Montserrat y Garraf; hoy anida en la Sagrada Família. Folklore: Ave de cetrería de reyes."
+  },
+  {
+    "id": "buho_real",
+    "nombre": "Búho real",
+    "nombreCa": "Duc",
+    "cientifico": "Bubo bubo",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "animal",
+    "rol": "superdepredador nocturno",
+    "dieta": [
+      "conejo",
+      "rata_negra",
+      "erizo",
+      "culebra_bastarda",
+      "mochuelo",
+      "carabo"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "puesta enero-marzo",
+      "camada": "2-3 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "territorial; ulula en invierno",
+    "recursos": [
+      "pluma"
+    ],
+    "estado": "Presente en roquedos de Garraf, Montserrat y Collserola.",
+    "folklore": "Guardián de la noche; espanto de pastores.",
+    "nota": "Presente en roquedos de Garraf, Montserrat y Collserola. Folklore: Guardián de la noche; espanto de pastores."
+  },
+  {
+    "id": "vibora_aspid",
+    "nombre": "Víbora áspid",
+    "nombreCa": "Escurçó pirinenc",
+    "cientifico": "Vipera aspis",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "raton_campo",
+      "lagartija"
+    ],
+    "depredadores": [
+      "aguila_real"
+    ],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "parto agosto-septiembre (ovovivípara)",
+      "camada": "4-10 crías cada 2-3 años"
+    },
+    "reproduccion": "baja",
+    "conducta": "lenta, muerde si la pisan; veneno",
+    "recursos": [
+      "veneno (antídoto",
+      "triaca)"
+    ],
+    "estado": "Presente en el Montseny y zonas húmedas de montaña.",
+    "folklore": "Se hacía triaca con carne de víbora.",
+    "nota": "Presente en el Montseny y zonas húmedas de montaña. Folklore: Se hacía triaca con carne de víbora."
+  },
+  {
+    "id": "lagartija",
+    "nombre": "Lagartija ibérica",
+    "nombreCa": "Sargantana",
+    "cientifico": "Podarcis liolepis",
+    "biomas": [
+      "montana",
+      "costa",
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:insectos"
+    ],
+    "depredadores": [
+      "cernicalo",
+      "culebra_bastarda",
+      "lagarto_ocelado",
+      "vibora_aspid",
+      "mochuelo"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "abril-julio",
+      "camada": "3-6 huevos, 2 puestas"
+    },
+    "reproduccion": "alta",
+    "conducta": "al sol en muros y rocas; pierde la cola",
+    "recursos": [
+      "cola (alquimia menor)"
+    ],
+    "estado": "Abundantísima en muros y roquedos.",
+    "folklore": "",
+    "nota": "Abundantísima en muros y roquedos."
+  },
+  {
+    "id": "triton_montseny",
+    "nombre": "Tritón del Montseny",
+    "nombreCa": "Tritó del Montseny",
+    "cientifico": "Calotriton arnoldi",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro acuático",
+    "dieta": [
+      "g:invertebrados_acuaticos"
+    ],
+    "depredadores": [
+      "trucha"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera (marzo-junio)",
+      "camada": "30-40 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitario en arroyos fríos de hayedo (600-1200 m)",
+    "recursos": [
+      "ninguno (especie emblemática",
+      "no cazable)"
+    ],
+    "estado": "Único vertebrado endémico de Catalunya; ~1.500 ejemplares en menos de 3,5 km de arroyo. En peligro crítico.",
+    "folklore": "Criatura «de las fuentes» del Montseny: vínculo con las dones d'aigua.",
+    "nota": "Único vertebrado endémico de Catalunya; ~1.500 ejemplares en menos de 3,5 km de arroyo. En peligro crítico. Folklore: Criatura «de las fuentes» del Montseny: vínculo con las dones d'aigua."
+  },
+  {
+    "id": "chova",
+    "nombre": "Chova piquirroja",
+    "nombreCa": "Gralla de bec vermell",
+    "cientifico": "Pyrrhocorax pyrrhocorax",
+    "biomas": [
+      "montana",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:insectos",
+      "g:semillas"
+    ],
+    "depredadores": [
+      "halcon_peregrino",
+      "aguila_real"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "3-5 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "bandadas acrobáticas en cortados",
+    "recursos": [
+      "pluma negra"
+    ],
+    "estado": "En cortados de Garraf y Montserrat.",
+    "folklore": "",
+    "nota": "En cortados de Garraf y Montserrat."
+  },
+  {
+    "id": "nutria",
+    "nombre": "Nutria",
+    "nombreCa": "Llúdriga",
+    "cientifico": "Lutra lutra",
+    "biomas": [
+      "rio",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "anguila",
+      "barbo",
+      "trucha",
+      "bagra",
+      "cangrejo_rio",
+      "rana_comun",
+      "galapago_leproso",
+      "galapago_europeo"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "todo el año",
+      "camada": "2-3 crías"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitaria, territorial, juguetona; huye",
+    "recursos": [
+      "piel (muy valiosa)"
+    ],
+    "estado": "Común en el Llobregat y Besòs; desapareció en los años 1970-80; hoy regresa por el Ter y el Llobregat alto.",
+    "folklore": "",
+    "nota": "Común en el Llobregat y Besòs; desapareció en los años 1970-80; hoy regresa por el Ter y el Llobregat alto."
+  },
+  {
+    "id": "castor",
+    "nombre": "Castor europeo",
+    "nombreCa": "Castor",
+    "cientifico": "Castor fiber",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro (ingeniero)",
+    "dieta": [
+      "sauce",
+      "alamo_blanco",
+      "aliso",
+      "g:hojas"
+    ],
+    "depredadores": [
+      "lobo",
+      "oso"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto mayo-junio",
+      "camada": "2-4 crías"
+    },
+    "reproduccion": "baja",
+    "conducta": "familias; construye presas; golpea el agua con la cola",
+    "recursos": [
+      "piel",
+      "castóreo (medicinal)"
+    ],
+    "estado": "Vivió en el Llobregat y el Ebro al menos hasta época visigoda; extinguido en España a mediados del s. XIX. Reintroducido ilegalmente en el Ebro (2003), ya llega a Lleida.",
+    "folklore": "El castóreo se usaba como analgésico y en perfumería.",
+    "nota": "Vivió en el Llobregat y el Ebro al menos hasta época visigoda; extinguido en España a mediados del s. XIX. Reintroducido ilegalmente en el Ebro (2003), ya llega a Lleida. Folklore: El castóreo se usaba como analgésico y en perfumería."
+  },
+  {
+    "id": "esturion",
+    "nombre": "Esturión",
+    "nombreCa": "Esturió / sollo",
+    "cientifico": "Acipenser sturio",
+    "biomas": [
+      "rio",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador bentónico",
+    "dieta": [
+      "g:invertebrados_acuaticos",
+      "g:peces_pequenos"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "manana",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera (remonta ríos)",
+      "camada": "cientos de miles de huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "migrador anádromo, enorme (hasta 3 m), lento",
+    "recursos": [
+      "carne de lujo",
+      "caviar",
+      "cola de pescado (ictiocola)"
+    ],
+    "estado": "Remontaba el Ebro y otros ríos; pesca controlada por reyes y consejos; extinguido a mediados del s. XX. Presencia en el Llobregat: plausible pero escasamente documentada.",
+    "folklore": "Plato de mesas nobles; privilegios reales de pesca.",
+    "nota": "Remontaba el Ebro y otros ríos; pesca controlada por reyes y consejos; extinguido a mediados del s. XX. Presencia en el Llobregat: plausible pero escasamente documentada. Folklore: Plato de mesas nobles; privilegios reales de pesca."
+  },
+  {
+    "id": "anguila",
+    "nombre": "Anguila",
+    "nombreCa": "Anguila",
+    "cientifico": "Anguilla anguilla",
+    "biomas": [
+      "rio",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "g:invertebrados_acuaticos",
+      "g:peces_pequenos",
+      "rana_comun",
+      "cangrejo_rio"
+    ],
+    "depredadores": [
+      "nutria",
+      "garza_real",
+      "cormoran_mono",
+      "drac_banyoles",
+      "cuca_fera"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "migra al mar de los Sargazos a desovar",
+      "camada": "millones de huevos (en el mar)"
+    },
+    "reproduccion": "media",
+    "conducta": "nocturna, reptante, sale del agua en noches húmedas",
+    "recursos": [
+      "carne (all i pebre)"
+    ],
+    "estado": "Abundantísima en el delta del Llobregat y el Besòs; hoy en peligro crítico.",
+    "folklore": "All i pebre de anguila en deltas.",
+    "nota": "Abundantísima en el delta del Llobregat y el Besòs; hoy en peligro crítico. Folklore: All i pebre de anguila en deltas."
+  },
+  {
+    "id": "barbo",
+    "nombre": "Barbo de montaña",
+    "nombreCa": "Barb de muntanya",
+    "cientifico": "Barbus meridionalis",
+    "biomas": [
+      "rio",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro bentónico",
+    "dieta": [
+      "g:invertebrados_acuaticos",
+      "g:algas"
+    ],
+    "depredadores": [
+      "nutria",
+      "garza_real",
+      "martin_pescador",
+      "trucha",
+      "drac_banyoles"
+    ],
+    "actividad": [
+      "crepusculo",
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "mayo-julio",
+      "camada": "miles de huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "cardúmenes en pozas",
+    "recursos": [
+      "carne"
+    ],
+    "estado": "Nativo de ríos catalanes, incluido el Llobregat.",
+    "folklore": "",
+    "nota": "Nativo de ríos catalanes, incluido el Llobregat."
+  },
+  {
+    "id": "bagra",
+    "nombre": "Bagra catalana",
+    "nombreCa": "Bagra",
+    "cientifico": "Squalius laietanus",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:insectos",
+      "g:invertebrados_acuaticos",
+      "g:algas"
+    ],
+    "depredadores": [
+      "nutria",
+      "garza_real",
+      "martin_pescador",
+      "trucha",
+      "culebra_viperina"
+    ],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "abril-junio",
+      "camada": "miles de huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "cardúmenes; resistente",
+    "recursos": [
+      "carne (menor)"
+    ],
+    "estado": "Endemismo del noreste ibérico: el «pez laietano».",
+    "folklore": "Su nombre científico viene de Laietània, la comarca ibérica de Barcelona.",
+    "nota": "Endemismo del noreste ibérico: el «pez laietano». Folklore: Su nombre científico viene de Laietània, la comarca ibérica de Barcelona."
+  },
+  {
+    "id": "trucha",
+    "nombre": "Trucha común",
+    "nombreCa": "Truita",
+    "cientifico": "Salmo trutta",
+    "biomas": [
+      "rio",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "g:insectos",
+      "g:invertebrados_acuaticos",
+      "triton_montseny",
+      "barbo",
+      "bagra"
+    ],
+    "depredadores": [
+      "nutria",
+      "garza_real",
+      "martin_pescador"
+    ],
+    "actividad": [
+      "manana",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "noviembre-enero",
+      "camada": "cientos de huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "territorial en corrientes frías",
+    "recursos": [
+      "carne"
+    ],
+    "estado": "Tramos altos del Llobregat y rieras del Montseny.",
+    "folklore": "",
+    "nota": "Tramos altos del Llobregat y rieras del Montseny."
+  },
+  {
+    "id": "cangrejo_rio",
+    "nombre": "Cangrejo de río autóctono",
+    "nombreCa": "Cranc de riu",
+    "cientifico": "Austropotamobius pallipes",
+    "biomas": [
+      "rio",
+      "montana"
+    ],
+    "tipo": "animal",
+    "rol": "detritívoro / omnívoro",
+    "dieta": [
+      "g:invertebrados_acuaticos",
+      "g:algas",
+      "g:carrona"
+    ],
+    "depredadores": [
+      "nutria",
+      "anguila",
+      "garza_real",
+      "cuca_fera"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "puesta otoño, eclosión primavera",
+      "camada": "50-150 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "se esconde bajo piedras; pinza",
+    "recursos": [
+      "carne"
+    ],
+    "estado": "Muy común en rieras hasta que la afanomicosis y el cangrejo americano lo diezmaron (s. XX).",
+    "folklore": "",
+    "nota": "Muy común en rieras hasta que la afanomicosis y el cangrejo americano lo diezmaron (s. XX)."
+  },
+  {
+    "id": "galapago_leproso",
+    "nombre": "Galápago leproso",
+    "nombreCa": "Tortuga de rierol",
+    "cientifico": "Mauremys leprosa",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:invertebrados_acuaticos",
+      "g:peces_pequenos",
+      "g:algas",
+      "g:carrona"
+    ],
+    "depredadores": [
+      "garza_real",
+      "nutria"
+    ],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "mayo-julio",
+      "camada": "6-10 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "al sol en troncos; se zambulle",
+    "recursos": [
+      "caparazón (alquimia)"
+    ],
+    "estado": "Presente en rieras del litoral catalán.",
+    "folklore": "",
+    "nota": "Presente en rieras del litoral catalán."
+  },
+  {
+    "id": "galapago_europeo",
+    "nombre": "Galápago europeo",
+    "nombreCa": "Tortuga d'estany",
+    "cientifico": "Emys orbicularis",
+    "biomas": [
+      "rio",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:invertebrados_acuaticos",
+      "rana_comun",
+      "g:algas"
+    ],
+    "depredadores": [
+      "garza_real",
+      "nutria"
+    ],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "mayo-junio",
+      "camada": "6-12 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "tímido; charcas del delta",
+    "recursos": [
+      "caparazón"
+    ],
+    "estado": "En estanys del delta del Llobregat; muy escaso hoy.",
+    "folklore": "",
+    "nota": "En estanys del delta del Llobregat; muy escaso hoy."
+  },
+  {
+    "id": "rana_comun",
+    "nombre": "Rana común",
+    "nombreCa": "Granota verda",
+    "cientifico": "Pelophylax perezi",
+    "biomas": [
+      "rio",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "insectívoro",
+    "dieta": [
+      "g:insectos"
+    ],
+    "depredadores": [
+      "garza_real",
+      "culebra_viperina",
+      "nutria",
+      "anguila",
+      "carabo",
+      "galapago_europeo"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "marzo-julio",
+      "camada": "miles de huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "coros nocturnos; salta al agua",
+    "recursos": [
+      "ancas (carne)",
+      "piel (alquimia)"
+    ],
+    "estado": "Muy abundante en acequias del delta.",
+    "folklore": "",
+    "nota": "Muy abundante en acequias del delta."
+  },
+  {
+    "id": "culebra_viperina",
+    "nombre": "Culebra viperina",
+    "nombreCa": "Serp d'aigua",
+    "cientifico": "Natrix maura",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "rana_comun",
+      "bagra",
+      "g:peces_pequenos",
+      "salamandra"
+    ],
+    "depredadores": [
+      "garza_real"
+    ],
+    "actividad": [
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "junio-julio",
+      "camada": "4-20 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "acuática; imita a la víbora pero es inofensiva",
+    "recursos": [
+      "piel"
+    ],
+    "estado": "Común en ríos y acequias.",
+    "folklore": "Confundida con la víbora y matada por ello.",
+    "nota": "Común en ríos y acequias. Folklore: Confundida con la víbora y matada por ello."
+  },
+  {
+    "id": "martin_pescador",
+    "nombre": "Martín pescador",
+    "nombreCa": "Blauet",
+    "cientifico": "Alcedo atthis",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "depredador (peces)",
+    "dieta": [
+      "g:peces_pequenos",
+      "barbo",
+      "bagra",
+      "trucha"
+    ],
+    "depredadores": [
+      "azor"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "abril-julio",
+      "camada": "5-7 huevos, 2 puestas"
+    },
+    "reproduccion": "media",
+    "conducta": "territorial; se lanza en picado al agua",
+    "recursos": [
+      "pluma azul (adorno",
+      "amuleto)"
+    ],
+    "estado": "Común en el Llobregat y Besòs.",
+    "folklore": "Se creía que su cuerpo seco señalaba el viento.",
+    "nota": "Común en el Llobregat y Besòs. Folklore: Se creía que su cuerpo seco señalaba el viento."
+  },
+  {
+    "id": "garza_real",
+    "nombre": "Garza real",
+    "nombreCa": "Bernat pescaire",
+    "cientifico": "Ardea cinerea",
+    "biomas": [
+      "rio",
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "anguila",
+      "rana_comun",
+      "barbo",
+      "bagra",
+      "trucha",
+      "cangrejo_rio",
+      "topillo",
+      "galapago_leproso",
+      "galapago_europeo",
+      "culebra_viperina"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "manana",
+      "dia",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "marzo-junio",
+      "camada": "3-5 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "acecha inmóvil; colonias (garceras)",
+    "recursos": [
+      "pluma (penachos)"
+    ],
+    "estado": "Invernante y nidificante en el delta.",
+    "folklore": "Presa de cetrería de alto rango.",
+    "nota": "Invernante y nidificante en el delta. Folklore: Presa de cetrería de alto rango."
+  },
+  {
+    "id": "anade_real",
+    "nombre": "Ánade real",
+    "nombreCa": "Ànec collverd",
+    "cientifico": "Anas platyrhynchos",
+    "biomas": [
+      "rio",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:semillas",
+      "g:algas",
+      "g:invertebrados_acuaticos",
+      "carrizo"
+    ],
+    "depredadores": [
+      "zorro",
+      "aguila_perdicera",
+      "azor",
+      "drac_banyoles"
+    ],
+    "actividad": [
+      "manana",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "marzo-junio",
+      "camada": "8-12 huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "bandos; huye volando",
+    "recursos": [
+      "carne",
+      "pluma",
+      "plumón"
+    ],
+    "estado": "Abundante en el delta; caza de aves acuáticas.",
+    "folklore": "",
+    "nota": "Abundante en el delta; caza de aves acuáticas."
+  },
+  {
+    "id": "foca_monje",
+    "nombre": "Foca monje",
+    "nombreCa": "Vell marí",
+    "cientifico": "Monachus monachus",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador marino",
+    "dieta": [
+      "pulpo",
+      "sepia",
+      "dorada",
+      "lubina",
+      "sardina"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "dia",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "parto septiembre-noviembre en cuevas",
+      "camada": "1 cría cada 1-2 años"
+    },
+    "reproduccion": "baja",
+    "conducta": "tímida; descansa en cuevas marinas; muy sensible al acoso",
+    "recursos": [
+      "piel",
+      "grasa (lámparas)"
+    ],
+    "estado": "Habitual en Catalunya hasta fines del s. XIX; retirada a la Costa Brava, extinguida hacia 1950 (último avistamiento 1973). La Generalitat estudia reintroducirla (~2027).",
+    "folklore": "«Vell marí»: el viejo del mar; pescadores la mataban por romper redes.",
+    "nota": "Habitual en Catalunya hasta fines del s. XIX; retirada a la Costa Brava, extinguida hacia 1950 (último avistamiento 1973). La Generalitat estudia reintroducirla (~2027). Folklore: «Vell marí»: el viejo del mar; pescadores la mataban por romper redes."
+  },
+  {
+    "id": "delfin",
+    "nombre": "Delfín mular",
+    "nombreCa": "Dofí mular",
+    "cientifico": "Tursiops truncatus",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador marino",
+    "dieta": [
+      "sardina",
+      "dorada",
+      "lubina",
+      "sepia",
+      "pulpo",
+      "atun_rojo"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "todo el año",
+      "camada": "1 cría cada 3 años"
+    },
+    "reproduccion": "baja",
+    "conducta": "grupos; curioso; sigue barcas",
+    "recursos": [
+      "ninguno (guía de marineros)"
+    ],
+    "estado": "Presente en la costa; los mulares frecuentaban deltas.",
+    "folklore": "Salvadores de náufragos en leyendas marineras.",
+    "nota": "Presente en la costa; los mulares frecuentaban deltas. Folklore: Salvadores de náufragos en leyendas marineras."
+  },
+  {
+    "id": "tortuga_boba",
+    "nombre": "Tortuga boba",
+    "nombreCa": "Tortuga babaua",
+    "cientifico": "Caretta caretta",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "omnívoro marino",
+    "dieta": [
+      "g:medusas",
+      "erizo_mar",
+      "mejillon",
+      "g:invertebrados_acuaticos"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "dia"
+    ],
+    "cria": {
+      "estacion": "puesta junio-agosto en playas",
+      "camada": "80-120 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitaria, migradora; sube a playas de noche a desovar",
+    "recursos": [
+      "caparazón (carey menor)",
+      "carne"
+    ],
+    "estado": "Frecuente en el mar catalán; puestas esporádicas en playas.",
+    "folklore": "",
+    "nota": "Frecuente en el mar catalán; puestas esporádicas en playas."
+  },
+  {
+    "id": "atun_rojo",
+    "nombre": "Atún rojo",
+    "nombreCa": "Tonyina",
+    "cientifico": "Thunnus thynnus",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador pelágico",
+    "dieta": [
+      "sardina",
+      "g:peces_pequenos",
+      "sepia"
+    ],
+    "depredadores": [
+      "delfin"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "mayo-julio (migra al Mediterráneo)",
+      "camada": "millones de huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "grandes bancos migratorios",
+    "recursos": [
+      "carne (salazón)",
+      "grasa"
+    ],
+    "estado": "Almadrabas históricas en la costa catalana (Ametlla, Cap de Salou...).",
+    "folklore": "",
+    "nota": "Almadrabas históricas en la costa catalana (Ametlla, Cap de Salou...)."
+  },
+  {
+    "id": "sardina",
+    "nombre": "Sardina",
+    "nombreCa": "Sardina",
+    "cientifico": "Sardina pilchardus",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "planctófago",
+    "dieta": [
+      "g:plancton"
+    ],
+    "depredadores": [
+      "atun_rojo",
+      "delfin",
+      "gaviota",
+      "cormoran_mono",
+      "lubina",
+      "dorada",
+      "foca_monje",
+      "peix_nicolau"
+    ],
+    "actividad": [
+      "manana",
+      "dia",
+      "tarde"
+    ],
+    "cria": {
+      "estacion": "invierno",
+      "camada": "decenas de miles de huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "grandes bancos; atraída por la luz (pesca con teia)",
+    "recursos": [
+      "carne (salazón)",
+      "aceite",
+      "cebo"
+    ],
+    "estado": "Base de la pesca popular con «teia» (luz de antorcha) en la costa de Barcelona.",
+    "folklore": "Pesca de «llum» nocturna.",
+    "nota": "Base de la pesca popular con «teia» (luz de antorcha) en la costa de Barcelona. Folklore: Pesca de «llum» nocturna."
+  },
+  {
+    "id": "dorada",
+    "nombre": "Dorada",
+    "nombreCa": "Orada",
+    "cientifico": "Sparus aurata",
+    "biomas": [
+      "costa",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "depredador bentónico",
+    "dieta": [
+      "mejillon",
+      "erizo_mar",
+      "g:invertebrados_acuaticos",
+      "sardina"
+    ],
+    "depredadores": [
+      "delfin",
+      "foca_monje"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "invierno (hermafrodita)",
+      "camada": "miles de huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "solitaria o en grupos; entra en lagunas del delta",
+    "recursos": [
+      "carne fina"
+    ],
+    "estado": "Muy apreciada desde época romana.",
+    "folklore": "",
+    "nota": "Muy apreciada desde época romana."
+  },
+  {
+    "id": "lubina",
+    "nombre": "Lubina",
+    "nombreCa": "Llobarro",
+    "cientifico": "Dicentrarchus labrax",
+    "biomas": [
+      "costa",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "sardina",
+      "g:peces_pequenos",
+      "g:invertebrados_acuaticos",
+      "pulpo"
+    ],
+    "depredadores": [
+      "delfin",
+      "foca_monje"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "enero-marzo",
+      "camada": "miles de huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "cazadora en rompientes y desembocaduras",
+    "recursos": [
+      "carne fina"
+    ],
+    "estado": "Común en desembocaduras del Llobregat y Besòs.",
+    "folklore": "",
+    "nota": "Común en desembocaduras del Llobregat y Besòs."
+  },
+  {
+    "id": "pulpo",
+    "nombre": "Pulpo",
+    "nombreCa": "Pop",
+    "cientifico": "Octopus vulgaris",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "mejillon",
+      "g:invertebrados_acuaticos",
+      "erizo_mar"
+    ],
+    "depredadores": [
+      "foca_monje",
+      "delfin",
+      "lubina",
+      "peix_nicolau"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera-verano",
+      "camada": "cientos de miles de huevos (la madre muere)"
+    },
+    "reproduccion": "media",
+    "conducta": "solitario, inteligente, se camufla; tinta",
+    "recursos": [
+      "carne",
+      "tinta"
+    ],
+    "estado": "Pesca con cadufos (vasijas) tradicional.",
+    "folklore": "",
+    "nota": "Pesca con cadufos (vasijas) tradicional."
+  },
+  {
+    "id": "sepia",
+    "nombre": "Sepia",
+    "nombreCa": "Sípia",
+    "cientifico": "Sepia officinalis",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador",
+    "dieta": [
+      "g:peces_pequenos",
+      "g:invertebrados_acuaticos"
+    ],
+    "depredadores": [
+      "delfin",
+      "foca_monje",
+      "atun_rojo"
+    ],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera",
+      "camada": "cientos de huevos en racimos"
+    },
+    "reproduccion": "media",
+    "conducta": "camuflaje, tinta",
+    "recursos": [
+      "carne",
+      "tinta (escritura",
+      "pintura)",
+      "jibión"
+    ],
+    "estado": "La tinta de sepia se usó para escribir y dibujar.",
+    "folklore": "",
+    "nota": "La tinta de sepia se usó para escribir y dibujar."
+  },
+  {
+    "id": "erizo_mar",
+    "nombre": "Erizo de mar",
+    "nombreCa": "Garota",
+    "cientifico": "Paracentrotus lividus",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro (ramoneador de algas)",
+    "dieta": [
+      "g:algas",
+      "posidonia"
+    ],
+    "depredadores": [
+      "dorada",
+      "pulpo",
+      "gaviota",
+      "tortuga_boba"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera",
+      "camada": "millones de huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "sésil; si faltan sus depredadores arrasa las algas",
+    "recursos": [
+      "huevas (garotada)"
+    ],
+    "estado": "Muy común en roquedos del Garraf.",
+    "folklore": "Garotada: festín popular de invierno.",
+    "nota": "Muy común en roquedos del Garraf. Folklore: Garotada: festín popular de invierno."
+  },
+  {
+    "id": "mejillon",
+    "nombre": "Mejillón",
+    "nombreCa": "Musclo",
+    "cientifico": "Mytilus galloprovincialis",
+    "biomas": [
+      "costa",
+      "rio"
+    ],
+    "tipo": "animal",
+    "rol": "filtrador",
+    "dieta": [
+      "g:plancton"
+    ],
+    "depredadores": [
+      "dorada",
+      "pulpo",
+      "gaviota",
+      "tortuga_boba"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "primavera",
+      "camada": "millones de huevos"
+    },
+    "reproduccion": "alta",
+    "conducta": "sésil en rocas y pilotes del puerto",
+    "recursos": [
+      "carne",
+      "cebo"
+    ],
+    "estado": "Recolectado en escolleras y pilotes del puerto.",
+    "folklore": "",
+    "nota": "Recolectado en escolleras y pilotes del puerto."
+  },
+  {
+    "id": "cormoran_mono",
+    "nombre": "Cormorán moñudo",
+    "nombreCa": "Corb marí emplomallat",
+    "cientifico": "Gulosus aristotelis",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "animal",
+    "rol": "depredador marino",
+    "dieta": [
+      "sardina",
+      "g:peces_pequenos",
+      "anguila"
+    ],
+    "depredadores": [
+      "halcon_peregrino"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "febrero-mayo",
+      "camada": "2-4 huevos"
+    },
+    "reproduccion": "media",
+    "conducta": "bucea; seca las alas al sol en rocas",
+    "recursos": [
+      "pluma"
+    ],
+    "estado": "Nidifica en acantilados mediterráneos.",
+    "folklore": "",
+    "nota": "Nidifica en acantilados mediterráneos."
+  },
+  {
+    "id": "tortuga_mediterranea",
+    "nombre": "Tortuga mediterránea",
+    "nombreCa": "Tortuga mediterrània",
+    "cientifico": "Testudo hermanni hermanni",
+    "biomas": [
+      "costa",
+      "pradera"
+    ],
+    "tipo": "animal",
+    "rol": "herbívoro",
+    "dieta": [
+      "g:hierba",
+      "g:frutos"
+    ],
+    "depredadores": [
+      "aguila_real",
+      "zorro",
+      "jabali",
+      "tejon"
+    ],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "puesta mayo-julio",
+      "camada": "2-5 huevos, 1-3 puestas"
+    },
+    "reproduccion": "baja",
+    "conducta": "lenta; hiberna noviembre-marzo",
+    "recursos": [
+      "caparazón (alquimia); nunca debería cazarse"
+    ],
+    "estado": "Antes común en Catalunya; solo queda natural en l'Albera. Reintroducida en el Garraf desde 1992 (~5.000 ejemplares).",
+    "folklore": "Símbolo de longevidad.",
+    "nota": "Antes común en Catalunya; solo queda natural en l'Albera. Reintroducida en el Garraf desde 1992 (~5.000 ejemplares). Folklore: Símbolo de longevidad."
+  },
+  {
+    "id": "higuera",
+    "nombre": "Higuera",
+    "nombreCa": "Figuera",
+    "cientifico": "Ficus carica",
+    "biomas": [
+      "urbano",
+      "pradera",
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor (fruto)",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "floración verano, higos julio-septiembre",
+      "camada": "2 cosechas (brevas e higos)"
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "higos",
+      "látex (verrugas)",
+      "hojas"
+    ],
+    "estado": "Presente en todo patio y masía.",
+    "folklore": "Bajo la higuera se aparecen brujas la noche de San Juan.",
+    "nota": "Presente en todo patio y masía. Folklore: Bajo la higuera se aparecen brujas la noche de San Juan."
+  },
+  {
+    "id": "naranjo_amargo",
+    "nombre": "Naranjo amargo",
+    "nombreCa": "Taronger agre",
+    "cientifico": "Citrus × aurantium",
+    "biomas": [
+      "urbano"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor (azahar) abril",
+      "camada": "cosecha invernal"
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "naranjas amargas",
+      "azahar (agua de azahar)",
+      "aceite esencial"
+    ],
+    "estado": "Introducido por los andalusíes; decoraba patios (Pati dels Tarongers del Palau de la Generalitat).",
+    "folklore": "",
+    "nota": "Introducido por los andalusíes; decoraba patios (Pati dels Tarongers del Palau de la Generalitat)."
+  },
+  {
+    "id": "parietaria",
+    "nombre": "Parietaria",
+    "nombreCa": "Morella roquera",
+    "cientifico": "Parietaria judaica",
+    "biomas": [
+      "urbano"
+    ],
+    "tipo": "planta",
+    "rol": "productor ruderal",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "florece casi todo el año",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "medicinal (diurética)",
+      "alérgena"
+    ],
+    "estado": "Crece en todos los muros de la ciudad.",
+    "folklore": "",
+    "nota": "Crece en todos los muros de la ciudad."
+  },
+  {
+    "id": "malva",
+    "nombre": "Malva",
+    "nombreCa": "Malva",
+    "cientifico": "Malva sylvestris",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor ruderal",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "primavera-otoño",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "medicinal (emoliente)",
+      "comestible"
+    ],
+    "estado": "Omnipresente en caminos y solares.",
+    "folklore": "Remedio para todo: «malva, de todos males salva».",
+    "nota": "Omnipresente en caminos y solares. Folklore: Remedio para todo: «malva, de todos males salva»."
+  },
+  {
+    "id": "ortiga",
+    "nombre": "Ortiga",
+    "nombreCa": "Ortiga",
+    "cientifico": "Urtica dioica",
+    "biomas": [
+      "urbano",
+      "pradera",
+      "bosque"
+    ],
+    "tipo": "planta",
+    "rol": "productor ruderal",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "primavera-verano",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "fibra textil",
+      "sopa",
+      "tinte verde",
+      "medicinal"
+    ],
+    "estado": "Indica suelos ricos (estercoleros, corrales).",
+    "folklore": "Contra el reuma se azotaba con ortigas.",
+    "nota": "Indica suelos ricos (estercoleros, corrales). Folklore: Contra el reuma se azotaba con ortigas."
+  },
+  {
+    "id": "alcaparra",
+    "nombre": "Alcaparra",
+    "nombreCa": "Tàpera",
+    "cientifico": "Capparis spinosa",
+    "biomas": [
+      "urbano",
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor rupícola",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "alcaparras (encurtido)",
+      "medicinal"
+    ],
+    "estado": "Crece en murallas y acantilados.",
+    "folklore": "",
+    "nota": "Crece en murallas y acantilados."
+  },
+  {
+    "id": "ruda",
+    "nombre": "Ruda",
+    "nombreCa": "Ruda",
+    "cientifico": "Ruta graveolens",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor aromático",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "ingrediente alquímico",
+      "abortiva y tóxica",
+      "repelente"
+    ],
+    "estado": "Cultivada en huertos de boticario y masías.",
+    "folklore": "Hierba contra el mal de ojo y las brujas; entra en la «ratafía».",
+    "nota": "Cultivada en huertos de boticario y masías. Folklore: Hierba contra el mal de ojo y las brujas; entra en la «ratafía»."
+  },
+  {
+    "id": "salvia",
+    "nombre": "Salvia",
+    "nombreCa": "Sàlvia",
+    "cientifico": "Salvia officinalis",
+    "biomas": [
+      "urbano",
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor aromático",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor mayo-junio",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "medicinal (garganta",
+      "digestión)",
+      "condimento"
+    ],
+    "estado": "Cultivada en jardines monásticos.",
+    "folklore": "«Qui té sàlvia a l'hort, no li cal metge».",
+    "nota": "Cultivada en jardines monásticos. Folklore: «Qui té sàlvia a l'hort, no li cal metge»."
+  },
+  {
+    "id": "mandragora",
+    "nombre": "Mandrágora",
+    "nombreCa": "Mandràgora",
+    "cientifico": "Mandragora autumnalis",
+    "biomas": [
+      "urbano"
+    ],
+    "tipo": "planta",
+    "rol": "productor (raro)",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor otoño, fruto invierno",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "ingrediente alquímico mayor (narcótico",
+      "anestésico)"
+    ],
+    "estado": "No es silvestre en el entorno de Barcelona: vendida por boticarios o cultivada en secreto. Rareza.",
+    "folklore": "Raíz con forma humana que grita al arrancarla; se arrancaba con un perro.",
+    "nota": "No es silvestre en el entorno de Barcelona: vendida por boticarios o cultivada en secreto. Rareza. Folklore: Raíz con forma humana que grita al arrancarla; se arrancaba con un perro."
+  },
+  {
+    "id": "beleno",
+    "nombre": "Beleño negro",
+    "nombreCa": "Jusquiam negre",
+    "cientifico": "Hyoscyamus niger",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor ruderal",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "veneno",
+      "ingrediente alquímico (visiones",
+      "ungüento de bruja)"
+    ],
+    "estado": "Ruderal junto a corrales y estercoleros.",
+    "folklore": "Base de los «ungüentos de vuelo» de las brujas.",
+    "nota": "Ruderal junto a corrales y estercoleros. Folklore: Base de los «ungüentos de vuelo» de las brujas."
+  },
+  {
+    "id": "hiedra",
+    "nombre": "Hiedra",
+    "nombreCa": "Heura",
+    "cientifico": "Hedera helix",
+    "biomas": [
+      "bosque",
+      "urbano",
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor trepador",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor otoño, fruto invierno",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "medicinal externa",
+      "frutos tóxicos",
+      "alimento invernal de aves"
+    ],
+    "estado": "Cubre murallas y troncos de bosque.",
+    "folklore": "",
+    "nota": "Cubre murallas y troncos de bosque."
+  },
+  {
+    "id": "encina",
+    "nombre": "Encina",
+    "nombreCa": "Alzina",
+    "cientifico": "Quercus ilex",
+    "biomas": [
+      "bosque",
+      "montana",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor dominante",
+    "dieta": [],
+    "depredadores": [
+      "jabali",
+      "ardilla",
+      "raton_campo",
+      "arrendajo",
+      "cabra_montes",
+      "oso"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-mayo, bellotas octubre-diciembre",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "bellotas (alimento",
+      "harina)",
+      "madera",
+      "carbón",
+      "corteza (curtidos)"
+    ],
+    "estado": "El árbol clímax del litoral catalán; carbón vegetal para la ciudad.",
+    "folklore": "Árbol protector frente al rayo.",
+    "nota": "El árbol clímax del litoral catalán; carbón vegetal para la ciudad. Folklore: Árbol protector frente al rayo."
+  },
+  {
+    "id": "roble",
+    "nombre": "Roble pubescente",
+    "nombreCa": "Roure martinenc",
+    "cientifico": "Quercus pubescens",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [
+      "jabali",
+      "corzo",
+      "ardilla",
+      "arrendajo",
+      "ciervo",
+      "gegant_roca"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril, bellotas otoño",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "madera de construcción",
+      "bellotas",
+      "agallas (tinta)"
+    ],
+    "estado": "Robledales en umbrías de Collserola y Montseny.",
+    "folklore": "",
+    "nota": "Robledales en umbrías de Collserola y Montseny."
+  },
+  {
+    "id": "madrono",
+    "nombre": "Madroño",
+    "nombreCa": "Arboç",
+    "cientifico": "Arbutus unedo",
+    "biomas": [
+      "bosque",
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor (fruto invernal)",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor y fruto a la vez, octubre-diciembre",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "madroños (fermentan: ligeramente embriagadores)",
+      "taninos"
+    ],
+    "estado": "Sotobosque del encinar de Collserola.",
+    "folklore": "«Unedo» = «como solo uno», porque atonta comer muchos.",
+    "nota": "Sotobosque del encinar de Collserola. Folklore: «Unedo» = «como solo uno», porque atonta comer muchos."
+  },
+  {
+    "id": "pino_carrasco",
+    "nombre": "Pino carrasco",
+    "nombreCa": "Pi blanc",
+    "cientifico": "Pinus halepensis",
+    "biomas": [
+      "bosque",
+      "costa",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor pionero",
+    "dieta": [],
+    "depredadores": [
+      "ardilla"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor marzo-abril, piñas 2 años",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "resina",
+      "pez (calafatear barcos)",
+      "madera",
+      "leña"
+    ],
+    "estado": "Dominante hoy en Collserola y el Garraf; en la Edad Media menos extendido que el encinar.",
+    "folklore": "",
+    "nota": "Dominante hoy en Collserola y el Garraf; en la Edad Media menos extendido que el encinar."
+  },
+  {
+    "id": "durillo",
+    "nombre": "Durillo",
+    "nombreCa": "Marfull",
+    "cientifico": "Viburnum tinus",
+    "biomas": [
+      "bosque"
+    ],
+    "tipo": "planta",
+    "rol": "productor de sotobosque",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor invierno, bayas azules",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "bayas tóxicas",
+      "tinte"
+    ],
+    "estado": "Común en el encinar.",
+    "folklore": "",
+    "nota": "Común en el encinar."
+  },
+  {
+    "id": "brezo",
+    "nombre": "Brezo arbóreo",
+    "nombreCa": "Bruc",
+    "cientifico": "Erica arborea",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor marzo-mayo",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "raíz (cepas para pipas)",
+      "escobas",
+      "miel de brezo"
+    ],
+    "estado": "En suelos ácidos de Collserola y Montseny.",
+    "folklore": "",
+    "nota": "En suelos ácidos de Collserola y Montseny."
+  },
+  {
+    "id": "rusco",
+    "nombre": "Rusco",
+    "nombreCa": "Galzeran",
+    "cientifico": "Ruscus aculeatus",
+    "biomas": [
+      "bosque"
+    ],
+    "tipo": "planta",
+    "rol": "productor de sotobosque",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor invierno, bayas rojas",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "brotes comestibles",
+      "medicinal (venas)",
+      "decoración navideña"
+    ],
+    "estado": "Sotobosque de encinar y robledal.",
+    "folklore": "Adorno navideño tradicional.",
+    "nota": "Sotobosque de encinar y robledal. Folklore: Adorno navideño tradicional."
+  },
+  {
+    "id": "muerdago",
+    "nombre": "Muérdago",
+    "nombreCa": "Vesc",
+    "cientifico": "Viscum album",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "parásito",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor febrero-marzo, bayas invierno",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "ingrediente alquímico",
+      "liga para cazar pájaros (vesc)",
+      "medicinal"
+    ],
+    "estado": "Sobre pinos y árboles de ribera.",
+    "folklore": "Planta sagrada de druidas; su liga («vesc») atrapaba pájaros.",
+    "nota": "Sobre pinos y árboles de ribera. Folklore: Planta sagrada de druidas; su liga («vesc») atrapaba pájaros."
+  },
+  {
+    "id": "rovellon",
+    "nombre": "Rovellón",
+    "nombreCa": "Rovelló",
+    "cientifico": "Lactarius sanguifluus / L. deliciosus",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "hongo",
+    "rol": "descomponedor micorrícico (pino)",
+    "dieta": [],
+    "depredadores": [
+      "jabali",
+      "ardilla"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "fructifica septiembre-noviembre tras lluvias",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "comida muy apreciada"
+    ],
+    "estado": "La seta reina de Catalunya, ligada a pinares.",
+    "folklore": "Salidas multitudinarias «a buscar bolets» en otoño.",
+    "nota": "La seta reina de Catalunya, ligada a pinares. Folklore: Salidas multitudinarias «a buscar bolets» en otoño."
+  },
+  {
+    "id": "cep",
+    "nombre": "Ceps / boleto",
+    "nombreCa": "Cep",
+    "cientifico": "Boletus edulis / B. aereus",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "hongo",
+    "rol": "descomponedor micorrícico (roble, haya, encina)",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "agosto-noviembre",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "comida",
+      "desecado"
+    ],
+    "estado": "En robledales, hayedos y encinares del Montseny.",
+    "folklore": "",
+    "nota": "En robledales, hayedos y encinares del Montseny."
+  },
+  {
+    "id": "ou_de_reig",
+    "nombre": "Oronja",
+    "nombreCa": "Ou de reig",
+    "cientifico": "Amanita caesarea",
+    "biomas": [
+      "bosque"
+    ],
+    "tipo": "hongo",
+    "rol": "micorrícico (encina, roble)",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "verano-otoño cálido",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "comida de reyes"
+    ],
+    "estado": "En encinares y alcornocales; muy buscada.",
+    "folklore": "«Huevo de rey»: seta de los césares.",
+    "nota": "En encinares y alcornocales; muy buscada. Folklore: «Huevo de rey»: seta de los césares."
+  },
+  {
+    "id": "farinera_borda",
+    "nombre": "Oronja verde",
+    "nombreCa": "Farinera borda",
+    "cientifico": "Amanita phalloides",
+    "biomas": [
+      "bosque"
+    ],
+    "tipo": "hongo",
+    "rol": "micorrícico",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "otoño",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "veneno mortal"
+    ],
+    "estado": "Presente en robledales y encinares.",
+    "folklore": "Causa de la mayoría de muertes por setas.",
+    "nota": "Presente en robledales y encinares. Folklore: Causa de la mayoría de muertes por setas."
+  },
+  {
+    "id": "trufa",
+    "nombre": "Trufa negra",
+    "nombreCa": "Tòfona negra",
+    "cientifico": "Tuber melanosporum",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "hongo",
+    "rol": "micorrícico (encina, roble)",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "maduración diciembre-febrero",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "comida de lujo"
+    ],
+    "estado": "En encinares calcáreos del interior; se buscaba con cerdos o perros.",
+    "folklore": "",
+    "nota": "En encinares calcáreos del interior; se buscaba con cerdos o perros."
+  },
+  {
+    "id": "trigo",
+    "nombre": "Trigo",
+    "nombreCa": "Blat",
+    "cientifico": "Triticum aestivum",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "cultivo",
+    "dieta": [],
+    "depredadores": [
+      "rata_negra",
+      "raton_casero",
+      "gorrion",
+      "paloma",
+      "jabali",
+      "conejo",
+      "liebre",
+      "perdiz",
+      "codorniz",
+      "topillo",
+      "pota_blava",
+      "ciervo",
+      "follet",
+      "simiot"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "siembra oct-nov, siega junio",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "grano",
+      "harina",
+      "paja"
+    ],
+    "estado": "Cereal base del llano del Llobregat y el Vallès.",
+    "folklore": "Siega con fiestas de Sant Joan y Sant Pere.",
+    "nota": "Cereal base del llano del Llobregat y el Vallès. Folklore: Siega con fiestas de Sant Joan y Sant Pere."
+  },
+  {
+    "id": "cebada",
+    "nombre": "Cebada",
+    "nombreCa": "Ordi",
+    "cientifico": "Hordeum vulgare",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "cultivo",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "siembra otoño, siega mayo-junio",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "grano (pienso",
+      "cerveza)",
+      "paja"
+    ],
+    "estado": "Cultivo de secano complementario al trigo.",
+    "folklore": "",
+    "nota": "Cultivo de secano complementario al trigo."
+  },
+  {
+    "id": "vid",
+    "nombre": "Vid",
+    "nombreCa": "Vinya",
+    "cientifico": "Vitis vinifera",
+    "biomas": [
+      "pradera",
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "cultivo",
+    "dieta": [],
+    "depredadores": [
+      "jabali",
+      "tejon",
+      "conejo",
+      "simiot"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "brotación abril, vendimia septiembre",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "uva",
+      "vino",
+      "vinagre",
+      "sarmientos"
+    ],
+    "estado": "Viñedos del Penedès, Alella y Maresme desde época romana (vino layetano).",
+    "folklore": "Vendimia con fiestas; vino layetano exportado a Roma.",
+    "nota": "Viñedos del Penedès, Alella y Maresme desde época romana (vino layetano). Folklore: Vendimia con fiestas; vino layetano exportado a Roma."
+  },
+  {
+    "id": "olivo",
+    "nombre": "Olivo",
+    "nombreCa": "Olivera",
+    "cientifico": "Olea europaea",
+    "biomas": [
+      "pradera",
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "cultivo",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor mayo, cosecha noviembre-enero",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "aceitunas",
+      "aceite (luz",
+      "comida",
+      "ungüentos)",
+      "madera"
+    ],
+    "estado": "Olivares en secanos del Garraf, Penedès y Bages.",
+    "folklore": "Ramo de olivo el Domingo de Ramos; aceite para lámparas.",
+    "nota": "Olivares en secanos del Garraf, Penedès y Bages. Folklore: Ramo de olivo el Domingo de Ramos; aceite para lámparas."
+  },
+  {
+    "id": "alcachofa",
+    "nombre": "Alcachofa del Prat",
+    "nombreCa": "Carxofa del Prat",
+    "cientifico": "Cynara cardunculus var. scolymus",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "cultivo de huerta",
+    "dieta": [],
+    "depredadores": [
+      "jabali",
+      "conejo",
+      "topillo"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "plantación verano, cosecha noviembre-abril",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "alcachofa",
+      "medicinal (hígado)"
+    ],
+    "estado": "Huerta del delta del Llobregat; cultivo del s. XX (ahora IGP). Para una época premoderna, mejor cardo o alcachofa «de huerta nueva».",
+    "folklore": "",
+    "nota": "Huerta del delta del Llobregat; cultivo del s. XX (ahora IGP). Para una época premoderna, mejor cardo o alcachofa «de huerta nueva»."
+  },
+  {
+    "id": "almendro",
+    "nombre": "Almendro",
+    "nombreCa": "Ametller",
+    "cientifico": "Prunus dulcis",
+    "biomas": [
+      "pradera",
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "cultivo",
+    "dieta": [],
+    "depredadores": [
+      "abeja"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor enero-febrero, cosecha agosto-septiembre",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "almendras",
+      "flor (néctar temprano)"
+    ],
+    "estado": "Secanos del litoral; primera flor del año para las abejas.",
+    "folklore": "",
+    "nota": "Secanos del litoral; primera flor del año para las abejas."
+  },
+  {
+    "id": "algarrobo",
+    "nombre": "Algarrobo",
+    "nombreCa": "Garrofer",
+    "cientifico": "Ceratonia siliqua",
+    "biomas": [
+      "costa",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "cultivo de secano",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor otoño, cosecha agosto-septiembre",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "garrofas (pienso",
+      "harina de hambre)"
+    ],
+    "estado": "Típico del Garraf y el Penedès costero.",
+    "folklore": "Semillas usadas como unidad de peso (quilate).",
+    "nota": "Típico del Garraf y el Penedès costero. Folklore: Semillas usadas como unidad de peso (quilate)."
+  },
+  {
+    "id": "hinojo",
+    "nombre": "Hinojo",
+    "nombreCa": "Fonoll",
+    "cientifico": "Foeniculum vulgare",
+    "biomas": [
+      "pradera",
+      "urbano"
+    ],
+    "tipo": "planta",
+    "rol": "productor ruderal aromático",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "condimento",
+      "medicinal (digestivo)",
+      "aromatizar aceitunas"
+    ],
+    "estado": "Borde de caminos del llano.",
+    "folklore": "",
+    "nota": "Borde de caminos del llano."
+  },
+  {
+    "id": "amapola",
+    "nombre": "Amapola",
+    "nombreCa": "Rosella",
+    "cientifico": "Papaver rhoeas",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor arvense",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-junio",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "jarabe sedante suave",
+      "tinte rojo"
+    ],
+    "estado": "Mala hierba de trigales.",
+    "folklore": "",
+    "nota": "Mala hierba de trigales."
+  },
+  {
+    "id": "manzanilla",
+    "nombre": "Manzanilla",
+    "nombreCa": "Camamilla",
+    "cientifico": "Matricaria chamomilla",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor arvense",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-julio",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "infusión digestiva",
+      "calmante"
+    ],
+    "estado": "En campos y eras.",
+    "folklore": "",
+    "nota": "En campos y eras."
+  },
+  {
+    "id": "hiperico",
+    "nombre": "Hipérico",
+    "nombreCa": "Herba de Sant Joan / pericó",
+    "cientifico": "Hypericum perforatum",
+    "biomas": [
+      "pradera",
+      "bosque",
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor junio (se recoge la noche de San Juan)",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "aceite rojo de hipérico (heridas",
+      "quemaduras)",
+      "antidepresivo",
+      "ingrediente alquímico"
+    ],
+    "estado": "Común en prados y bordes de bosque.",
+    "folklore": "Se recoge al amanecer de San Juan: ahuyenta demonios («fuga daemonum»).",
+    "nota": "Común en prados y bordes de bosque. Folklore: Se recoge al amanecer de San Juan: ahuyenta demonios («fuga daemonum»)."
+  },
+  {
+    "id": "camperol",
+    "nombre": "Champiñón silvestre",
+    "nombreCa": "Camperol",
+    "cientifico": "Agaricus campestris",
+    "biomas": [
+      "pradera"
+    ],
+    "tipo": "hongo",
+    "rol": "descomponedor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "primavera y otoño tras lluvias",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "comida"
+    ],
+    "estado": "En prados pastoreados.",
+    "folklore": "",
+    "nota": "En prados pastoreados."
+  },
+  {
+    "id": "haya",
+    "nombre": "Haya",
+    "nombreCa": "Faig",
+    "cientifico": "Fagus sylvatica",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor dominante (umbría)",
+    "dieta": [],
+    "depredadores": [
+      "ardilla",
+      "ciervo",
+      "oso",
+      "gegant_roca"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-mayo, hayucos otoño",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "madera",
+      "hayucos",
+      "leña"
+    ],
+    "estado": "Hayedos del Montseny (Santa Fe), relictos del frío.",
+    "folklore": "",
+    "nota": "Hayedos del Montseny (Santa Fe), relictos del frío."
+  },
+  {
+    "id": "abeto",
+    "nombre": "Abeto blanco",
+    "nombreCa": "Avet",
+    "cientifico": "Abies alba",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor mayo, piñas otoño",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "madera",
+      "resina (trementina)",
+      "árbol de Navidad"
+    ],
+    "estado": "Abetales relictos del Montseny (Passavets, Matagalls): el límite sur de la especie.",
+    "folklore": "",
+    "nota": "Abetales relictos del Montseny (Passavets, Matagalls): el límite sur de la especie."
+  },
+  {
+    "id": "pino_silvestre",
+    "nombre": "Pino silvestre",
+    "nombreCa": "Pi roig",
+    "cientifico": "Pinus sylvestris",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [
+      "ardilla"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor mayo-junio",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "madera",
+      "resina"
+    ],
+    "estado": "En zonas altas del Montseny.",
+    "folklore": "",
+    "nota": "En zonas altas del Montseny."
+  },
+  {
+    "id": "tejo",
+    "nombre": "Tejo",
+    "nombreCa": "Teix",
+    "cientifico": "Taxus baccata",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor relicto",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor febrero-marzo, arilo rojo otoño",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "madera de arcos",
+      "veneno potente (todo menos el arilo)"
+    ],
+    "estado": "Ejemplares aislados en el Montseny y Montserrat.",
+    "folklore": "Árbol de la muerte y la eternidad; arcos largos.",
+    "nota": "Ejemplares aislados en el Montseny y Montserrat. Folklore: Árbol de la muerte y la eternidad; arcos largos."
+  },
+  {
+    "id": "acebo",
+    "nombre": "Acebo",
+    "nombreCa": "Grèvol",
+    "cientifico": "Ilex aquifolium",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor mayo, bayas invierno",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "bayas tóxicas",
+      "ramas navideñas",
+      "liga"
+    ],
+    "estado": "Sotobosque de hayedos del Montseny.",
+    "folklore": "Protege la casa del rayo.",
+    "nota": "Sotobosque de hayedos del Montseny. Folklore: Protege la casa del rayo."
+  },
+  {
+    "id": "boj",
+    "nombre": "Boj",
+    "nombreCa": "Boix",
+    "cientifico": "Buxus sempervirens",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [
+      "cabra_montes"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor marzo-abril",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "madera dura (cucharas",
+      "grabados)",
+      "tóxico"
+    ],
+    "estado": "Sotobosque calcáreo de Montserrat.",
+    "folklore": "",
+    "nota": "Sotobosque calcáreo de Montserrat."
+  },
+  {
+    "id": "belladona",
+    "nombre": "Belladona",
+    "nombreCa": "Belladona",
+    "cientifico": "Atropa belladonna",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "planta",
+    "rol": "productor de claros",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor junio-agosto, bayas negras",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "veneno mortal",
+      "ingrediente alquímico (midriasis",
+      "visiones)"
+    ],
+    "estado": "Claros de hayedo del Montseny.",
+    "folklore": "Las damas se dilataban las pupilas con ella; ingrediente de ungüentos de bruja.",
+    "nota": "Claros de hayedo del Montseny. Folklore: Las damas se dilataban las pupilas con ella; ingrediente de ungüentos de bruja."
+  },
+  {
+    "id": "genciana",
+    "nombre": "Genciana amarilla",
+    "nombreCa": "Genciana groga",
+    "cientifico": "Gentiana lutea",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor relicto",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor julio",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "raíz amarga (licores",
+      "tónico",
+      "fiebres)"
+    ],
+    "estado": "Relicta en las cumbres del Montseny.",
+    "folklore": "",
+    "nota": "Relicta en las cumbres del Montseny."
+  },
+  {
+    "id": "orella_os",
+    "nombre": "Oreja de oso",
+    "nombreCa": "Orella d'ós",
+    "cientifico": "Ramonda myconi",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor rupícola",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-junio",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "ingrediente alquímico (revive tras secarse: «planta de resurrección»)"
+    ],
+    "estado": "Grietas umbrías de Montserrat, su límite sur; emblema de la montaña.",
+    "folklore": "Resucita tras meses seca: planta de reliquia y milagro.",
+    "nota": "Grietas umbrías de Montserrat, su límite sur; emblema de la montaña. Folklore: Resucita tras meses seca: planta de reliquia y milagro."
+  },
+  {
+    "id": "te_roca",
+    "nombre": "Té de roca",
+    "nombreCa": "Te de roca",
+    "cientifico": "Chiliadenus saxatilis (Jasonia glutinosa)",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor rupícola",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor julio-septiembre",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "infusión digestiva"
+    ],
+    "estado": "Cingles de solana de Montserrat.",
+    "folklore": "Té tradicional de los ermitaños y excursionistas de Montserrat.",
+    "nota": "Cingles de solana de Montserrat. Folklore: Té tradicional de los ermitaños y excursionistas de Montserrat."
+  },
+  {
+    "id": "ajenjo",
+    "nombre": "Ajenjo",
+    "nombreCa": "Donzell",
+    "cientifico": "Artemisia absinthium",
+    "biomas": [
+      "montana",
+      "urbano"
+    ],
+    "tipo": "planta",
+    "rol": "productor ruderal",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor julio-septiembre",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "ingrediente alquímico (vermífugo",
+      "licores)",
+      "repelente de polillas"
+    ],
+    "estado": "Ruderal de montaña, cultivado en huertos.",
+    "folklore": "Hierba amarga de las brujas y los licores.",
+    "nota": "Ruderal de montaña, cultivado en huertos. Folklore: Hierba amarga de las brujas y los licores."
+  },
+  {
+    "id": "romero",
+    "nombre": "Romero",
+    "nombreCa": "Romaní",
+    "cientifico": "Salvia rosmarinus",
+    "biomas": [
+      "costa",
+      "bosque",
+      "montana",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor aromático (melífero)",
+    "dieta": [],
+    "depredadores": [
+      "abeja"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor casi todo el año (pico invierno-primavera)",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "condimento",
+      "medicinal",
+      "aceite",
+      "néctar (miel)"
+    ],
+    "estado": "Matorral de Garraf, Montserrat y Collserola.",
+    "folklore": "Hierba de la memoria; se quemaba contra la peste.",
+    "nota": "Matorral de Garraf, Montserrat y Collserola. Folklore: Hierba de la memoria; se quemaba contra la peste."
+  },
+  {
+    "id": "tomillo",
+    "nombre": "Tomillo",
+    "nombreCa": "Farigola",
+    "cientifico": "Thymus vulgaris",
+    "biomas": [
+      "costa",
+      "montana",
+      "pradera"
+    ],
+    "tipo": "planta",
+    "rol": "productor aromático (melífero)",
+    "dieta": [],
+    "depredadores": [
+      "abeja"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor marzo-junio",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "condimento",
+      "sopa de farigola",
+      "antiséptico",
+      "néctar"
+    ],
+    "estado": "Matorral seco de Garraf y Montserrat.",
+    "folklore": "Sopa de farigola para el catarro.",
+    "nota": "Matorral seco de Garraf y Montserrat. Folklore: Sopa de farigola para el catarro."
+  },
+  {
+    "id": "alamo_blanco",
+    "nombre": "Álamo blanco",
+    "nombreCa": "Àlber",
+    "cientifico": "Populus alba",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor de ribera",
+    "dieta": [],
+    "depredadores": [
+      "castor"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor febrero-marzo",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "madera blanda",
+      "corteza (medicinal)"
+    ],
+    "estado": "Bosques de ribera del Llobregat.",
+    "folklore": "",
+    "nota": "Bosques de ribera del Llobregat."
+  },
+  {
+    "id": "sauce",
+    "nombre": "Sauce blanco",
+    "nombreCa": "Salze",
+    "cientifico": "Salix alba",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor de ribera",
+    "dieta": [],
+    "depredadores": [
+      "castor"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor marzo-abril",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "mimbre",
+      "corteza (ácido salicílico: dolor y fiebre)"
+    ],
+    "estado": "Orillas de todos los ríos.",
+    "folklore": "La corteza de sauce era el «analgésico» medieval.",
+    "nota": "Orillas de todos los ríos. Folklore: La corteza de sauce era el «analgésico» medieval."
+  },
+  {
+    "id": "aliso",
+    "nombre": "Aliso",
+    "nombreCa": "Vern",
+    "cientifico": "Alnus glutinosa",
+    "biomas": [
+      "rio",
+      "montana"
+    ],
+    "tipo": "planta",
+    "rol": "productor de ribera",
+    "dieta": [],
+    "depredadores": [
+      "castor"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor invierno",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "madera que no se pudre bajo el agua (pilotes)",
+      "tinte"
+    ],
+    "estado": "Rieras del Montseny.",
+    "folklore": "",
+    "nota": "Rieras del Montseny."
+  },
+  {
+    "id": "carrizo",
+    "nombre": "Carrizo",
+    "nombreCa": "Canyís",
+    "cientifico": "Phragmites australis",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor palustre",
+    "dieta": [],
+    "depredadores": [
+      "anade_real"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano-otoño",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "techado",
+      "esteras",
+      "refugio de fauna"
+    ],
+    "estado": "Grandes carrizales en el delta.",
+    "folklore": "",
+    "nota": "Grandes carrizales en el delta."
+  },
+  {
+    "id": "enea",
+    "nombre": "Enea",
+    "nombreCa": "Boga",
+    "cientifico": "Typha latifolia",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor palustre",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor junio-agosto",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "sillas y cestería (boga)",
+      "rizoma comestible",
+      "mechas"
+    ],
+    "estado": "Estanys y acequias del delta.",
+    "folklore": "",
+    "nota": "Estanys y acequias del delta."
+  },
+  {
+    "id": "junco",
+    "nombre": "Junco",
+    "nombreCa": "Jonc",
+    "cientifico": "Juncus sp.",
+    "biomas": [
+      "rio",
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor palustre",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor primavera-verano",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "cestería",
+      "esteras"
+    ],
+    "estado": "Marismas y ríos.",
+    "folklore": "",
+    "nota": "Marismas y ríos."
+  },
+  {
+    "id": "adelfa",
+    "nombre": "Adelfa",
+    "nombreCa": "Baladre",
+    "cientifico": "Nerium oleander",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor de ramblas",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor mayo-septiembre",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "veneno muy potente (corazón)",
+      "raticida",
+      "ingrediente alquímico"
+    ],
+    "estado": "Rieras secas y torrentes del litoral.",
+    "folklore": "Veneno clásico; no usar su madera para asar.",
+    "nota": "Rieras secas y torrentes del litoral. Folklore: Veneno clásico; no usar su madera para asar."
+  },
+  {
+    "id": "berro",
+    "nombre": "Berro",
+    "nombreCa": "Créixens",
+    "cientifico": "Nasturtium officinale",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor acuático",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "comestible",
+      "rico en vitamina C",
+      "medicinal"
+    ],
+    "estado": "Fuentes y acequias limpias.",
+    "folklore": "",
+    "nota": "Fuentes y acequias limpias."
+  },
+  {
+    "id": "menta_agua",
+    "nombre": "Menta de agua",
+    "nombreCa": "Menta d'aigua",
+    "cientifico": "Mentha aquatica",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor palustre",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor julio-octubre",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "aromática",
+      "digestiva"
+    ],
+    "estado": "Orillas de ríos y fuentes.",
+    "folklore": "",
+    "nota": "Orillas de ríos y fuentes."
+  },
+  {
+    "id": "lirio_amarillo",
+    "nombre": "Lirio amarillo",
+    "nombreCa": "Lliri groc",
+    "cientifico": "Iris pseudacorus",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor palustre",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-junio",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "rizoma (tinte negro",
+      "tinta)",
+      "tóxico"
+    ],
+    "estado": "Marismas del delta.",
+    "folklore": "",
+    "nota": "Marismas del delta."
+  },
+  {
+    "id": "posidonia",
+    "nombre": "Posidonia",
+    "nombreCa": "Posidònia",
+    "cientifico": "Posidonia oceanica",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor marino (pradera)",
+    "dieta": [],
+    "depredadores": [
+      "erizo_mar"
+    ],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor otoño (rara), crece 1 cm/año",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "hojas secas (relleno de colchones",
+      "embalaje",
+      "abono)",
+      "refugio de alevines"
+    ],
+    "estado": "Praderas frente al Garraf; forman «banquetas» en las playas.",
+    "folklore": "Las «pelotas de mar» se usaban como aislante.",
+    "nota": "Praderas frente al Garraf; forman «banquetas» en las playas. Folklore: Las «pelotas de mar» se usaban como aislante."
+  },
+  {
+    "id": "palmito",
+    "nombre": "Palmito",
+    "nombreCa": "Margalló",
+    "cientifico": "Chamaerops humilis",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-junio, dátiles otoño",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "cogollo comestible",
+      "hojas (escobas",
+      "cestería",
+      "cuerdas)"
+    ],
+    "estado": "Única palmera autóctona europea: emblema del Garraf.",
+    "folklore": "",
+    "nota": "Única palmera autóctona europea: emblema del Garraf."
+  },
+  {
+    "id": "lentisco",
+    "nombre": "Lentisco",
+    "nombreCa": "Llentiscle",
+    "cientifico": "Pistacia lentiscus",
+    "biomas": [
+      "costa",
+      "bosque"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor marzo-abril, frutos otoño",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "almáciga (resina)",
+      "aceite de lentisco (lámparas)",
+      "taninos"
+    ],
+    "estado": "Matorral litoral.",
+    "folklore": "",
+    "nota": "Matorral litoral."
+  },
+  {
+    "id": "coscoja",
+    "nombre": "Coscoja",
+    "nombreCa": "Garric",
+    "cientifico": "Quercus coccifera",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor abril-mayo",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "quermes (tinte rojo del insecto)",
+      "leña"
+    ],
+    "estado": "Matorral del Garraf.",
+    "folklore": "El quermes daba el rojo carmesí de los paños.",
+    "nota": "Matorral del Garraf. Folklore: El quermes daba el rojo carmesí de los paños."
+  },
+  {
+    "id": "hinojo_marino",
+    "nombre": "Hinojo marino",
+    "nombreCa": "Fonoll marí",
+    "cientifico": "Crithmum maritimum",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor rupícola",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano",
+      "camada": ""
+    },
+    "reproduccion": "media",
+    "conducta": "",
+    "recursos": [
+      "encurtido",
+      "antiescorbútico para marineros"
+    ],
+    "estado": "Rocas salpicadas por el mar.",
+    "folklore": "",
+    "nota": "Rocas salpicadas por el mar."
+  },
+  {
+    "id": "azucena_mar",
+    "nombre": "Azucena de mar",
+    "nombreCa": "Lliri de mar",
+    "cientifico": "Pancratium maritimum",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "planta",
+    "rol": "productor de dunas",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor julio-septiembre (noche)",
+      "camada": ""
+    },
+    "reproduccion": "baja",
+    "conducta": "",
+    "recursos": [
+      "bulbo tóxico",
+      "ornamental"
+    ],
+    "estado": "Dunas de playas del delta y Castelldefels.",
+    "folklore": "",
+    "nota": "Dunas de playas del delta y Castelldefels."
+  },
+  {
+    "id": "salicornia",
+    "nombre": "Salicornia",
+    "nombreCa": "Salicòrnia",
+    "cientifico": "Salicornia sp.",
+    "biomas": [
+      "costa",
+      "rio"
+    ],
+    "tipo": "planta",
+    "rol": "productor halófilo",
+    "dieta": [],
+    "depredadores": [],
+    "actividad": [],
+    "cria": {
+      "estacion": "flor verano-otoño",
+      "camada": ""
+    },
+    "reproduccion": "alta",
+    "conducta": "",
+    "recursos": [
+      "comestible",
+      "cenizas (sosa para jabón y vidrio)"
+    ],
+    "estado": "Saladares del delta del Llobregat.",
+    "folklore": "Base del vidrio y el jabón medievales.",
+    "nota": "Saladares del delta del Llobregat. Folklore: Base del vidrio y el jabón medievales."
+  },
+  {
+    "id": "drac",
+    "nombre": "Drac de Sant Llorenç",
+    "nombreCa": "Drac",
+    "cientifico": "Draco catalaunicus (inv.)",
+    "biomas": [
+      "montana",
+      "bosque"
+    ],
+    "tipo": "fantastico",
+    "rol": "superdepredador",
+    "dieta": [
+      "cabra_montes",
+      "ciervo",
+      "jabali",
+      "g:ganado",
+      "simiot"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "cada 7 años, en invierno",
+      "camada": "1 huevo"
+    },
+    "reproduccion": "baja",
+    "conducta": "solitario, guarda cueva y tesoro; arrasa rebaños; huye de la luz del alba de Sant Jordi",
+    "recursos": [
+      "escama (armadura)",
+      "sangre (alquimia mayor)",
+      "diente"
+    ],
+    "estado": "Folklore: dragón de Sant Llorenç del Munt, la Mola (Vallès), junto al de Sant Jordi. En juego: una sola pareja por región; si caza demasiado, la región se vacía de ungulados.",
+    "folklore": "Sant Jordi mató al drac y de su sangre nació un rosal (Diada del 23 de abril).",
+    "nota": "Folklore: dragón de Sant Llorenç del Munt, la Mola (Vallès), junto al de Sant Jordi. En juego: una sola pareja por región; si caza demasiado, la región se vacía de ungulados. Folklore: Sant Jordi mató al drac y de su sangre nació un rosal (Diada del 23 de abril)."
+  },
+  {
+    "id": "vibria",
+    "nombre": "Víbria",
+    "nombreCa": "Víbria",
+    "cientifico": "Vipera alata barcinonensis (inv.)",
+    "biomas": [
+      "urbano",
+      "montana"
+    ],
+    "tipo": "fantastico",
+    "rol": "depredador aéreo",
+    "dieta": [
+      "paloma",
+      "gaviota",
+      "rata_negra"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera",
+      "camada": "2 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "dragona con pechos y pico de ave; territorial sobre torres y campanarios",
+    "recursos": [
+      "pluma-escama",
+      "fuego frío (alquimia)"
+    ],
+    "estado": "Bestia festiva de la ciudad de Barcelona (Corpus). En juego: controla palomas y ratas del casco antiguo; si desaparece, sube la plaga de ratas.",
+    "folklore": "Bestiario festivo de Barcelona, danza con la Àliga de la Ciutat.",
+    "nota": "Bestia festiva de la ciudad de Barcelona (Corpus). En juego: controla palomas y ratas del casco antiguo; si desaparece, sube la plaga de ratas. Folklore: Bestiario festivo de Barcelona, danza con la Àliga de la Ciutat."
+  },
+  {
+    "id": "dona_aigua",
+    "nombre": "Dona d'aigua (encantada / goja)",
+    "nombreCa": "Dona d'aigua",
+    "cientifico": "Nympha aquatica (inv.)",
+    "biomas": [
+      "rio",
+      "montana"
+    ],
+    "tipo": "fantastico",
+    "rol": "guardiana (mutualista)",
+    "dieta": [
+      "g:nectar"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "noche",
+      "crepusculo"
+    ],
+    "cria": {
+      "estacion": "nunca cría; aparece si el agua es pura",
+      "camada": "—"
+    },
+    "reproduccion": "baja",
+    "conducta": "esquiva; lava ropa de oro al amanecer de San Juan; castiga a quien ensucia la fuente",
+    "recursos": [
+      "agua bendita de fuente",
+      "hilo de oro",
+      "bendición de cosecha"
+    ],
+    "estado": "Folklore: mujeres de fuentes, estanys y cuevas húmedas (también goges, encantades, paitides). En juego: aparece solo si nutria, trucha y tritón están presentes (indicador de río sano).",
+    "folklore": "Se casan con mortales con la condición de no ser nombradas «dona d'aigua»; si se rompe, desaparecen.",
+    "nota": "Folklore: mujeres de fuentes, estanys y cuevas húmedas (también goges, encantades, paitides). En juego: aparece solo si nutria, trucha y tritón están presentes (indicador de río sano). Folklore: Se casan con mortales con la condición de no ser nombradas «dona d'aigua»; si se rompe, desaparecen."
+  },
+  {
+    "id": "minairons",
+    "nombre": "Minairons",
+    "nombreCa": "Minairons / menairons",
+    "cientifico": "Formica laboriosa (inv.)",
+    "biomas": [
+      "bosque",
+      "pradera"
+    ],
+    "tipo": "fantastico",
+    "rol": "polinizador / trabajador",
+    "dieta": [
+      "g:nectar",
+      "g:semillas"
+    ],
+    "depredadores": [
+      "carabo"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "se multiplican en un canuto si se les da trabajo",
+      "camada": "cientos"
+    },
+    "reproduccion": "alta",
+    "conducta": "enjambre diminuto; obedecen a quien tiene su canuto; si no se les da trabajo, atacan a su amo",
+    "recursos": [
+      "trabajo gratis (siega",
+      "siembra)",
+      "miel mágica"
+    ],
+    "estado": "Folklore pirenaico: seres diminutos guardados en un canuto de agujas que exigen trabajo continuo. En juego: sustituyen parcialmente a las abejas como polinizadores si estas desaparecen.",
+    "folklore": "«Què farem? Què direm?»: si no tienen tarea, estrangulan al amo.",
+    "nota": "Folklore pirenaico: seres diminutos guardados en un canuto de agujas que exigen trabajo continuo. En juego: sustituyen parcialmente a las abejas como polinizadores si estas desaparecen. Folklore: «Què farem? Què direm?»: si no tienen tarea, estrangulan al amo."
+  },
+  {
+    "id": "follet",
+    "nombre": "Follet",
+    "nombreCa": "Follet",
+    "cientifico": "Genius domesticus (inv.)",
+    "biomas": [
+      "urbano",
+      "pradera"
+    ],
+    "tipo": "fantastico",
+    "rol": "omnívoro (hurtador)",
+    "dieta": [
+      "g:basura",
+      "g:frutos",
+      "trigo"
+    ],
+    "depredadores": [
+      "gato"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "nace de remolinos de viento en verano",
+      "camada": "1"
+    },
+    "reproduccion": "media",
+    "conducta": "travieso; enreda crines, esconde cosas, ayuda si se le trata bien",
+    "recursos": [
+      "favor doméstico",
+      "cascabel"
+    ],
+    "estado": "Folklore: duende mediterráneo de gorro rojo con cascabeles. En juego: sube con los gorriones y ratones, baja si hay gatos.",
+    "folklore": "Hay que dejarle un plato de leche o gachas.",
+    "nota": "Folklore: duende mediterráneo de gorro rojo con cascabeles. En juego: sube con los gorriones y ratones, baja si hay gatos. Folklore: Hay que dejarle un plato de leche o gachas."
+  },
+  {
+    "id": "simiot",
+    "nombre": "Simiot",
+    "nombreCa": "Simiot",
+    "cientifico": "Simia diabolica (inv.)",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "fantastico",
+    "rol": "herbívoro destructor",
+    "dieta": [
+      "vid",
+      "trigo",
+      "g:frutos"
+    ],
+    "depredadores": [
+      "lobo",
+      "drac"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "otoño",
+      "camada": "1-2"
+    },
+    "reproduccion": "media",
+    "conducta": "monstruo simiesco; baja por la chimenea y asusta; arrasa cosechas",
+    "recursos": [
+      "pelo (alquimia)",
+      "talismán de Arles"
+    ],
+    "estado": "Folklore del Vallespir (Arles). En juego: plaga de cosechas que prolifera si no hay lobos (como el jabalí).",
+    "folklore": "Expulsado por las reliquias de Abdó i Senén.",
+    "nota": "Folklore del Vallespir (Arles). En juego: plaga de cosechas que prolifera si no hay lobos (como el jabalí). Folklore: Expulsado por las reliquias de Abdó i Senén."
+  },
+  {
+    "id": "pesanta",
+    "nombre": "Pesanta",
+    "nombreCa": "Pesanta",
+    "cientifico": "Incubus felinus (inv.)",
+    "biomas": [
+      "urbano"
+    ],
+    "tipo": "fantastico",
+    "rol": "parásito del sueño",
+    "dieta": [
+      "g:suenos"
+    ],
+    "depredadores": [
+      "gato"
+    ],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "invierno (noches largas)",
+      "camada": "1"
+    },
+    "reproduccion": "media",
+    "conducta": "gato o perro negro enorme que se sienta en el pecho del durmiente; cansancio al despertar",
+    "recursos": [
+      "pelo negro (ingrediente de pesadillas)"
+    ],
+    "estado": "Folklore de toda Catalunya: causa pesadillas y opresión nocturna. En juego: baja el descanso del jugador si no hay gato en casa.",
+    "folklore": "Se entra por el ojo de la cerradura; tiene un agujero en la pata.",
+    "nota": "Folklore de toda Catalunya: causa pesadillas y opresión nocturna. En juego: baja el descanso del jugador si no hay gato en casa. Folklore: Se entra por el ojo de la cerradura; tiene un agujero en la pata."
+  },
+  {
+    "id": "quarantamaula",
+    "nombre": "Quarantamaula",
+    "nombreCa": "Quarantamaula",
+    "cientifico": "Nox terribilis (inv.)",
+    "biomas": [
+      "bosque",
+      "montana"
+    ],
+    "tipo": "fantastico",
+    "rol": "depredador (de imprudentes)",
+    "dieta": [
+      "g:ganado",
+      "liebre",
+      "conejo"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "noche"
+    ],
+    "cria": {
+      "estacion": "nunca vista criando",
+      "camada": "1"
+    },
+    "reproduccion": "baja",
+    "conducta": "acecha a quien anda por el bosque de noche; nunca descrita del todo",
+    "recursos": [
+      "susto (reputación)",
+      "sombra en frasco"
+    ],
+    "estado": "Folklore del Berguedà: coco nocturno sin forma definida. En juego: aumenta el peligro nocturno en bosque cuando la población de lobos ha desaparecido (llena el nicho).",
+    "folklore": "Se invocaba para que los niños volvieran antes de la noche.",
+    "nota": "Folklore del Berguedà: coco nocturno sin forma definida. En juego: aumenta el peligro nocturno en bosque cuando la población de lobos ha desaparecido (llena el nicho). Folklore: Se invocaba para que los niños volvieran antes de la noche."
+  },
+  {
+    "id": "drac_banyoles",
+    "nombre": "Drac de estanys",
+    "nombreCa": "Drac de Banyoles",
+    "cientifico": "Draco lacustris (inv.)",
+    "biomas": [
+      "rio"
+    ],
+    "tipo": "fantastico",
+    "rol": "superdepredador acuático",
+    "dieta": [
+      "anguila",
+      "barbo",
+      "g:ganado",
+      "anade_real"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "verano, cada muchos años",
+      "camada": "1 huevo"
+    },
+    "reproduccion": "baja",
+    "conducta": "vive en el lago y emerge a devorar ganado; aliento pestilente",
+    "recursos": [
+      "escama húmeda",
+      "bilis (alquimia)"
+    ],
+    "estado": "Folklore: dragón del estany de Banyoles vencido por Sant Mer. En juego: vive en estanys del delta, regula anguilas y ánades.",
+    "folklore": "El santo lo amansó y lo llevó atado con su estola.",
+    "nota": "Folklore: dragón del estany de Banyoles vencido por Sant Mer. En juego: vive en estanys del delta, regula anguilas y ánades. Folklore: El santo lo amansó y lo llevó atado con su estola."
+  },
+  {
+    "id": "peix_nicolau",
+    "nombre": "Peix Nicolau",
+    "nombreCa": "Peix Nicolau",
+    "cientifico": "Homo piscis (inv.)",
+    "biomas": [
+      "costa"
+    ],
+    "tipo": "fantastico",
+    "rol": "depredador marino (curioso)",
+    "dieta": [
+      "pulpo",
+      "sardina"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "dia",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "desconocida",
+      "camada": "1"
+    },
+    "reproduccion": "baja",
+    "conducta": "hombre-pez que bucea días enteros; guía o ahoga a pescadores según el trato",
+    "recursos": [
+      "perla",
+      "mapa de cuevas marinas"
+    ],
+    "estado": "Folklore mediterráneo (catalán y siciliano): Nicolau que se convirtió en pez por la maldición de su madre. En juego: aparece si la foca monje vuelve (mar sano).",
+    "folklore": "Maldición materna: «¡Así te vuelvas pez!».",
+    "nota": "Folklore mediterráneo (catalán y siciliano): Nicolau que se convirtió en pez por la maldición de su madre. En juego: aparece si la foca monje vuelve (mar sano). Folklore: Maldición materna: «¡Así te vuelvas pez!»."
+  },
+  {
+    "id": "home_nassos",
+    "nombre": "Home dels Nassos",
+    "nombreCa": "Home dels Nassos",
+    "cientifico": "Homo nasutissimus (inv.)",
+    "biomas": [
+      "urbano"
+    ],
+    "tipo": "fantastico",
+    "rol": "—",
+    "dieta": [
+      "g:basura"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "dia"
+    ],
+    "cria": {
+      "estacion": "aparece solo el 31 de diciembre",
+      "camada": "—"
+    },
+    "reproduccion": "baja",
+    "conducta": "tiene tantas narices como días quedan en el año; se le ve solo el último día",
+    "recursos": [
+      "nariz (1 por año): ingrediente legendario"
+    ],
+    "estado": "Folklore barcelonés. En juego: evento único el último día del año.",
+    "folklore": "Broma para niños: el último día solo tiene una nariz.",
+    "nota": "Folklore barcelonés. En juego: evento único el último día del año. Folklore: Broma para niños: el último día solo tiene una nariz."
+  },
+  {
+    "id": "cuca_fera",
+    "nombre": "Cuca fera",
+    "nombreCa": "Cuca fera",
+    "cientifico": "Testudo draconis (inv.)",
+    "biomas": [
+      "rio",
+      "costa"
+    ],
+    "tipo": "fantastico",
+    "rol": "omnívoro",
+    "dieta": [
+      "g:carrona",
+      "anguila",
+      "cangrejo_rio"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "crepusculo",
+      "noche"
+    ],
+    "cria": {
+      "estacion": "primavera",
+      "camada": "3-5 huevos"
+    },
+    "reproduccion": "baja",
+    "conducta": "tortuga-dragón con púas; se come a los niños desobedientes",
+    "recursos": [
+      "caparazón de púas (escudo)"
+    ],
+    "estado": "Folklore de Tortosa y del delta del Ebro. En juego: habita el delta; comparte nicho con los galápagos.",
+    "folklore": "«Cuca fera, qui no la vol? Mengem-li la cua!».",
+    "nota": "Folklore de Tortosa y del delta del Ebro. En juego: habita el delta; comparte nicho con los galápagos. Folklore: «Cuca fera, qui no la vol? Mengem-li la cua!»."
+  },
+  {
+    "id": "gegant_roca",
+    "nombre": "Gegant de roca",
+    "nombreCa": "Gegant",
+    "cientifico": "Gigas saxeus (inv.)",
+    "biomas": [
+      "montana"
+    ],
+    "tipo": "fantastico",
+    "rol": "herbívoro colosal",
+    "dieta": [
+      "g:hierba",
+      "haya",
+      "roble"
+    ],
+    "depredadores": [],
+    "actividad": [
+      "manana",
+      "dia"
+    ],
+    "cria": {
+      "estacion": "una vez por siglo",
+      "camada": "1"
+    },
+    "reproduccion": "baja",
+    "conducta": "lento, pacífico si no se le molesta; lanza rocas",
+    "recursos": [
+      "piedra de gigante (construcción)",
+      "tierra fértil"
+    ],
+    "estado": "Folklore: gigantes como Caro, Caramançó o Puigmal que modelaron montañas. En juego: su paso abre claros que favorecen a ciervos y cabras.",
+    "folklore": "Montserrat serrada por los ángeles; montañas como gigantes dormidos.",
+    "nota": "Folklore: gigantes como Caro, Caramançó o Puigmal que modelaron montañas. En juego: su paso abre claros que favorecen a ciervos y cabras. Folklore: Montserrat serrada por los ángeles; montañas como gigantes dormidos."
+  }
+]
